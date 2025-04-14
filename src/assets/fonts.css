@@ -1,0 +1,65 @@
+@font-face {
+    font-family: "MTS Text";
+    src:
+        local("MTSText"),
+        url("./fonts/MTSText-Regular.woff2") format("woff2"),
+        url("./fonts/MTSText-Regular.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "MTS Wide";
+    src:
+        local("MTSWide"),
+        url("./fonts/MTSWide-Regular.woff2") format("woff2"),
+        url("./fonts/MTSWide-Regular.ttf") format("truetype");
+    font-weight: 300 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "MTS Wide";
+    src:
+        local("MTSWide"),
+        url("./fonts/MTSWide-Medium.woff2") format("woff2"),
+        url("./fonts/MTSWide-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "MTS Wide";
+    src:
+        local("MTSWide"),
+        url("./fonts/MTSWide-Bold.woff2") format("woff2"),
+        url("./fonts/MTSWide-Bold.ttf") format("truetype");
+    font-weight: 600 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "MTS Compact";
+    src:
+        local("MTSCompact"),
+        url("./fonts/MTSCompact-Regular.woff2") format("woff2"),
+        url("./fonts/MTSCompact-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "MTS Compact";
+    src:
+        local("MTSCompact"),
+        url("./fonts/MTSCompact-Medium.woff2") format("woff2"),
+        url("./fonts/MTSCompact-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
