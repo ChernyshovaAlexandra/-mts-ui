@@ -1,8 +1,8 @@
-import { FC, ReactElement } from "react";
+import React, { FC } from "react";
 import { StyledHeader } from "./style";
 
 export interface HeaderProps {
-  children?: string | ReactElement;
+  children?: string | React.ReactNode;
   style?: React.CSSProperties;
   color?: "red" | "white" | "black";
 }

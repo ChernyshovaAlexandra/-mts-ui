@@ -1,9 +1,9 @@
-import { FC, ReactElement } from "react";
+import React, { FC } from "react";
 import { StyledLink } from "./style";
 
 export interface LinkProps {
   url?: string;
-  children: ReactElement | string;
+  children: React.ReactNode | string;
   style?: React.CSSProperties;
   underlined?: boolean;
 }

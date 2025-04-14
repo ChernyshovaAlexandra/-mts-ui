@@ -1,13 +1,15 @@
-import { memo, InputHTMLAttributes, ReactElement } from "react";
+import React, { memo, InputHTMLAttributes } from "react";
 import { Wrapper, Label, InputWrapper, ErrorMessage } from "./style";
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string | ReactElement;
+  label: string | React.ReactNode;
   errorMessage: string;
+  style?: React.CSSProperties;
 }
 
 export const Checkbox = memo(
   ({
+    style,
     checked,
     onChange,
     label,
@@ -18,7 +20,7 @@ export const Checkbox = memo(
     return (
       <>
         <Wrapper>
-          <InputWrapper>
+          <InputWrapper style={style}>
             <input
               name={name}
               id={name}
