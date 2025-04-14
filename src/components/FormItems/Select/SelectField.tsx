@@ -20,7 +20,7 @@ export interface SelectFieldProps {
   placeholder?: string;
 }
 
-const SelectField: React.FC<SelectFieldProps> = ({
+export const SelectField: React.FC<SelectFieldProps> = ({
   id,
   name,
   value,
@@ -65,5 +65,3 @@ const SelectField: React.FC<SelectFieldProps> = ({
     </Wrapper>
   );
 };
-
-export default SelectField;
