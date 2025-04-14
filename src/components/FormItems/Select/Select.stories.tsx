@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import SelectField, { SelectFieldProps } from "./SelectField";
+import { SelectField, SelectFieldProps } from "./SelectField";
 
 export default {
   title: "МТС/FormItems/SelectField",
