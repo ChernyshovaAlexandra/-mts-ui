@@ -1,8 +1,8 @@
-import { FC, memo, ReactElement } from "react";
+import React, { FC, memo } from "react";
 import { StyledContainer } from "./style";
 
 export type ContainerProps = {
-  children: ReactElement;
+  children: React.ReactNode;
   style?: React.CSSProperties;
 };
 

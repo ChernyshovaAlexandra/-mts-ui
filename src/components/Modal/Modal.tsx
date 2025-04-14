@@ -1,9 +1,9 @@
-import { FC, memo, ReactElement } from "react";
+import React, { FC, memo } from "react";
 import { CloseButton, ModalContainer, Overlay } from "./style";
 
 export interface ModalProps {
   isModalOpen: boolean;
-  modalContent: ReactElement;
+  modalContent: React.ReactNode;
   handleClose: any;
 }
 

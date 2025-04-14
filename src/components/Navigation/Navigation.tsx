@@ -1,4 +1,4 @@
-import { FC, memo, ReactElement } from "react";
+import React, { FC, memo } from "react";
 import { Container } from "../Container";
 import { Flex } from "antd";
 import { Logo } from "../Logo";
@@ -15,7 +15,7 @@ export interface NavigationProps {
   onLogin?: any;
   style?: React.CSSProperties;
   menuStyle?: React.CSSProperties;
-  customBtn?: ReactElement;
+  customBtn?: React.ReactNode;
 }
 
 export const Navigation: FC<NavigationProps> = memo(
