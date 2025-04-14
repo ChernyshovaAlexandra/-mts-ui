@@ -15,8 +15,8 @@
       "isolatedModules": true,                     
       "esModuleInterop": true,                    
       "skipLibCheck": true,                        
-      "forceConsistentCasingInFileNames": true     
+      "forceConsistentCasingInFileNames": true,     
     },
-    "include": ["src", "new"],
+    "include": ["src"],
     "exclude": ["node_modules", "dist"]
 }
