@@ -4,10 +4,12 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "private": false,
+  "homepage": "https://chernyshovaalexandra.github.io/-mts-ui/",
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build": "rollup -c",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "keywords": [],
   "author": "",
@@ -43,6 +45,7 @@
     "playwright": "^1.51.1",
     "rollup": "^4.39.0",
     "storybook": "^8.6.12",
+    "storybook-deployer": "^2.8.12",
     "typescript": "^5.8.3",
     "vitest": "^3.1.1"
   }
