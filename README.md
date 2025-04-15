@@ -47,6 +47,7 @@ const App = () => (
 );
 
 export default App;
+```
 
 📚 [Полная документация доступна здесь](https://chernyshovaalexandra.github.io/-mts-ui/)
 
