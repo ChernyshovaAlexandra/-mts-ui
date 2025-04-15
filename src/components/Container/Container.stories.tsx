@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Container } from "./Container";
-import { Text } from "../Text";
+import { Text } from "../Text/Text";
 
 export default {
   title: "МТС/Container",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Snackbar, SnackBarProps } from "./Snackbar";
-import { Button } from "../Button";
+import { Button } from "../Button/Button";
 
 export default {
   title: "МТС/Snackbar",

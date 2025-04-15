@@ -1,10 +1,10 @@
 import React, { FC, memo } from "react";
-import { Container } from "../Container";
+import { Container } from "../Container/Container";
 import { Flex } from "antd";
-import { Logo } from "../Logo";
+import { Logo } from "../Logo/Logo";
 import { MenuItems, MenuItem, NavWrapper } from "./style";
-import { Button } from "../Button";
-import { Link } from "../Link";
+import { Button } from "../Button/Button";
+import { Link } from "../Link/Link";
 
 export interface NavigationProps {
   links?: Array<{
@@ -68,3 +68,5 @@ export const Navigation: FC<NavigationProps> = memo(
     );
   }
 );
+
+export default Navigation;

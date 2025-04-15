@@ -1,52 +1,58 @@
 {
   "name": "@chernyshovaalexandra/mtsui",
-  "version": "1.0.8",
+  "version": "1.1.0",
+  "private": false,
+  "description": "UI-компоненты для MTS-проектов",
+  "author": "Alexandra Chernyshova",
+  "license": "ISC",
+  "homepage": "https://chernyshovaalexandra.github.io/-mts-ui/",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
-  "private": false,
-  "homepage": "https://chernyshovaalexandra.github.io/-mts-ui/",
-  "scripts": {
-    "storybook": "storybook dev -p 6006",
-    "build": "rollup -c",
-    "build-storybook": "storybook build",
-    "deploy-storybook": "storybook-to-ghpages"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "antd": "^5.24.6",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.0",
-    "styled": "^1.0.0",
-    "styled-components": "^6.1.17"
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/types/index.d.ts"
+    }
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "deploy-storybook": "storybook-to-ghpages"
+  },
+  "dependencies": {
+    "antd": "^5.24.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "styled-components": "^6.1.7"
+  },
   "devDependencies": {
-    "@chromatic-com/storybook": "^3.2.6",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@storybook/addon-essentials": "^8.6.12",
-    "@storybook/addon-onboarding": "^8.6.12",
-    "@storybook/blocks": "^8.6.12",
-    "@storybook/experimental-addon-test": "^8.6.12",
-    "@storybook/react": "^8.6.12",
-    "@storybook/react-vite": "^8.6.12",
-    "@storybook/test": "^8.6.12",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.2",
-    "@vitest/browser": "^3.1.1",
-    "@vitest/coverage-v8": "^3.1.1",
-    "playwright": "^1.51.1",
-    "rollup": "^4.39.0",
-    "storybook": "^8.6.12",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@types/aria-query": "^5.0.4",
+    "@types/react": "^18.2.58",
+    "@types/react-dom": "^18.2.19",
+    "@types/styled-components": "^5.1.35",
+    "@vitest/browser": "^1.4.0",
+    "@vitest/coverage-v8": "^1.4.0",
+    "rollup": "^4.40.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "storybook-deployer": "^2.8.12",
-    "typescript": "^5.8.3",
-    "vitest": "^3.1.1"
+    "typescript": "^5.3.3",
+    "vitest": "^1.4.0"
   }
 }

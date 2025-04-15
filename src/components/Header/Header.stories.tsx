@@ -8,7 +8,7 @@ export default {
   tags: ["autodocs"],
 } as Meta<HeaderProps>;
 
-const Template: StoryFn<HeaderProps> = (args) => <Header {...args} />;
+const Template: StoryFn<HeaderProps> = (args: any) => <Header {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

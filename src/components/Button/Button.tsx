@@ -2,7 +2,7 @@ import React from "react";
 import { StyledBtn, StyledBtnLink } from "./style";
 import { ButtonProps, LinkElementProps, ButtonElementProps } from "./type";
 
-const Button: React.FC<ButtonProps> = (props) => {
+export const Button: React.FC<ButtonProps> = (props) => {
   if (props.btn_type === "link") {
     const { link, tooltip, style, content, width, variant } =
       props as LinkElementProps;
@@ -44,5 +44,4 @@ const Button: React.FC<ButtonProps> = (props) => {
     );
   }
 };
-
 export default Button;

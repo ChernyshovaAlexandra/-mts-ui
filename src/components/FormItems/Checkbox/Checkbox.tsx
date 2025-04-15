@@ -37,3 +37,5 @@ export const Checkbox = memo(
     );
   }
 );
+
+export default Checkbox;

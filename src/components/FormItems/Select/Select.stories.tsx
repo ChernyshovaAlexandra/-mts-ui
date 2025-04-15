@@ -12,7 +12,7 @@ export default {
   },
 } as Meta<SelectFieldProps>;
 
-const Template: StoryFn<SelectFieldProps> = (args) => <SelectField {...args} />;
+const Template: StoryFn<SelectFieldProps> = (args: any) => <SelectField {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -8,7 +8,7 @@ export default {
   tags: ["autodocs"],
 } as Meta<LinkProps>;
 
-const Template: StoryFn<LinkProps> = (args) => <Link {...args} />;
+const Template: StoryFn<LinkProps> = (args: any) => <Link {...args} />;
 
 export const Default = Template.bind({});
 

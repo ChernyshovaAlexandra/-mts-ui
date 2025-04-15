@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Navigation, NavigationProps } from "./Navigation";
-import { Button } from "../Button";
+import { Button } from "../Button/Button";
 import { action } from "@storybook/addon-actions";
 
 export default {
@@ -18,7 +18,7 @@ export default {
   },
 } as Meta<NavigationProps>;
 
-const Template: StoryFn<NavigationProps> = (args) => <Navigation {...args} />;
+const Template: StoryFn<NavigationProps> = (args: any) => <Navigation {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

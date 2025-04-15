@@ -14,7 +14,7 @@ export default {
   },
 } as Meta;
 
-const Template: StoryFn<React.ComponentProps<typeof Input>> = (args) => (
+const Template: StoryFn<React.ComponentProps<typeof Input>> = (args: any) => (
   <Input {...args} />
 );
 

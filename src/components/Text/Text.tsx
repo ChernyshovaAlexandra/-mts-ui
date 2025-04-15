@@ -9,3 +9,5 @@ export interface TextProps {
 export const Text: React.FC<TextProps> = ({ children, style }) => {
   return <StyledText style={style}>{children}</StyledText>;
 };
+
+export default Text;
