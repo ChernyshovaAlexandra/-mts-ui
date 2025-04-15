@@ -15,3 +15,5 @@ export const Link: FC<LinkProps> = ({ url, children, style, underlined }) => {
     </StyledLink>
   );
 };
+
+export default Link;

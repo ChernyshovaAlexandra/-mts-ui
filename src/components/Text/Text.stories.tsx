@@ -7,7 +7,7 @@ export default {
   tags: ["autodocs"],
 } as Meta<TextProps>;
 
-const Template: StoryFn<TextProps> = (args) => (
+const Template: StoryFn<TextProps> = (args: any) => (
   <Text {...args}>Какой-то текст для примера</Text>
 );
 

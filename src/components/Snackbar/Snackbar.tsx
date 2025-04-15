@@ -16,3 +16,5 @@ export const Snackbar: FC<SnackBarProps> = memo(({ message, type, style }) => {
     </div>
   );
 });
+
+export default Snackbar;

@@ -14,3 +14,5 @@ export const Header: FC<HeaderProps> = ({ children, style, color }) => {
     </StyledHeader>
   );
 };
+
+export default Header;

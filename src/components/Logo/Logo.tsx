@@ -38,3 +38,5 @@ export const Logo: FC<LogoProps> = ({ style }) => {
     </svg>
   );
 };
+
+export default Logo;

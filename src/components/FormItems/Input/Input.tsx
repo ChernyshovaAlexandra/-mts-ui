@@ -1,13 +1,13 @@
 import { memo, InputHTMLAttributes, useState } from "react";
 import { StyledInput, ErrorMessage, Wrapper } from "./style";
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string;
   validatePattern?: RegExp;
 };
 
 export const Input = memo(
-  ({ errorMessage, validatePattern, onBlur, onChange, ...props }: Props) => {
+  ({ errorMessage, validatePattern, onBlur, onChange, ...props }: InputProps) => {
     const [error, setError] = useState<string | null>(null);
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -40,3 +40,5 @@ export const Input = memo(
     );
   }
 );
+
+export default Input;

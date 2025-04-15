@@ -1,8 +1,8 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Modal, ModalProps } from "./Modal";
-import { Button } from "../Button";
-import { Text } from "../Text";
+import { Button } from "../Button/Button";
+import { Text } from "../Text/Text";
 import { Header } from "../Header/Header";
 
 export default {
@@ -11,7 +11,7 @@ export default {
   tags: ["autodocs"],
 } as Meta<ModalProps>;
 
-const Template: StoryFn<ModalProps> = (args) => <Modal {...args} />;
+const Template: StoryFn<ModalProps> = (args: any) => <Modal {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

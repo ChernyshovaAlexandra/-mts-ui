@@ -65,3 +65,5 @@ export const SelectField: React.FC<SelectFieldProps> = ({
     </Wrapper>
   );
 };
+
+export default SelectField;

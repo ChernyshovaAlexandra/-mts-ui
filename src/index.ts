@@ -1,18 +1,33 @@
-export { Link } from "./components/Link";
-export { Logo } from "./components/Logo";
-export { Text } from "./components/Text";
-export { Modal } from "./components/Modal";
-export { Button } from "./components/Button";
-export { Header } from "./components/Header";
-export { Snackbar } from "./components/Snackbar";
-export { Input } from "./components/FormItems/Input";
-export { SelectField } from "./components/FormItems/Select";
-export { Checkbox } from "./components/FormItems/Checkbox";
-export { Container } from "./components/Container";
-export { Navigation } from "./components/Navigation";
+export { Link, type LinkProps } from "./components/Link/Link";
+export { Logo, type LogoProps } from "./components/Logo/Logo";
+export { Text, type TextProps } from "./components/Text/Text";
+export { Modal, type ModalProps } from "./components/Modal/Modal";
+export { Button } from "./components/Button/Button";
+export { type ButtonProps } from "./components/Button/type";
+export { Header, type HeaderProps } from "./components/Header/Header";
+export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
+export { Input, type InputProps } from "./components/FormItems/Input/Input";
+export {
+  SelectField,
+  type SelectFieldProps,
+} from "./components/FormItems/Select/SelectField";
+export {
+  Checkbox,
+  type CheckboxProps,
+} from "./components/FormItems/Checkbox/Checkbox";
+export {
+  Container,
+  type ContainerProps,
+} from "./components/Container/Container";
+export {
+  Navigation,
+  type NavigationProps,
+} from "./components/Navigation/Navigation";
 
-export { mts_black } from "./consts";
-export { mts_gray } from "./consts";
-export { mts_red } from "./consts";
-export { mts_red_hover } from "./consts";
-export { mts_gray_hover } from "./consts";
+export {
+  mts_black,
+  mts_gray,
+  mts_red,
+  mts_red_hover,
+  mts_gray_hover,
+} from "./consts";

@@ -21,3 +21,5 @@ export const Modal: FC<ModalProps> = memo(
     );
   }
 );
+
+export default Modal;

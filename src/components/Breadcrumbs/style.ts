@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { mts_black, mts_gray_hover } from "../../consts";
+import { mts_black } from "../../consts/index.js";
 import "../../assets/fonts.css";
-import { StyledLink } from "../Link/style";
+import { StyledLink } from "../Link/style.js";
 
 export const Wrapper = styled.nav`
   display: flex;
