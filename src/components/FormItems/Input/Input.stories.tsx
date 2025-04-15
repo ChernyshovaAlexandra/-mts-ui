@@ -5,6 +5,7 @@ import { Input } from "./Input";
 export default {
   title: "МТС/FormItems/Input",
   component: Input,
+  tags: ["autodocs"],
   argTypes: {
     errorMessage: { control: "text" },
     onBlur: { action: "blur" },

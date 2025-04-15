@@ -5,6 +5,7 @@ import { Header, HeaderProps } from "./Header";
 export default {
   title: "МТС/Header",
   component: Header,
+  tags: ["autodocs"],
 } as Meta<HeaderProps>;
 
 const Template: StoryFn<HeaderProps> = (args) => <Header {...args} />;

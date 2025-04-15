@@ -6,6 +6,7 @@ import { Text } from "../Text";
 export default {
   title: "МТС/Container",
   component: Container,
+  tags: ["autodocs"],
 } as Meta;
 
 const Template: StoryFn = () => (

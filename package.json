@@ -1,7 +1,8 @@
 {
   "name": "@chernyshovaalexandra/mtsui",
-  "version": "1.0.5",
-  "main": "dist/index.js",
+  "version": "1.0.8",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "private": false,
   "scripts": {
     "storybook": "storybook dev -p 6006",
@@ -16,6 +17,7 @@
     "antd": "^5.24.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-router-dom": "^7.5.0",
     "styled": "^1.0.0",
     "styled-components": "^6.1.17"
   },

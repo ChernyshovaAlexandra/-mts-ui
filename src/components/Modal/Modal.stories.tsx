@@ -8,6 +8,7 @@ import { Header } from "../Header/Header";
 export default {
   title: "МТС/Modal",
   component: Modal,
+  tags: ["autodocs"],
 } as Meta<ModalProps>;
 
 const Template: StoryFn<ModalProps> = (args) => <Modal {...args} />;

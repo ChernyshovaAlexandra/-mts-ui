@@ -7,6 +7,7 @@ import { action } from "@storybook/addon-actions";
 export default {
   title: "МТС/Navigation",
   component: Navigation,
+  tags: ["autodocs"],
   argTypes: {
     onLogin: { action: "login clicked" },
     links: { control: "object" },
