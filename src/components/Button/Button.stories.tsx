@@ -6,6 +6,7 @@ import Button from "./Button";
 export default {
   title: "МТС/Button",
   component: Button,
+  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: "select",

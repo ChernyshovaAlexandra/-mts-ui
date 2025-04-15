@@ -5,6 +5,7 @@ import { Link, LinkProps } from "./Link";
 export default {
   title: "МТС/Link",
   component: Link,
+  tags: ["autodocs"],
 } as Meta<LinkProps>;
 
 const Template: StoryFn<LinkProps> = (args) => <Link {...args} />;

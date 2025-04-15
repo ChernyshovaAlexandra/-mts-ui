@@ -5,6 +5,7 @@ import { SelectField, SelectFieldProps } from "./SelectField";
 export default {
   title: "МТС/FormItems/SelectField",
   component: SelectField,
+  tags: ["autodocs"],
   argTypes: {
     onChange: { action: "changed" },
     options: { control: "object" },

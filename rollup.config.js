@@ -8,14 +8,14 @@ export default {
     {
       file: "dist/index.cjs.js",
       format: "cjs",
-      sourcemap: true
+      sourcemap: true,
     },
     {
       file: "dist/index.esm.js",
       format: "esm",
-      sourcemap: true
-    }
+      sourcemap: true,
+    },
   ],
   plugins: [resolve(), commonjs(), typescript()],
-  external: ["react", "react-dom", "styled-components", "antd"]
+  external: ["react", "react-dom", "styled-components", "antd"],
 };

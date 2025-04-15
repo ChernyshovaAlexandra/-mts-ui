@@ -4,6 +4,7 @@ import { Text, TextProps } from "./Text";
 export default {
   title: "МТС/Text",
   component: Text,
+  tags: ["autodocs"],
 } as Meta<TextProps>;
 
 const Template: StoryFn<TextProps> = (args) => (

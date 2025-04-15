@@ -5,6 +5,7 @@ import { Checkbox, CheckboxProps } from "./Checkbox";
 export default {
   title: "МТС/FormItems/Checkbox",
   component: Checkbox,
+  tags: ["autodocs"],
   argTypes: {
     onChange: { action: "changed" },
   },

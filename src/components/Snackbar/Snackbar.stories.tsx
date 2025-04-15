@@ -6,6 +6,7 @@ import { Button } from "../Button";
 export default {
   title: "МТС/Snackbar",
   component: Snackbar,
+  tags: ["autodocs"],
   argTypes: {
     variant: {
       control: "select",
