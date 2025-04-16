@@ -4,10 +4,15 @@ import { StyledText } from "./style";
 export interface TextProps {
   children: React.ReactNode;
   style?: React.CSSProperties;
+  variant?: "compact" | "wide" | "text";
 }
 
-export const Text: React.FC<TextProps> = ({ children, style }) => {
-  return <StyledText style={style}>{children}</StyledText>;
+export const Text: React.FC<TextProps> = ({ children, style, variant }) => {
+  return (
+    <StyledText variant={variant} style={style}>
+      {children}
+    </StyledText>
+  );
 };
 
 export default Text;

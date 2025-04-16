@@ -3,7 +3,7 @@ import { Wrapper, Label, InputWrapper, ErrorMessage } from "./style";
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string | React.ReactNode;
-  errorMessage: string;
+  errorMessage?: string;
   style?: React.CSSProperties;
 }
 

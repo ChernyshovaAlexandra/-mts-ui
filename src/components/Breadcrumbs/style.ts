@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mts_black } from "../../consts/index.js";
+import { mts_text_primary } from "../../consts/index.js";
 import "../../assets/fonts.css";
 import { StyledLink } from "../Link/style.js";
 
@@ -15,13 +15,13 @@ export const CrumbLink = styled(StyledLink)`
   align-items: center;
   gap: 6px;
   text-decoration: none;
-  color: ${mts_black};
+  color: ${mts_text_primary};
   font: 17px "MTS Compact", "Arial", sans-serif;
   font-weight: 500;
 `;
 
 export const CrumbText = styled.span`
-  color: ${mts_black};
+  color: ${mts_text_primary};
   opacity: 0.4;
   cursor: default;
   font: 17px "MTS Compact", "Arial", sans-serif;
@@ -30,7 +30,7 @@ export const CrumbText = styled.span`
 
 export const Separator = styled.span`
   margin: 0 8px;
-  color: ${mts_black};
+  color: ${mts_text_primary};
   display: inline-flex;
   align-items: center;
   font: 17px "MTS Compact", "Arial", sans-serif;

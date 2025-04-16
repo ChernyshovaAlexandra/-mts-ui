@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Wrapper, Label, ErrorText, StyledSelect } from "./style";
+import IconDropdown from "../../../icons/IconDropdown/IconDropdown";
 
 export interface SelectOption {
   label: string;
@@ -8,7 +9,7 @@ export interface SelectOption {
   options?: SelectOption[];
 }
 
-export interface SelectFieldProps {
+export interface SelectProps {
   id?: string;
   name: string;
   value: string;
@@ -20,7 +21,7 @@ export interface SelectFieldProps {
   placeholder?: string;
 }
 
-export const SelectField: React.FC<SelectFieldProps> = ({
+export const Select: React.FC<SelectProps> = ({
   id,
   name,
   value,
@@ -60,10 +61,9 @@ export const SelectField: React.FC<SelectFieldProps> = ({
         }
         options={options}
         placeholder={placeholder}
+        suffixIcon={<IconDropdown width={32} height={32} />}
       />
       {error && <ErrorText>{error}</ErrorText>}
     </Wrapper>
   );
 };
-
-export default SelectField;

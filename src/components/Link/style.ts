@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { mts_black, mts_red } from "../../consts";
+import { mts_text_primary, mts_red } from "../../consts";
 import { LinkProps } from "./Link";
 import "../../assets/fonts.css";
 
 export const StyledLink = styled.a<LinkProps>`
-  color: ${mts_black};
+  color: ${mts_text_primary};
   font: 16px / 1.2 "MTS Compact", "Arial", sans-serif;
   cursor: pointer;
   position: relative;

@@ -7,10 +7,7 @@ export { type ButtonProps } from "./components/Button/type";
 export { Header, type HeaderProps } from "./components/Header/Header";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
-export {
-  SelectField,
-  type SelectFieldProps,
-} from "./components/FormItems/Select/SelectField";
+export { Select, type SelectProps } from "./components/FormItems/Select/Select";
 export {
   Checkbox,
   type CheckboxProps,
@@ -25,9 +22,14 @@ export {
 } from "./components/Navigation/Navigation";
 
 export {
-  mts_black,
-  mts_gray,
+  mts_text_primary,
+  mts_background_secondary,
   mts_red,
   mts_red_hover,
   mts_gray_hover,
+  mts_accent_active,
+  mts_text_secondary,
+  mts_input_background,
+  mts_input_stroke,
+  mts_negative
 } from "./consts";

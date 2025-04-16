@@ -1,18 +1,18 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { SelectField, SelectFieldProps } from "./SelectField";
+import { Select, SelectProps } from "./Select";
 
 export default {
-  title: "МТС/FormItems/SelectField",
-  component: SelectField,
+  title: "МТС/FormItems/Select",
+  component: Select,
   tags: ["autodocs"],
   argTypes: {
     onChange: { action: "changed" },
     options: { control: "object" },
   },
-} as Meta<SelectFieldProps>;
+} as Meta<SelectProps>;
 
-const Template: StoryFn<SelectFieldProps> = (args: any) => <SelectField {...args} />;
+const Template: StoryFn<SelectProps> = (args: any) => <Select {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
