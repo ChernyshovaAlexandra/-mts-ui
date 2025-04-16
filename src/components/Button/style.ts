@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { ButtonElementProps, LinkElementProps } from "./type";
 import {
-  mts_black,
-  mts_gray,
+  mts_text_primary,
+  mts_background_secondary,
   mts_gray_hover,
   mts_red,
   mts_red_hover,
@@ -17,9 +17,9 @@ export const StyledBtn = styled.button<
   border: none;
 
   background: ${({ variant }) =>
-    variant === "secondary" ? mts_gray : mts_red};
+    variant === "secondary" ? mts_background_secondary : mts_red};
   font: 700 0.75rem/1rem "MTS Wide", sans-serif;
-  color: ${({ variant }) => (variant === "secondary" ? mts_black : `#fff`)};
+  color: ${({ variant }) => (variant === "secondary" ? mts_text_primary : `#fff`)};
   border: 1px solid transparent;
   text-overflow: ellipsis;
   width: ${({ width }) =>
@@ -50,9 +50,9 @@ export const StyledBtnLink = styled.a<
   border: none;
 
   background: ${({ variant }) =>
-    variant === "secondary" ? mts_gray : mts_red};
+    variant === "secondary" ? mts_background_secondary : mts_red};
   font: 700 0.75rem/1rem "MTS Wide", sans-serif;
-  color: ${({ variant }) => (variant === "secondary" ? mts_black : `#fff`)};
+  color: ${({ variant }) => (variant === "secondary" ? mts_text_primary : `#fff`)};
   border: 1px solid transparent;
   text-overflow: ellipsis;
   width: ${({ width }) =>

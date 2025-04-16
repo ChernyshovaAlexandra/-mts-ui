@@ -14,7 +14,7 @@ export interface BaseButtonProps {
 export interface ButtonElementProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "content">,
     BaseButtonProps {
-  btn_type: "button";
+  btn_type?: "button";
   buttonType?: "submit" | "button" | "reset";
 }
 
@@ -22,7 +22,7 @@ export interface ButtonElementProps
 export interface LinkElementProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "content">,
     BaseButtonProps {
-  btn_type: "link";
+  btn_type?: "link";
   link: string;
   "data-tip"?: string; // Добавляем data-tip как необязательное свойство
 }

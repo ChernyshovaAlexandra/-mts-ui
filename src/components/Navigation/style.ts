@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mts_black, mts_gray, mts_red } from "../../consts";
+import { mts_text_primary, mts_background_secondary, mts_red } from "../../consts";
 import "../../assets/fonts.css";
 
 export const MenuItems = styled.ul`
@@ -14,6 +14,6 @@ export const MenuItem = styled.li`
 `;
 
 export const NavWrapper = styled.nav`
-  border-bottom: 1px solid ${mts_gray};
+  border-bottom: 1px solid ${mts_background_secondary};
   padding-bottom: .5rem;
 `;

@@ -1,46 +1,95 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import "../../../assets/fonts.css";
-import { mts_black, mts_gray, mts_gray_hover } from "../../../consts";
+import {
+  mts_text_primary,
+  mts_accent_active,
+  mts_negative,
+  mts_text_secondary,
+  mts_input_background,
+  mts_input_stroke,
+} from "../../../consts";
+import { formBase } from "../shared/formBaseTokens";
 
-export const StyledInput = styled.input`
-  border: 2px solid ${mts_gray};
-  border-radius: 8px;
-  outline: none;
-  color: ${mts_black};
+export const inputBaseStyles = css`
+  min-width: 0;
   width: 100%;
-  max-width: 500px;
-  min-width: 0px;
-  padding: 0.706rem;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.412rem;
-  box-shadow: inset 0 0 0 100px #ffffff, inset 0 0 0 100px #ffffff,
-    inset 0 0 0 100px #ffffff, inset 0 0 0 100px #ffffff,
-    inset 0 0 0 100px #ffffff, inset 0 0 0 100px #ffffff,
-    inset 0 0 0 100px #ffffff !important;
-  font-family: "MTS Compact", Corpid, Arial, sans-serif;
+  padding: ${formBase.padding};
+  border-radius: ${formBase.borderRadius};
+  outline: none !important;
+  background-color: ${mts_input_background};
+  border: 1px solid ${mts_input_stroke};
+
+  font-family: "MTS Compact", Arial, sans-serif;
+  font-size: ${formBase.fontSize};
+  line-height: ${formBase.lineHeight};
+  font-weight: ${formBase.fontWeight};
+  color: ${mts_text_primary};
+  text-overflow: ellipsis;
+  outline: none;
+  box-shadow: none;
+  transition: border-color 0.2s ease;
+  padding-right: 38px;
+
+  &::placeholder {
+    font-family: "MTS Compact", Arial, sans-serif;
+    color: ${mts_text_secondary};
+    font-weight: ${formBase.fontWeight};
+    font-size: ${formBase.fontSize};
+  }
 
   &:focus {
-    border-color: ${mts_gray_hover};
-  }
-  &::placeholder {
-    color: ${mts_gray_hover};
+    border-color: ${mts_accent_active};
   }
 
   &[aria-invalid="true"] {
-    border-color: #f44336;
+    border-color: ${mts_negative};
   }
 `;
 
+export const StyledInput = styled.input`
+  box-sizing: border-box;
+  ${inputBaseStyles}
+`;
+
 export const ErrorMessage = styled.div`
-  margin-top: 6px;
-  color: #f44336;
-  font-size: 12px;
+  color: ${mts_negative};
+  font:
+    12px "MTS Compact",
+    "Arial",
+    sans-serif;
+  font-weight: 300;
 `;
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 7px;
+`;
+
+export const StyledLabel = styled.label<{ $invalidInput: boolean }>`
+  color: ${({ $invalidInput }) =>
+    $invalidInput ? mts_negative : mts_text_secondary};
+  font:
+    14px "MTS Compact",
+    "Arial",
+    sans-serif;
+  line-height: 20px;
+  font-weight: 400;
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
+  max-width: 100%;
+  width: 500px;
+`;
+
+export const IconSlot = styled.div`
+  position: absolute;
+  right: 14px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

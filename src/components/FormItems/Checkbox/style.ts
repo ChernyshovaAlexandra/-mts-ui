@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mts_black, mts_gray, mts_red } from "../../../consts";
+import { mts_text_primary, mts_background_secondary, mts_red } from "../../../consts";
 import "../../../assets/fonts.css";
 
 export const Wrapper = styled.div`
@@ -28,7 +28,7 @@ export const InputWrapper = styled.div`
       content: "";
       position: absolute;
       inset: 0;
-      border: 2px solid ${mts_gray};
+      border: 2px solid ${mts_background_secondary};
       border-radius: 6px;
       background-color: #fff;
       box-sizing: border-box;
@@ -76,7 +76,7 @@ export const InputWrapper = styled.div`
 export const Label = styled.label`
   cursor: pointer;
   font-size: 0.95rem;
-  color: ${mts_black};
+  color: ${mts_text_primary};
   user-select: none;
   font: 17px "MTS Compact", "Arial", sans-serif;
 `;

@@ -1,21 +1,43 @@
 import React, { FC, memo } from "react";
 import { CloseButton, ModalContainer, Overlay } from "./style";
+import IconX from "../../icons/IconX/IconX";
+import Text from "../Text/Text";
+import { mts_text_primary } from "../../consts";
 
 export interface ModalProps {
   isModalOpen: boolean;
-  modalContent: React.ReactNode;
+  children: React.ReactNode;
   handleClose: any;
+  modalStyle?: React.CSSProperties;
+  title?: string;
 }
 
 export const Modal: FC<ModalProps> = memo(
-  ({ isModalOpen, modalContent, handleClose }) => {
+  ({ isModalOpen, children, handleClose, modalStyle, title }) => {
     if (!isModalOpen) return null;
 
     return (
       <Overlay onClick={handleClose}>
-        <ModalContainer onClick={(e) => e.stopPropagation()}>
-          <CloseButton onClick={handleClose}>&times;</CloseButton>
-          {modalContent}
+        <ModalContainer style={modalStyle} onClick={(e) => e.stopPropagation()}>
+          {title ? (
+            <Text
+              variant="wide"
+              style={{
+                fontWeight: "500",
+                fontSize: "20px",
+                lineHeight: "24px",
+                color: mts_text_primary,
+              }}
+            >
+              {title}
+            </Text>
+          ) : (
+            <></>
+          )}
+          <CloseButton onClick={handleClose}>
+            <IconX />
+          </CloseButton>
+          {children}
         </ModalContainer>
       </Overlay>
     );
