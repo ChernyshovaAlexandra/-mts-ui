@@ -1,20 +1,69 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import "../../assets/fonts.css";
-import { TextProps } from "./Text";
+import { TextVariant } from "./Text";
+import { mts_text_primary } from "../../consts";
 
-export const StyledText = styled.p<TextProps>`
-  font:
-    400 0.875rem / 1.25rem "MTS Text",
-    sans-serif;
-  font-size: 1.0625rem;
-  font-family: ${({ variant }) =>
-    variant === "wide"
-      ? "MTS Wide"
-      : variant === "compact"
-        ? "MTS Compact"
-        : "MTS Text"};
-  line-height: 1.5rem;
-  padding: 0;
+export const textStyles = {
+  "P1-Regular-Comp": css`
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+    font-family: "MTS Compact", sans-serif;
+  `,
+  "P2-Regular-Comp": css`
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    font-family: "MTS Compact", sans-serif;
+  `,
+  "P3-Bold-Comp": css`
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 700;
+    font-family: "MTS Compact", sans-serif;
+  `,
+  "P3-Medium-Comp": css`
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 500;
+    font-family: "MTS Compact", sans-serif;
+  `,
+  "P3-Regular-Comp": css`
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: "MTS Compact", sans-serif;
+  `,
+  "P4-Bold-Upp-Wide": css`
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: 5%;
+    text-transform: uppercase;
+    font-family: "MTS Wide", sans-serif;
+  `,
+  "P4-Regular-Comp": css`
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    font-family: "MTS Compact", sans-serif;
+  `,
+  "P4-Medium-Comp": css`
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    font-family: "MTS Compact", sans-serif;
+  `,
+  "P4-Regular-Text": css`
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    font-family: "MTS Text", sans-serif;
+  `,
+};
+
+export const StyledText = styled.p<{ variant?: TextVariant }>`
   margin: 0;
-  box-sizing: border-box;
+  color: ${mts_text_primary};
+  ${({ variant }) => variant && textStyles[variant]};
 `;

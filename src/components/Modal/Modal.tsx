@@ -21,7 +21,7 @@ export const Modal: FC<ModalProps> = memo(
         <ModalContainer style={modalStyle} onClick={(e) => e.stopPropagation()}>
           {title ? (
             <Text
-              variant="wide"
+              variant="P4-Bold-Upp-Wide"
               style={{
                 fontWeight: "500",
                 fontSize: "20px",

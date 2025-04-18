@@ -12,7 +12,7 @@ import IconSuccess from "../../../icons/IconSuccess/IconSuccess";
 import IconInfo from "../../../icons/IconInfo/IconInfo";
 import IconClear from "../../../icons/IconClear/IconClear";
 import {
-  mts_negative,
+  mts_accent_light_negative,
   mts_text_primary,
   mts_text_secondary,
 } from "../../../consts";
@@ -81,7 +81,7 @@ export const Input = memo(
             disabled={disabled}
           />
           {error && (
-            <IconSlot style={{ color: mts_negative }}>
+            <IconSlot style={{ color: mts_accent_light_negative }}>
               <IconError width="24" height="24" />
             </IconSlot>
           )}

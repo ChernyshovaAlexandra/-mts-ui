@@ -57,7 +57,7 @@ const Registration: FC<RegistrationProps> = ({
                 name="region"
                 onChange={setRegion}
                 value={region}
-                label="Возраст ребёнка"
+                label="Регион"
                 options={regions}
               />
             ) : (
@@ -75,12 +75,7 @@ const Registration: FC<RegistrationProps> = ({
           label={
             <>
               С правилами акции ознакомлен(-а) и даю согласие на{" "}
-              <Link
-                url="#"
-                style={{ color: "#007AFF", textDecoration: "underline" }}
-              >
-                обработку персональных данных
-              </Link>
+              <Link url="#">обработку персональных данных</Link>
             </>
           }
         />

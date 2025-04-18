@@ -2,8 +2,8 @@ import styled, { css } from "styled-components";
 import "../../../assets/fonts.css";
 import {
   mts_text_primary,
-  mts_accent_active,
-  mts_negative,
+  mts_accent_light_active,
+  mts_accent_light_negative,
   mts_text_secondary,
   mts_input_background,
   mts_input_stroke,
@@ -38,11 +38,11 @@ export const inputBaseStyles = css`
   }
 
   &:focus {
-    border-color: ${mts_accent_active};
+    border-color: ${mts_accent_light_active};
   }
 
   &[aria-invalid="true"] {
-    border-color: ${mts_negative};
+    border-color: ${mts_accent_light_negative};
   }
 `;
 
@@ -52,7 +52,7 @@ export const StyledInput = styled.input`
 `;
 
 export const ErrorMessage = styled.div`
-  color: ${mts_negative};
+  color: ${mts_accent_light_negative};
   font:
     12px "MTS Compact",
     "Arial",
@@ -68,13 +68,18 @@ export const Wrapper = styled.div`
 
 export const StyledLabel = styled.label<{ $invalidInput: boolean }>`
   color: ${({ $invalidInput }) =>
-    $invalidInput ? mts_negative : mts_text_secondary};
+    $invalidInput ? mts_accent_light_negative : mts_text_secondary};
   font:
     14px "MTS Compact",
     "Arial",
     sans-serif;
   line-height: 20px;
   font-weight: 400;
+
+  a {
+    font-size: inherit;
+    font-weight: inherit;
+  }
 `;
 
 export const InputWrapper = styled.div`

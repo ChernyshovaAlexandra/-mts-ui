@@ -1,12 +1,23 @@
-import React from "react";
 import { StyledBtn, StyledBtnLink } from "./style";
-import { ButtonProps, LinkElementProps, ButtonElementProps } from "./type";
+import { ButtonElementProps, ButtonProps, LinkElementProps } from "./type";
 
-export const Button: React.FC<ButtonProps> = (props) => {
-  if (!props.btn_type) props.btn_type = "button";
-  if (props.btn_type === "link") {
-    const { link, tooltip, style, content, width, variant } =
-      props as LinkElementProps;
+export const Button: React.FC<ButtonProps> = ({
+  btn_type = "button",
+  ...props
+}) => {
+  if (btn_type === "link") {
+    const {
+      link,
+      tooltip,
+      style,
+      content,
+      width,
+      variant,
+      icon,
+      children,
+      ...rest
+    } = props as LinkElementProps;
+
     return (
       <StyledBtnLink
         variant={variant}
@@ -14,13 +25,16 @@ export const Button: React.FC<ButtonProps> = (props) => {
         href={link}
         data-tip={tooltip}
         style={style}
-        dangerouslySetInnerHTML={{ __html: content || "" }}
-      />
+        {...rest}
+      >
+        {icon && <span className="btn-icon">{icon}</span>}
+        {children || content}
+      </StyledBtnLink>
     );
   } else {
     const {
       buttonType,
-      handleClick,
+      onClick,
       style,
       tooltip,
       disabled,
@@ -28,6 +42,8 @@ export const Button: React.FC<ButtonProps> = (props) => {
       children,
       width,
       variant,
+      icon,
+      ...rest
     } = props as ButtonElementProps;
 
     return (
@@ -35,11 +51,13 @@ export const Button: React.FC<ButtonProps> = (props) => {
         variant={variant}
         width={width}
         type={buttonType || "button"}
-        onClick={handleClick}
+        onClick={onClick}
         style={style}
         data-tip={tooltip}
-        disabled={disabled || false}
+        disabled={disabled}
+        {...rest}
       >
+        {icon && <span className="btn-icon">{icon}</span>}
         {children || content}
       </StyledBtn>
     );

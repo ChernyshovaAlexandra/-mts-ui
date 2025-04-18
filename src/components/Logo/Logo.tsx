@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { mts_red } from "../../consts";
+import { mts_brand_red } from "../../consts";
 
 export interface LogoProps {
   style?: React.CSSProperties;
@@ -15,8 +15,8 @@ export const Logo: FC<LogoProps> = ({ style }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_943_259651)">
-        <path d="M44 0H0V44H44V0Z" fill={mts_red} />
+      <g clipPath="url(#clip0_943_259651)">
+        <path d="M44 0H0V44H44V0Z" fill={mts_brand_red} />
         <path
           d="M29.312 3.3839V5.40886H33.7399V13.5357H36.2149V5.40886H40.6338V3.3839H29.312Z"
           fill="white"
