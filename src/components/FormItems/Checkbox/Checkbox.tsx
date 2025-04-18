@@ -1,5 +1,6 @@
 import React, { memo, InputHTMLAttributes } from "react";
-import { Wrapper, Label, InputWrapper, ErrorMessage } from "./style";
+import { Wrapper, InputWrapper } from "./style";
+import { ErrorMessage, StyledLabel } from "../Input/style";
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string | React.ReactNode;
@@ -30,7 +31,9 @@ export const Checkbox = memo(
               onChange={onChange}
             />
           </InputWrapper>
-          <Label htmlFor={name}>{label}</Label>
+          <StyledLabel $invalidInput={false} htmlFor={name}>
+            {label}
+          </StyledLabel>
         </Wrapper>
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </>

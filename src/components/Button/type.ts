@@ -1,16 +1,19 @@
 import React from "react";
 
+export type ButtonVariant = "primary" | "secondary" | "gray" | "ghost" | "icon";
+
 export interface BaseButtonProps {
   content?: string;
-  variant: "primary" | "secondary";
+  variant: ButtonVariant;
   tooltip?: string;
-  handleClick?: (arg?: any) => void;
   style?: React.CSSProperties;
   disabled?: boolean;
   children?: React.ReactNode;
+  icon?: React.ReactNode; // слева от текста
   width?: "max" | "auto" | string;
 }
 
+// Кнопка <button>
 export interface ButtonElementProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "content">,
     BaseButtonProps {
@@ -18,14 +21,13 @@ export interface ButtonElementProps
   buttonType?: "submit" | "button" | "reset";
 }
 
-// Пропсы для ссылки (<a>)
+// Ссылка <a>
 export interface LinkElementProps
   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "content">,
     BaseButtonProps {
   btn_type?: "link";
   link: string;
-  "data-tip"?: string; // Добавляем data-tip как необязательное свойство
+  "data-tip"?: string;
 }
 
-// Общий тип для Button
 export type ButtonProps = ButtonElementProps | LinkElementProps;

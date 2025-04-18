@@ -2,20 +2,23 @@ import styled from "styled-components";
 import { Select as SelectComponent } from "antd";
 import {
   mts_text_primary,
-  mts_background_secondary,
-  mts_gray_hover,
-  mts_red,
+  mts_bg_secondary,
+  mts_bg_hover,
+  mts_brand_red,
   mts_text_secondary,
 } from "../../../consts";
 import { formBase } from "../shared/formBaseTokens";
 
 export const StyledSelect = styled(SelectComponent)`
+  box-sizing: border-box;
+  height: fit-content !important;
+
   .ant-select-selector {
-    background-color: ${mts_background_secondary} !important;
-    border: 1px solid ${mts_gray_hover};
+    background-color: ${mts_bg_secondary} !important;
+    border: 1px solid ${mts_bg_hover};
     border-radius: ${formBase.borderRadius} !important;
     height: 48px !important;
-    padding: ${formBase.padding} !important;
+    padding: ${formBase.padding};
 
     display: flex !important;
     align-items: center !important;
@@ -42,12 +45,14 @@ export const StyledSelect = styled(SelectComponent)`
   }
 
   .ant-select-selection-search-input {
-    height: 100%;
+    /* height: 100%; */
     font-family: "MTS Compact", Arial, sans-serif;
   }
 
   .ant-select-arrow {
-    top: 40%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
     color: ${mts_text_secondary};
   }
 
@@ -56,10 +61,10 @@ export const StyledSelect = styled(SelectComponent)`
   }
 
   .ant-select-selector[aria-invalid="true"] {
-    border-color: ${mts_red} !important;
+    border-color: ${mts_brand_red} !important;
   }
   .ant-select-dropdown {
-    /* background-color: ${mts_background_secondary} !important; */
+    /* background-color: ${mts_bg_secondary} !important; */
   }
   .ant-select-arrow {
     display: flex;
@@ -70,23 +75,9 @@ export const StyledSelect = styled(SelectComponent)`
   }
 `;
 
-export const Label = styled.label`
-  font-weight: 500;
-  font-size: 17px;
-  color: ${mts_text_primary};
-  margin-bottom: 6px;
-  font-family: "MTS Compact", sans-serif;
-`;
-
-export const ErrorText = styled.span`
-  color: ${mts_red};
-  font-size: 12px;
-  margin-top: 10px;
-  font-family: "MTS Compact", sans-serif;
-`;
-
 export const Wrapper = styled.div`
   display: flex;
+  width: 100%;;
   flex-direction: column;
   gap: 4px;
 `;

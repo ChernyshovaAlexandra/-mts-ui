@@ -6,6 +6,10 @@ const meta: Meta<typeof Registration> = {
   title: "МТС/Registration",
   component: Registration,
   tags: ["autodocs"],
+  args: {
+    ages: [{ label: "2-5" }, { label: "6-9" }],
+    regions: [{ label: "Moscow" }, { label: "Ryazan" }],
+  },
 };
 
 export default meta;

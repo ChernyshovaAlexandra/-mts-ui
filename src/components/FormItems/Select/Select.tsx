@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Wrapper, Label, ErrorText, StyledSelect } from "./style";
+import { Wrapper, StyledSelect } from "./style";
 import IconDropdown from "../../../icons/IconDropdown/IconDropdown";
+import { ErrorMessage, StyledLabel } from "../Input/style";
+import IconLock from "../../../icons/IconLock/IconLock";
 
 export interface SelectOption {
   label: string;
@@ -47,7 +49,20 @@ export const Select: React.FC<SelectProps> = ({
 
   return (
     <Wrapper id={id}>
-      {label && <Label htmlFor={id}>{label}</Label>}
+      {label && (
+        <StyledLabel $invalidInput={!!error} htmlFor={id}>
+          {label}
+          {disabled ? (
+            <IconLock
+              width="18"
+              height="18"
+              style={{ position: "relative", top: "3px", marginLeft: "3px" }}
+            />
+          ) : (
+            <></>
+          )}
+        </StyledLabel>
+      )}
       <StyledSelect
         showSearch
         disabled={disabled}
@@ -61,9 +76,10 @@ export const Select: React.FC<SelectProps> = ({
         }
         options={options}
         placeholder={placeholder}
-        suffixIcon={<IconDropdown width={32} height={32} />}
+        suffixIcon={<IconDropdown width={28} height={28} />}
+        aria-invalid={!!error}
       />
-      {error && <ErrorText>{error}</ErrorText>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
     </Wrapper>
   );
 };

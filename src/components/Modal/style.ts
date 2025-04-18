@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mts_text_primary, mts_background_secondary, mts_gray_hover } from "../../consts";
+import { mts_text_primary, mts_bg_secondary, mts_bg_hover } from "../../consts";
 
 export const Overlay = styled.div`
   position: fixed;
@@ -28,7 +28,7 @@ export const CloseButton = styled.button`
   right: 16px;
   width: 32px;
   height: 32px;
-  background-color: ${mts_background_secondary};
+  background-color: ${mts_bg_secondary};
   border: none;
   border-radius: 0.7rem;
   display: flex;
@@ -39,7 +39,7 @@ export const CloseButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${mts_gray_hover};
+    background-color: ${mts_bg_hover};
   }
 
   svg {
