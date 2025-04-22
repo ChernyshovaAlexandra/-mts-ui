@@ -7,6 +7,10 @@ export { type ButtonProps } from "./components/Button/type";
 export { Header, type HeaderProps } from "./components/Header/Header";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
+export {
+  RadioButton,
+  type RadioButtonProps,
+} from "./components/FormItems/RadioButton/RadioButton";
 export { Select, type SelectProps } from "./components/FormItems/Select/Select";
 export {
   Separator,
