@@ -6,7 +6,13 @@ export { Button } from "./components/Button/Button";
 export { type ButtonProps } from "./components/Button/type";
 export { Header, type HeaderProps } from "./components/Header/Header";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
+export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
+export {
+  Faq,
+  type FaqProps,
+  type FaqItem,
+} from "./components/Faq/Faq";
 export {
   RadioButton,
   type RadioButtonProps,

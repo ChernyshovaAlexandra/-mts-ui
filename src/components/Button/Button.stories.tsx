@@ -54,8 +54,9 @@ const Template: StoryFn<ButtonProps> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   content: "Обычная кнопка",
-  variant: "secondary",
+  variant: "primary",
   btn_type: "button",
+  loading: true
 };
 
 export const LoginButton = Template.bind({});
