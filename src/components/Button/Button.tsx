@@ -1,8 +1,10 @@
+import Spinner from "../Spinner/Spinner";
 import { StyledBtn, StyledBtnLink } from "./style";
 import { ButtonElementProps, ButtonProps, LinkElementProps } from "./type";
 
 export const Button: React.FC<ButtonProps> = ({
   btn_type = "button",
+  loading = false,
   ...props
 }) => {
   if (btn_type === "link") {
@@ -28,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
         {...rest}
       >
         {icon && <span className="btn-icon">{icon}</span>}
-        {children || content}
+        {loading ? <Spinner color="#ffffff" speed="1s" /> : children || content}
       </StyledBtnLink>
     );
   } else {
@@ -58,7 +60,7 @@ export const Button: React.FC<ButtonProps> = ({
         {...rest}
       >
         {icon && <span className="btn-icon">{icon}</span>}
-        {children || content}
+        {loading ? <Spinner color="#ffffff" speed="1s" /> : children || content}
       </StyledBtn>
     );
   }

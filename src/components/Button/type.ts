@@ -9,8 +9,9 @@ export interface BaseButtonProps {
   style?: React.CSSProperties;
   disabled?: boolean;
   children?: React.ReactNode;
-  icon?: React.ReactNode; // слева от текста
+  icon?: React.ReactNode;
   width?: "max" | "auto" | string;
+  loading?: boolean;
 }
 
 // Кнопка <button>
