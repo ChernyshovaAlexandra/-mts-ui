@@ -1,3 +1,4 @@
+import IconSpinner from "./icons/IconSpinner/IconSpinner";
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";
@@ -8,11 +9,7 @@ export { Header, type HeaderProps } from "./components/Header/Header";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
 export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
-export {
-  Faq,
-  type FaqProps,
-  type FaqItem,
-} from "./components/Faq/Faq";
+export { Faq, type FaqProps, type FaqItem } from "./components/Faq/Faq";
 export {
   RadioButton,
   type RadioButtonProps,
@@ -104,6 +101,9 @@ export { IconX } from "./icons/IconX/IconX";
 export { IconPlus } from "./icons/IconPlus/IconPlus";
 export { IconOut } from "./icons/IconOut/IconOut";
 export { IconLeft } from "./icons/IconLeft/IconLeft";
+export { IconSpinner } from "./icons/IconSpinner/IconSpinner";
+export { IconHeart } from "./icons/IconHeart/IconHeart";
+export { IconChild } from "./icons/IconChild/IconChild";
 
 export {
   mts_darkest_blackberry,

@@ -38,7 +38,7 @@ export const textStyles = {
     font-size: 14px;
     line-height: 20px;
     font-weight: 700;
-    letter-spacing: 5%;
+    letter-spacing: .05;
     text-transform: uppercase;
     font-family: "MTS Wide", sans-serif;
   `,

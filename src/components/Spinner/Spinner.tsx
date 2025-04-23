@@ -1,38 +1,10 @@
-import { memo } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { memo } from "react";
 import { mts_brand_red } from "../../consts";
+import styled, { keyframes } from "styled-components";
+import { IconSpinner } from "../../icons";
 
-const spinAnimation = keyframes`
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-interface SpinnerContainerProps {
-  color?: string;
-  speed?: string;
-}
-
-const SpinnerContainer = styled.div<SpinnerContainerProps>`
-  height: 1.5rem;
-  width: 1.5rem;
-  border: 2px solid ${({ color }) => color || "#ff0032"};
-  border-radius: 100%;
-  border-right-color: transparent;
-  display: block;
-  animation: ${spinAnimation} ${({ speed }) => speed || "1.5s"} linear infinite;
-`;
-
-const VisuallyHidden = styled.span`
-  position: absolute;
-  margin: -1px;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  white-space: nowrap;
-  border: 0;
-  padding: 0;
-  clip: rect(0, 0, 0, 0);
+const spin = keyframes`
+  to { transform: rotate(360deg); }
 `;
 
 export interface SpinnerProps {
@@ -41,11 +13,26 @@ export interface SpinnerProps {
   style?: React.CSSProperties;
 }
 
+export const IconSpinnerWrapper = styled(IconSpinner)<{
+  speed?: string;
+  color?: string;
+}>`
+  display: inline-block;
+  transform-origin: center center;
+  animation: ${spin} ${({ speed }) => speed || "1.5s"} linear infinite;
+  width: ${({ width }) => width || "1.5rem"};
+  height: ${({ height }) => height || "1.5rem"};
+  color: ${({ color }) => color || "#fff"};
+`;
+
 export const Spinner = memo(
   ({ color = mts_brand_red, speed = "1.5s", style }: SpinnerProps) => (
-    <SpinnerContainer style={style} role="status" color={color} speed={speed}>
-      <VisuallyHidden>Ожидание ответа...</VisuallyHidden>
-    </SpinnerContainer>
+    <IconSpinnerWrapper
+      color={color}
+      speed={speed}
+      style={style}
+      aria-label="Загрузка"
+    />
   )
 );
 

@@ -9,3 +9,6 @@ export { default as IconX } from "./IconX/IconX";
 export { default as IconPlus } from "./IconPlus/IconPlus";
 export { default as IconOut } from "./IconOut/IconOut";
 export { default as IconLeft } from "./IconLeft/IconLeft";
+export { default as IconChild } from "./IconChild/IconChild";
+export { default as IconHeart } from "./IconHeart/IconHeart";
+export { default as IconSpinner } from "./IconSpinner/IconSpinner";
