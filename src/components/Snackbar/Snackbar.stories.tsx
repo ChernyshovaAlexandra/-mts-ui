@@ -16,28 +16,30 @@ export default {
 } as Meta;
 
 const Template: StoryFn<SnackBarProps> = () => (
-  <Snackbar
-    type="success"
-    message={
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        Успех! действие выполнено.
-        <Button
-          variant="primary"
-          btn_type="button"
-          width="auto"
-          style={{ marginLeft: "10px" }}
+  <div style={{ height: "400px" }}>
+    <Snackbar
+      type="success"
+      message={
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          Хорошо
-        </Button>
-      </div>
-    }
-  />
+          Успех! действие выполнено.
+          <Button
+            variant="primary"
+            btn_type="button"
+            width="auto"
+            style={{ marginLeft: "10px" }}
+          >
+            Хорошо
+          </Button>
+        </div>
+      }
+    />
+  </div>
 );
 
 export const Default = Template.bind({});

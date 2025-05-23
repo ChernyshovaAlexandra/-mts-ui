@@ -41,7 +41,6 @@ export const mts_dark_banana = "#FAC031";
 export const mts_normal_banana = "#FBE739";
 export const mts_light_banana = "#FDF177";
 export const mts_lightest_banana = "#FFFDE8";
-
 // Orange
 export const mts_darkest_orange = "#BA360A";
 export const mts_dark_orange = "#E04A17";

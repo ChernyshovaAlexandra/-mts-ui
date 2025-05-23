@@ -14,10 +14,10 @@ export type TextVariant =
 
 export interface TextProps
   extends Omit<React.HTMLAttributes<HTMLParagraphElement>, "children"> {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: React.CSSProperties;
   variant?: TextVariant;
-  className?: string; // <- обязательно
+  className?: string;
 }
 
 export const Text: React.FC<TextProps> = ({

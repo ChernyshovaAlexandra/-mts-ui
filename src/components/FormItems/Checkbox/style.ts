@@ -17,6 +17,8 @@ export const InputWrapper = styled.div`
   position: relative;
   width: 1.5rem;
   height: 1.5rem;
+  display: block;
+  flex-shrink: 0;
 
   input {
     appearance: none;
@@ -26,7 +28,7 @@ export const InputWrapper = styled.div`
     margin: 0;
     padding: 0;
     cursor: pointer;
-    z-index: 2;
+    z-index: 0;
 
     &::before {
       content: "";

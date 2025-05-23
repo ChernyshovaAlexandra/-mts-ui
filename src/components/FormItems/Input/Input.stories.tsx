@@ -40,9 +40,9 @@ Default.args = {
 
 export const WithValidation = Template.bind({});
 WithValidation.args = {
-  label: "Валидация",
+  label: "Email",
   placeholder: "Enter your email",
-  errorMessage: "Invalid email format",
+  errorMessage: "Почта введена некорректно или не зарегистрирована на платформе",
   validatePattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
 };
 

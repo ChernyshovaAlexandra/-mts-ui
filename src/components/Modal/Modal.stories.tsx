@@ -26,7 +26,7 @@ const Template: StoryFn<ModalProps> = (args: any) => (
 export const Default = Template.bind({});
 Default.args = {
   isModalOpen: true,
-  title: "Внимание",
+  title: "Восстановить пароль",
   children: (
     <div style={{ padding: "20px", textAlign: "center" }}>
       <Text>This is the content of the modal.</Text>

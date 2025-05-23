@@ -7,8 +7,14 @@ const meta: Meta<typeof Registration> = {
   component: Registration,
   tags: ["autodocs"],
   args: {
-    ages: [{ label: "2-5" }, { label: "6-9" }],
-    regions: [{ label: "Moscow" }, { label: "Ryazan" }],
+    ages: [
+      { label: "2-5", value: "2-5" },
+      { label: "6-9", value: "6-9" },
+    ],
+    regions: [
+      { label: "Moscow", value: "Moscow" },
+      { label: "Ryazan", value: "Ryazan" },
+    ],
   },
 };
 

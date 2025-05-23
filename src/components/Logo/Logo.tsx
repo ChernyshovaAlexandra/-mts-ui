@@ -5,15 +5,15 @@ export interface LogoProps {
   style?: React.CSSProperties;
 }
 
-export const Logo: FC<LogoProps> = ({ style }) => {
+export const Logo = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      style={style}
-      width="44"
-      height="44"
+      width={props.width ?? 44}
+      height={props.height ?? 44}
       viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <g clipPath="url(#clip0_943_259651)">
         <path d="M44 0H0V44H44V0Z" fill={mts_brand_red} />

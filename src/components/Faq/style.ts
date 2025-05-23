@@ -22,7 +22,10 @@ export const FaqStyledSection = styled.div<{ isOpened: boolean }>`
   }
 `;
 
-export const FaqQuestion = styled(Text)``;
+export const FaqQuestion = styled(Text)`
+  padding-right: 25px;
+`;
+
 export const FaqAnswer = styled(Text)`
   display: block;
   transition: all 0.2s ease-in-out;

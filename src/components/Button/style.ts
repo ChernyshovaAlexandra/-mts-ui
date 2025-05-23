@@ -5,9 +5,7 @@ import {
   mts_bg_secondary,
   mts_bg_hover,
   mts_brand_red,
-  mts_brand_red_dark,
   mts_bg_lower,
-  mts_input_background,
 } from "../../consts";
 import "../../assets/fonts.css";
 
@@ -23,14 +21,14 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
     700 0.75rem/1rem "MTS Wide",
     sans-serif;
   text-transform: uppercase;
-  letter-spacing: .05;
+  letter-spacing: 0.05;
   padding: 14px;
   border-radius: 16px;
   width: ${({ width }) =>
     width === "auto" ? "auto" : width === "max" ? "100%" : width || "100%"};
   text-overflow: ellipsis;
   white-space: nowrap;
-
+  max-width: 320px;
   border: 1px solid transparent;
 
   ${({ variant }) => {
@@ -84,14 +82,14 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
           background: ${mts_brand_red};
           color: #fff;
           &:hover {
-            background: ${mts_brand_red_dark};
+            background: #e4002e;
+            color: #fff;
           }
         `;
     }
   }}
 
   &:disabled {
-    opacity: 0.6;
     cursor: not-allowed;
   }
 
@@ -124,7 +122,4 @@ export const StyledBtnLink = styled.a<
   text-decoration: none;
   -webkit-appearance: none;
   ${sharedStyles}
-  &:hover {
-    color: inherit;
-  }
 `;

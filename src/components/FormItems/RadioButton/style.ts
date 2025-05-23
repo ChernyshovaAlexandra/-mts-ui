@@ -52,4 +52,5 @@ export const InputWrapper = styled.div`
 
 export const Label = styled(StyledText)`
   cursor: pointer;
+  text-align: left;
 `;

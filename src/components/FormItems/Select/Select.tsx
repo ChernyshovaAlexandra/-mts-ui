@@ -1,85 +1,173 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Wrapper, StyledSelect } from "./style";
-import IconDropdown from "../../../icons/IconDropdown/IconDropdown";
-import { ErrorMessage, StyledLabel } from "../Input/style";
+import ReactSelect, { StylesConfig } from "react-select";
+import { Wrapper } from "./style";
 import IconLock from "../../../icons/IconLock/IconLock";
+import {
+  mts_accent_light_negative,
+  mts_input_background,
+  mts_input_stroke,
+  mts_text_primary,
+  mts_text_secondary,
+} from "../../../consts";
+import { ErrorMessage, StyledLabel } from "../Input/style";
+import { formBase } from "../shared/formBaseTokens";
+import { IconDropdown } from "../../../icons";
 
-export interface SelectOption {
+export interface SelectLeaf {
   label: string;
-  value?: string;
-  options?: SelectOption[];
+  value: string;
 }
+export interface SelectGroup {
+  label: string;
+  options: SelectLeaf[];
+}
+export type SelectOption = SelectLeaf | SelectGroup;
 
 export interface SelectProps {
-  id?: string;
   name: string;
+  id?: string;
+  errorMessage?: string;
   value: string;
   onChange: (name: string, value: string) => void;
-  label?: string;
   options: SelectOption[];
+  placeholder?: string;
+  label?: string;
   error?: string;
   disabled?: boolean;
-  placeholder?: string;
+  style?: React.CSSProperties;
+  rsProps?: Record<string, unknown>;
 }
 
 export const Select: React.FC<SelectProps> = ({
-  id,
   name,
   value,
   onChange,
-  label,
   options,
-  error,
-  disabled,
   placeholder,
+  label,
+  errorMessage: error,
+  disabled,
+  style,
+  rsProps,
+  id,
 }) => {
-  const [val, setVal] = React.useState(value);
+  const rsOptions = options.map((o) =>
+    "options" in o
+      ? { label: o.label, options: o.options }
+      : { label: o.label, value: o.value }
+  );
 
-  const handleSelectChange = (selectedValue: any) => {
-    setVal(selectedValue);
-    onChange(name, selectedValue);
+  const flat = rsOptions.flatMap((o: any) => ("options" in o ? o.options : o));
+  const selected = flat.find((o: any) => o.value === value) || null;
+  const colourStyles: StylesConfig = {
+    control: (styles, state) => ({
+      ...styles,
+      height: 48,
+      minHeight: 48,
+      backgroundColor: `${mts_input_background}`,
+      border: `1px solid ${
+        error
+          ? mts_accent_light_negative
+          : state.isFocused
+            ? "#626C77"
+            : mts_input_stroke
+      }`,
+      outline: "none",
+      boxShadow: "none",
+      ":focus": { outline: "none" },
+      ":hover": {
+        borderColor: error ? mts_accent_light_negative : "#626C77",
+      },
+      borderRadius: formBase.borderRadius,
+      fontFamily: `"MTS Compact", Arial, sans-serif`,
+      textOverflow: "ellipsis",
+      lineHeight: formBase.lineHeight,
+      fontWeight: formBase.fontWeight,
+      color: mts_text_primary,
+      transition: `border-color 0.2s ease`,
+      padding: 0,
+    }),
+    valueContainer: (base) => ({
+      ...base,
+      padding: "10px 16px",
+      fontFamily: `"MTS Compact", Arial, sans-serif`,
+    }),
+
+    placeholder: (styles) => ({
+      ...styles,
+      fontFamily: `"MTS Compact", Arial, sans-serif`,
+      color: mts_text_secondary,
+      lineHeight: formBase.lineHeight,
+      fontWeight: formBase.fontWeight,
+      fontSize: formBase.fontSize,
+    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+      ...styles,
+      fontFamily: `"MTS Compact", Arial, sans-serif`,
+      backgroundColor: isSelected
+        ? "#F0F0F0"
+        : isFocused
+          ? "#F5F7F9"
+          : "transparent",
+      ":hover": {
+        cursor: "pointer",
+      },
+    }),
+
+    input: (styles) => ({
+      ...styles,
+      margin: 0,
+    }),
   };
-
-  React.useEffect(() => {
-    if (value !== val) {
-      setVal(value);
-    }
-  }, [val, value]);
-
   return (
-    <Wrapper id={id}>
+    <Wrapper style={style}>
       {label && (
-        <StyledLabel $invalidInput={!!error} htmlFor={id}>
+        <StyledLabel $invalidInput={!!error}>
           {label}
-          {disabled ? (
+          {disabled && (
             <IconLock
-              width="18"
-              height="18"
-              style={{ position: "relative", top: "3px", marginLeft: "3px" }}
+              width={18}
+              height={18}
+              style={{ position: "relative", top: 3, marginLeft: 3 }}
             />
-          ) : (
-            <></>
           )}
         </StyledLabel>
       )}
-      <StyledSelect
-        showSearch
-        disabled={disabled}
+
+      <ReactSelect
         id={id}
-        value={val}
-        onChange={(value) => handleSelectChange(value)}
-        getPopupContainer={(trigger) => trigger.parentElement as HTMLElement}
-        optionFilterProp="children"
-        filterOption={(input, option) =>
-          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-        }
-        options={options}
-        placeholder={placeholder}
-        suffixIcon={<IconDropdown width={28} height={28} />}
-        aria-invalid={!!error}
+        instanceId={name}
+        isDisabled={disabled}
+        placeholder={placeholder || "— выберите —"}
+        options={rsOptions as any}
+        value={selected as any}
+        styles={colourStyles}
+        components={{
+          IndicatorSeparator: () => null,
+          DropdownIndicator: (props) => {
+            const { menuIsOpen } = props.selectProps;
+            return (
+              <IconDropdown
+                width={18}
+                height={18}
+                style={{
+                  color: "#626C77",
+                  transform: menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
+                  transition: "transform .2s ease",
+                  right: "10px",
+                  position: "relative",
+                }}
+              />
+            );
+          },
+        }}
+        onChange={(opt: any) => onChange(name, opt?.value ?? "")}
+        {...rsProps}
       />
+
       {error && <ErrorMessage>{error}</ErrorMessage>}
     </Wrapper>
   );
 };
+
+export default Select;

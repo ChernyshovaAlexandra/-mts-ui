@@ -71,7 +71,7 @@ export const LinkButton = Template.bind({});
 LinkButton.args = {
   content: "Перейти на сайт",
   btn_type: "link",
-  variant: "secondary",
+  variant: "primary",
   link: "https://example.com",
   tooltip: "Нажмите, чтобы перейти",
 };

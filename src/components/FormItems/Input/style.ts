@@ -18,7 +18,6 @@ export const inputBaseStyles = css`
   outline: none !important;
   background-color: ${mts_input_background};
   border: 1px solid ${mts_input_stroke};
-
   font-family: "MTS Compact", Arial, sans-serif;
   font-size: ${formBase.fontSize};
   line-height: ${formBase.lineHeight};

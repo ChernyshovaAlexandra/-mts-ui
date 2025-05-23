@@ -13,15 +13,16 @@ export interface LinkProps
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
 
-export const Link: FC<LinkProps> = ({
-  url,
-  to,
-  children,
-  style,
-  underlined,
-  type = "link",
-  onClick,
-}) => {
+export const Link: FC<LinkProps> = (props) => {
+  const {
+    url,
+    to,
+    children,
+    style,
+    underlined,
+    type = "link",
+    onClick,
+  } = props;
   // Если задано свойство "to", используем react-router-dom для навигации
   if (to) {
     return (
@@ -31,6 +32,7 @@ export const Link: FC<LinkProps> = ({
         onClick={onClick}
         // Передаём класс или пропсы для стилизации, если требуется
         className={underlined ? "underlined" : ""}
+        {...props}
       >
         {children}
       </RouterLink>
@@ -45,6 +47,7 @@ export const Link: FC<LinkProps> = ({
       href={url}
       style={style}
       onClick={onClick}
+      {...props}
     >
       {children}
     </StyledLink>
