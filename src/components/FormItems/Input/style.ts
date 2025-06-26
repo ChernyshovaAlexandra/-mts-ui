@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { visuallyImpairedMixin } from "../../../accessibility";
 import "../../../assets/fonts.css";
 import {
   mts_text_primary,
@@ -49,6 +50,7 @@ export const inputBaseStyles = css`
 export const StyledInput = styled.input`
   box-sizing: border-box;
   ${inputBaseStyles}
+  ${visuallyImpairedMixin};
 `;
 
 export const ErrorMessage = styled.div`
@@ -58,6 +60,7 @@ export const ErrorMessage = styled.div`
     "Arial",
     sans-serif;
   font-weight: 300;
+  ${visuallyImpairedMixin};
 `;
 
 export const Wrapper = styled.div`
@@ -75,6 +78,7 @@ export const StyledLabel = styled.label<{ $invalidInput: boolean }>`
     sans-serif;
   line-height: 20px;
   font-weight: 400;
+  ${visuallyImpairedMixin};
 
   a {
     font-size: inherit;

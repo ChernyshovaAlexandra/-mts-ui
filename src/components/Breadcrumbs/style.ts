@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import { mts_text_primary } from "../../consts/index.js";
 import "../../assets/fonts.css";
 import { StyledLink } from "../Link/style.js";
@@ -8,6 +9,7 @@ export const Wrapper = styled.nav`
   align-items: center;
   font-size: 14px;
   margin-bottom: 24px;
+  ${visuallyImpairedMixin};
 `;
 
 export const CrumbLink = styled(StyledLink)`
@@ -18,6 +20,7 @@ export const CrumbLink = styled(StyledLink)`
   color: ${mts_text_primary};
   font: 17px "MTS Compact", "Arial", sans-serif;
   font-weight: 500;
+  ${visuallyImpairedMixin};
 `;
 
 export const CrumbText = styled.span`
@@ -26,6 +29,7 @@ export const CrumbText = styled.span`
   cursor: default;
   font: 17px "MTS Compact", "Arial", sans-serif;
   font-weight: 500;
+  ${visuallyImpairedMixin};
 `;
 
 export const Separator = styled.span`
@@ -35,4 +39,5 @@ export const Separator = styled.span`
   align-items: center;
   font: 17px "MTS Compact", "Arial", sans-serif;
   font-weight: 500;
+  ${visuallyImpairedMixin};
 `;

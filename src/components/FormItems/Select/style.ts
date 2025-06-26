@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../../accessibility";
 import { Select as SelectComponent } from "antd";
 import {
   mts_text_primary,
@@ -12,6 +13,7 @@ import { formBase } from "../shared/formBaseTokens";
 export const StyledSelect = styled(SelectComponent)`
   box-sizing: border-box;
   height: fit-content !important;
+  ${visuallyImpairedMixin};
 
   .ant-select-selector {
     background-color: ${mts_bg_secondary} !important;
