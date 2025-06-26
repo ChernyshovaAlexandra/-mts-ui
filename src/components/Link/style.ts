@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import {
   mts_text_primary,
   mts_brand_red,
@@ -42,4 +43,5 @@ export const StyledLink = styled.a<LinkProps>`
       display: ${({ type }) => (type === "menuItem" ? "block" : "none")};
     }
   }
+  ${visuallyImpairedMixin};
 `;

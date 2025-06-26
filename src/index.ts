@@ -106,6 +106,12 @@ export { IconOut } from "./icons/IconOut/IconOut";
 export { IconLeft } from "./icons/IconLeft/IconLeft";
 
 export {
+  AccessibilityProvider,
+  useAccessibility,
+  visuallyImpairedMixin,
+} from "./accessibility";
+
+export {
   mts_darkest_blackberry,
   mts_dark_blackberry,
   mts_normal_blackberry,

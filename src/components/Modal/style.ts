@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import { mts_text_primary, mts_bg_secondary, mts_bg_hover } from "../../consts";
 
 export const Overlay = styled.div`
@@ -20,6 +21,7 @@ export const ModalContainer = styled.div`
   width: 100%;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   position: relative;
+  ${visuallyImpairedMixin};
 `;
 
 export const CloseButton = styled.button`
@@ -47,4 +49,5 @@ export const CloseButton = styled.button`
     height: 24px;
     color: ${mts_text_primary};
   }
+  ${visuallyImpairedMixin};
 `;
