@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../../accessibility";
 import Text from "../../Text/Text";
 import { StyledText } from "../../Text/style";
 
@@ -8,6 +9,7 @@ export const Wrapper = styled.div`
   gap: 0.75rem;
   cursor: pointer;
   user-select: none;
+  ${visuallyImpairedMixin};
 
   input {
     display: none;
@@ -52,4 +54,5 @@ export const InputWrapper = styled.div`
 
 export const Label = styled(StyledText)`
   cursor: pointer;
+  ${visuallyImpairedMixin};
 `;

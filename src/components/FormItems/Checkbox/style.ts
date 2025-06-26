@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../../accessibility";
 import {
   mts_text_primary,
   mts_bg_secondary,
@@ -11,12 +12,14 @@ import { formBase } from "../shared/formBaseTokens";
 export const Wrapper = styled.div`
   display: flex;
   gap: 0.7rem;
+  ${visuallyImpairedMixin};
 `;
 
 export const InputWrapper = styled.div`
   position: relative;
   width: 1.5rem;
   height: 1.5rem;
+  ${visuallyImpairedMixin};
 
   input {
     appearance: none;

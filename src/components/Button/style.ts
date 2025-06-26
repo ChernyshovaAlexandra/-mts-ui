@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import { ButtonElementProps, LinkElementProps } from "./type";
 import {
   mts_text_primary,
@@ -108,6 +109,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
       height: 18px;
     }
   }
+  ${visuallyImpairedMixin};
 `;
 
 export const StyledBtn = styled.button<
