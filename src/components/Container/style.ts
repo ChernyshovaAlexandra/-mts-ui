@@ -1,14 +1,10 @@
 import styled from "styled-components";
-<<<<<<< HEAD
 import { config } from "./consts";
-=======
 import { visuallyImpairedMixin } from "../../accessibility";
->>>>>>> 1aac7530f7dda6ea390e6ff0f616ed8201f0584d
 
 export const StyledContainer = styled.div<{ wide?: boolean }>`
   box-sizing: border-box;
   width: 100%;
-<<<<<<< HEAD
   ${config.Mobile}
 
   @media (min-width: 768px) {
@@ -37,8 +33,6 @@ export const StyledContainer = styled.div<{ wide?: boolean }>`
   @media (min-width: 1920px) {
     ${({ wide }) => (wide ? config.Desktop_XL_Wide : config.Desktop_XL_Normal)}
   }
-=======
   max-width: calc(100% - 40px);
   ${visuallyImpairedMixin};
->>>>>>> 1aac7530f7dda6ea390e6ff0f616ed8201f0584d
 `;
