@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import { mts_text_primary, mts_bg_secondary, mts_bg_hover } from "../../consts";
 import Text from "../Text/Text";
 
@@ -34,6 +35,7 @@ export const ModalContainer = styled.div`
     max-height: 85vh;
     padding: 16px;
   }
+  ${visuallyImpairedMixin};
 `;
 
 export const CloseButton = styled.button`
@@ -61,6 +63,7 @@ export const CloseButton = styled.button`
     height: 24px;
     color: ${mts_text_primary};
   }
+  ${visuallyImpairedMixin};
 `;
 
 export const Title = styled(Text)`

@@ -42,7 +42,8 @@ export const WithValidation = Template.bind({});
 WithValidation.args = {
   label: "Email",
   placeholder: "Enter your email",
-  errorMessage: "Почта введена некорректно или не зарегистрирована на платформе",
+  errorMessage:
+    "Почта введена некорректно или не зарегистрирована на платформе",
   validatePattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
 };
 
@@ -52,6 +53,5 @@ Disabled.args = {
   label: "Нередактируемый",
   value: "elena_sv@mts.ru",
   placeholder: "Enter your email",
-  errorMessage: "Invalid email format",
   validatePattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
 };

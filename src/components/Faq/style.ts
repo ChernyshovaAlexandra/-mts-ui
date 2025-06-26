@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import Text from "../Text/Text";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -20,6 +21,7 @@ export const FaqStyledSection = styled.div<{ isOpened: boolean }>`
       isOpened ? `rotateX(180deg)` : `rotateX(0deg)`};
     transition: all 0.2s ease-in-out;
   }
+  ${visuallyImpairedMixin};
 `;
 
 export const FaqQuestion = styled(Text)`

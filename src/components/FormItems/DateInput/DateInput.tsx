@@ -22,12 +22,13 @@ export type DateInputProps = {
   label?: string;
   errorMessage?: string | null;
   disabled?: boolean;
+  required?: boolean;
   value?: string;
   onChange?: (value: string | null) => void;
 };
 
 export const DateInput = memo(
-  ({ label, errorMessage, disabled, value, onChange }: DateInputProps) => {
+  ({ label, errorMessage, disabled, value, onChange, required }: DateInputProps) => {
     const dateValue = useMemo(
       () => (value ? dayjs(value, "DD.MM.YYYY") : null),
       [value]
@@ -51,6 +52,7 @@ export const DateInput = memo(
             }}
             format="DD.MM.YYYY"
             placeholder="дд.мм.гггг"
+            required={required}
             disabled={disabled}
             suffixIcon={<IconDate />}
             aria-invalid={!!errorMessage}

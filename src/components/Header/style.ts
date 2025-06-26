@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import { HeaderVariant } from "./Header";
 import "../../assets/fonts.css";
 import { mts_text_primary } from "../../consts";
@@ -62,4 +63,5 @@ export const StyledHeader = styled.h1<{ variant?: HeaderVariant }>`
   margin: 0;
   color: ${mts_text_primary};
   ${({ variant }) => variant && headerStyles[variant]};
+  ${visuallyImpairedMixin};
 `;

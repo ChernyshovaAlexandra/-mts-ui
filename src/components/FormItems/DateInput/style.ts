@@ -13,7 +13,6 @@ export const StyledDatePicker = styled(DatePicker)`
   width: 100%;
   padding-right: 12px;
   
-
   &.ant-picker {
     cursor: pointer;
     background: #bcc3d050;

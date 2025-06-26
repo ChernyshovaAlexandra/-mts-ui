@@ -89,7 +89,7 @@ export const Input = memo(
 
           {disabled && !error && (
             <IconSlot style={{ color: mts_text_secondary }}>
-              <IconInfo width="32" height="32" />
+              <IconInfo width="24" height="24" />
             </IconSlot>
           )}
           {props.value && !error && !disabled && (

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import "../../assets/fonts.css";
 import { TextVariant } from "./Text";
 import { mts_text_primary } from "../../consts";
@@ -66,4 +67,5 @@ export const StyledText = styled.p<{ variant?: TextVariant }>`
   margin: 0;
   color: ${mts_text_primary};
   ${({ variant }) => variant && textStyles[variant]};
+  ${visuallyImpairedMixin};
 `;

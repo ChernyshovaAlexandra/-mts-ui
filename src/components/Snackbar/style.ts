@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { visuallyImpairedMixin } from "../../accessibility";
 import { mts_text_primary } from "../../consts";
 import "../../assets/fonts.css";
 
@@ -23,6 +24,7 @@ export const SnackbarWrapper = styled.div`
   z-index: 9999;
   animation: fade-in 0.3s ease-out;
   max-width: 80%;
+  ${visuallyImpairedMixin};
 
   @keyframes fade-in {
     from {

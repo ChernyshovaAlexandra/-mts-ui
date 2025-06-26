@@ -125,6 +125,12 @@ export { IconChild } from "./icons/IconChild/IconChild";
 export { IconDate } from "./icons/IconDate/IconDate";
 
 export {
+  AccessibilityProvider,
+  useAccessibility,
+  visuallyImpairedMixin,
+} from "./accessibility";
+
+export {
   mts_darkest_blackberry,
   mts_dark_blackberry,
   mts_normal_blackberry,
