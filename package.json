@@ -26,7 +26,8 @@
     "build": "rollup -c --bundleConfigAsCjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "storybook-to-ghpages",
+    "release": "./release.sh"
   },
   "peerDependencies": {
     "antd": "^5.24.6",
