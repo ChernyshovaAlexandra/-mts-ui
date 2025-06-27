@@ -19,9 +19,9 @@ git push origin main
 echo "🔢 Bumping version..."
 npm version patch
 
-# Публикуем пакет
+# Публикуем пакет в GitHub Registry
 echo "📤 Publishing package to GitHub Registry..."
-npm publish
+npm publish --registry=https://npm.pkg.github.com
 
 # Деплоим Storybook
 echo "📘 Deploying Storybook..."
