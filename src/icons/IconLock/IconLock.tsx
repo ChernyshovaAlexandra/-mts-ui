@@ -1,6 +1,10 @@
 import React from "react";
 
-export const IconLock = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconLock = ({
+  "aria-label": ariaLabel,
+  role,
+  ...props
+}: React.SVGProps<SVGSVGElement>) => (
   <svg
     style={props.style}
     width={props.width || 24}
@@ -8,6 +12,11 @@ export const IconLock = (props: React.SVGProps<SVGSVGElement>) => (
     viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    role={ariaLabel ? (role ?? "img") : (role ?? "presentation")}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    focusable="false"
+    {...props}
   >
     <path
       fillRule="evenodd"
