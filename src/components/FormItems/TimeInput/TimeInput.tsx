@@ -28,7 +28,7 @@ export const TimeInput = memo(
     label,
     errorMessage,
     disabled,
-    value,
+    value = null,
     onChange,
     required,
   }: TimeInputProps) => {
