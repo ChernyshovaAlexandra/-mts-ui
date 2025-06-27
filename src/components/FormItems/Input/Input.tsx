@@ -1,4 +1,13 @@
-import { memo, InputHTMLAttributes, useState, useEffect, useRef, useId } from "react";
+import {
+  memo,
+  InputHTMLAttributes,
+  useState,
+  useEffect,
+  useRef,
+  useId,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import {
   StyledInput,
   ErrorMessage,
@@ -20,16 +29,20 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export const Input = memo(
-  ({
-    errorMessage = null,
-    validatePattern,
-    onBlur,
-    onChange,
-    label,
-    id,
-    disabled,
-    ...props
-  }: InputProps) => {
+  forwardRef<HTMLInputElement, InputProps>(
+    (
+      {
+        errorMessage = null,
+        validatePattern,
+        onBlur,
+        onChange,
+        label,
+        id,
+        disabled,
+        ...props
+      }: InputProps,
+      ref,
+    ) => {
     const [error, setError] = useState<string | null>(errorMessage || null);
     const generatedId = useId();
     const inputId = id || `input-${generatedId}`;
@@ -41,6 +54,7 @@ export const Input = memo(
     };
 
     const inputRef = useRef<HTMLInputElement>(null);
+    useImperativeHandle(ref, () => inputRef.current as HTMLInputElement | null);
 
     const handleClear = () => {
       if (disabled) return;
@@ -118,7 +132,7 @@ export const Input = memo(
         {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
       </Wrapper>
     );
-  }
+  });
 );
 
 export default Input;

@@ -1,4 +1,4 @@
-import React, { memo, InputHTMLAttributes } from "react";
+import React, { memo, InputHTMLAttributes, forwardRef } from "react";
 import { Wrapper, InputWrapper } from "./style";
 import { ErrorMessage, StyledLabel } from "../Input/style";
 
@@ -9,6 +9,7 @@ export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Checkbox = memo(
+  forwardRef<HTMLInputElement, CheckboxProps>(
   ({
     style,
     checked,
@@ -18,7 +19,7 @@ export const Checkbox = memo(
     errorMessage,
     disabled,
     ...rest
-  }: CheckboxProps) => {
+  }: CheckboxProps, ref) => {
     const errorId = errorMessage ? `${name}-error` : undefined;
 
     return (
@@ -26,6 +27,7 @@ export const Checkbox = memo(
         <Wrapper>
           <InputWrapper style={style}>
             <input
+              ref={ref}
               name={name}
               id={name}
               disabled={disabled}
@@ -48,7 +50,7 @@ export const Checkbox = memo(
         )}
       </>
     );
-  }
-);
+    });
+  );
 
 export default Checkbox;
