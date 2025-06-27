@@ -12,13 +12,13 @@ export const StyledDatePicker = styled(DatePicker)`
   height: auto;
   width: 100%;
   padding-right: 12px;
-  
+
   &.ant-picker {
     cursor: pointer;
-    background: #bcc3d050;
+    background: #fff;
 
     &:hover {
-      background: #bcc3d050;
+      background: #fff;
     }
   }
 
