@@ -13,3 +13,5 @@ export { default as IconChild } from "./IconChild/IconChild";
 export { default as IconHeart } from "./IconHeart/IconHeart";
 export { default as IconSpinner } from "./IconSpinner/IconSpinner";
 export { default as IconDate } from "./IconDate/IconDate";
+export { default as IconCheck } from "./IconCheck/IconCheck";
+export { default as IconArrowCircle } from "./IconArrowCircle/IconArrowCircle";

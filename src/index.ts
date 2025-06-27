@@ -1,6 +1,3 @@
-import IconSpinner from "./icons/IconSpinner/IconSpinner";
-import { DateInput } from "./components/FormItems/DateInput/DateInput";
-import IconDate from "../dist/types/icons/IconDate/IconDate";
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";
@@ -38,6 +35,8 @@ export {
   Navigation,
   type NavigationProps,
 } from "./components/Navigation/Navigation";
+
+export { Carousel, type CarouselProps } from "./components/Carousel/Carousel";
 
 export {
   mts_text_primary,
@@ -123,6 +122,8 @@ export { IconSpinner } from "./icons/IconSpinner/IconSpinner";
 export { IconHeart } from "./icons/IconHeart/IconHeart";
 export { IconChild } from "./icons/IconChild/IconChild";
 export { IconDate } from "./icons/IconDate/IconDate";
+export { IconArrowCircle } from "./icons/IconArrowCircle/IconArrowCircle";
+export { IconCheck } from "./icons/IconCheck/IconCheck";
 
 export {
   AccessibilityProvider,
