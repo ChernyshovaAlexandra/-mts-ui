@@ -13,6 +13,10 @@ export {
   DateInput,
   type DateInputProps,
 } from "./components/FormItems/DateInput/DateInput";
+export {
+  TimeInput,
+  type TimeInputProps,
+} from "./components/FormItems/TimeInput/TimeInput";
 export { Faq, type FaqProps, type FaqItem } from "./components/Faq/Faq";
 export {
   RadioButton,
