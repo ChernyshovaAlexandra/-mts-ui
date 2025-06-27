@@ -22,4 +22,5 @@ Thumbs.db
 # Env files
 .env
 
-.npmrc
+.npmrc.zshrc
+.bashrc
