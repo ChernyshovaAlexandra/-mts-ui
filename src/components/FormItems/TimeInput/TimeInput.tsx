@@ -3,7 +3,6 @@ import { TimePicker } from "antd";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import "dayjs/locale/ru";
-import locale from "antd/es/date-picker/locale/ru_RU";
 
 import {
   Wrapper,
@@ -42,24 +41,21 @@ export const TimeInput = memo(
         {label && (
           <StyledLabel $invalidInput={!!errorMessage}>{label}</StyledLabel>
         )}
-
         <InputWrapper>
           <StyledTimePicker
-            locale={locale}
+            placeholder="чч:мм"
             value={timeValue}
             onChange={(val) => {
               const dayjsVal = val as Dayjs | null;
               onChange?.(dayjsVal ? dayjsVal.format("HH:mm") : null);
             }}
-            format="HH:mm"
-            placeholder="чч:мм"
-            required={required}
-            disabled={disabled}
             suffixIcon={<IconTime />}
+            format="HH:mm"
+            disabled={disabled}
+            required={required}
             aria-invalid={!!errorMessage}
           />
         </InputWrapper>
-
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </Wrapper>
     );

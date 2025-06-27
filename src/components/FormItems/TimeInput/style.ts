@@ -1,15 +1,32 @@
 import styled from "styled-components";
 import { TimePicker } from "antd";
+import { inputBaseStyles } from "../Input/style";
 
 export const StyledTimePicker = styled(TimePicker)`
+  ${inputBaseStyles}
+  height: auto;
   width: 100%;
+  padding-right: 12px;
 
-  .ant-picker-input > input::placeholder {
-    color: #8d96a1;
+  &.ant-picker {
+    cursor: pointer;
+    background: #fff;
+
+    &:hover {
+      background: #fff;
+    }
+  }
+
+  &.ant-picker-focused {
+    box-shadow: none;
+  }
+
+  .ant-picker-input > input {
+    font-family: "MTS Compact", Arial, sans-serif;
+    font-size: 16px;
   }
 
   .ant-picker-suffix {
-    display: flex;
-    align-items: center;
+    color: #8d969f;
   }
 `;

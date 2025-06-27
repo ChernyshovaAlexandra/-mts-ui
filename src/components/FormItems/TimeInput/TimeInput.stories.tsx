@@ -9,7 +9,7 @@ export default {
 } as Meta;
 
 const Template: StoryFn = (args) => {
-  const [value, setValue] = useState<string | undefined>();
+  const [value, setValue] = useState<string | null>(null);
 
   return (
     <TimeInput
