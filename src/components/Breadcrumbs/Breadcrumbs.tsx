@@ -1,5 +1,12 @@
+// Breadcrumbs.tsx
 import { FC, memo } from "react";
-import { Wrapper, CrumbLink, CrumbText, Separator } from "./style";
+import {
+  Wrapper,
+  CrumbLink,
+  CrumbText,
+  Separator,
+  CrumbItem,
+} from "./style";
 
 export interface BreadcrumbsProps {
   crumbs: Array<{
@@ -10,19 +17,23 @@ export interface BreadcrumbsProps {
 
 export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs }) => {
   return (
-    <Wrapper>
-      <CrumbLink href="/">Главная</CrumbLink>
+    <nav aria-label="Хлебные крошки">
+      <Wrapper>
+        <CrumbItem>
+          <CrumbLink href="/">Главная</CrumbLink>
+        </CrumbItem>
 
-      {crumbs.map((crumb, idx) => (
-        <span key={idx}>
-          <Separator>/</Separator>
-          {idx === crumbs.length - 1 ? (
-            <CrumbText>{crumb.name}</CrumbText>
-          ) : (
-            <CrumbLink href={crumb.path}>{crumb.name}</CrumbLink>
-          )}
-        </span>
-      ))}
-    </Wrapper>
+        {crumbs.map((crumb, idx) => (
+          <CrumbItem key={idx}>
+            <Separator aria-hidden="true">/</Separator>
+            {idx === crumbs.length - 1 ? (
+              <CrumbText aria-current="page">{crumb.name}</CrumbText>
+            ) : (
+              <CrumbLink href={crumb.path}>{crumb.name}</CrumbLink>
+            )}
+          </CrumbItem>
+        ))}
+      </Wrapper>
+    </nav>
   );
 });

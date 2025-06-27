@@ -18,6 +18,8 @@ export interface TextProps
   style?: React.CSSProperties;
   variant?: TextVariant;
   className?: string;
+  role?: React.AriaRole;
+  ariaLabel?: string;
 }
 
 export const Text: React.FC<TextProps> = ({
@@ -25,10 +27,19 @@ export const Text: React.FC<TextProps> = ({
   variant,
   style,
   className,
+  role,
+  ariaLabel,
   ...rest
 }) => {
   return (
-    <StyledText variant={variant} style={style} className={className} {...rest}>
+    <StyledText
+      variant={variant}
+      style={style}
+      className={className}
+      role={role}
+      aria-label={ariaLabel}
+      {...rest}
+    >
       {children}
     </StyledText>
   );

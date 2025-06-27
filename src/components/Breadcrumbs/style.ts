@@ -1,15 +1,23 @@
+// style.ts
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import { mts_text_primary } from "../../consts/index.js";
 import "../../assets/fonts.css";
 import { StyledLink } from "../Link/style.js";
 
-export const Wrapper = styled.nav`
+export const Wrapper = styled.ol`
   display: flex;
   align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
   font-size: 14px;
-  margin-bottom: 24px;
   ${visuallyImpairedMixin};
+`;
+
+export const CrumbItem = styled.li`
+  display: flex;
+  align-items: center;
 `;
 
 export const CrumbLink = styled(StyledLink)`

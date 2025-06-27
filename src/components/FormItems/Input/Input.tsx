@@ -1,4 +1,4 @@
-import { memo, InputHTMLAttributes, useState, useEffect, useRef } from "react";
+import { memo, InputHTMLAttributes, useState, useEffect, useRef, useId } from "react";
 import {
   StyledInput,
   ErrorMessage,
@@ -31,18 +31,20 @@ export const Input = memo(
     ...props
   }: InputProps) => {
     const [error, setError] = useState<string | null>(errorMessage || null);
-    const inputId = id || `input-${Math.random().toString(36).slice(2, 9)}`;
+    const generatedId = useId();
+    const inputId = id || `input-${generatedId}`;
+    const errorId = `${inputId}-error`;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (error) setError(null); // чистим только если была ошибка
+      if (error) setError(null);
       onChange?.(e);
     };
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleClear = () => {
       if (disabled) return;
-      const nativeInput = inputRef.current;
-      if (nativeInput) nativeInput.focus();
+      inputRef.current?.focus();
 
       const event = {
         target: { value: "" } as EventTarget & HTMLInputElement,
@@ -59,9 +61,13 @@ export const Input = memo(
     }, [errorMessage, error]);
 
     return (
-      <Wrapper>
+      <Wrapper
+        role="group"
+        aria-labelledby={label ? `${inputId}-label` : undefined}
+        aria-describedby={error ? errorId : undefined}
+      >
         {label && (
-          <StyledLabel $invalidInput={!!error} htmlFor={inputId}>
+          <StyledLabel $invalidInput={!!error} htmlFor={inputId} id={`${inputId}-label`}>
             {label}
             {disabled && (
               <IconLock
@@ -72,15 +78,19 @@ export const Input = memo(
             )}
           </StyledLabel>
         )}
+
         <InputWrapper>
           <StyledInput
             {...props}
             id={inputId}
             onChange={handleChange}
             aria-invalid={!!error}
+            aria-describedby={error ? errorId : undefined}
+            aria-label={label ? undefined : "Текстовое поле"} // fallback если нет label
             disabled={disabled}
             ref={inputRef}
           />
+
           {error && (
             <IconSlot style={{ color: mts_accent_light_negative }}>
               <IconError width="24" height="24" />
@@ -92,6 +102,7 @@ export const Input = memo(
               <IconInfo width="24" height="24" />
             </IconSlot>
           )}
+
           {props.value && !error && !disabled && (
             <IconSlot
               role="button"
@@ -103,7 +114,8 @@ export const Input = memo(
             </IconSlot>
           )}
         </InputWrapper>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+
+        {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
       </Wrapper>
     );
   }

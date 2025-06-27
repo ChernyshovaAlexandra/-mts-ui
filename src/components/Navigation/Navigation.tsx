@@ -12,7 +12,7 @@ export interface NavigationProps {
     url: string;
   }>;
   withLogin?: boolean;
-  onLogin?: any;
+  onLogin?: () => void;
   style?: React.CSSProperties;
   menuStyle?: React.CSSProperties;
   customBtn?: React.ReactNode;
@@ -21,47 +21,42 @@ export interface NavigationProps {
 export const Navigation: FC<NavigationProps> = memo(
   ({ links, withLogin, onLogin, style, menuStyle, customBtn }) => {
     return (
-      <NavWrapper style={style}>
+      <NavWrapper role="navigation" aria-label="Главная навигация" style={style}>
         <Container>
           <Flex align="center" gap="1rem" justify="space-between">
-            <a href="/">
+            <a href="/" aria-label="Перейти на главную" title="Перейти на главную">
               <Logo />
             </a>
 
-            {links ? (
-              <MenuItems style={menuStyle}>
+            {links?.length ? (
+              <MenuItems as="ul" role="list" style={menuStyle}>
                 {links.map((item, id) => (
-                  <MenuItem key={id}>
+                  <MenuItem as="li" role="listitem" key={id}>
                     <Link url={item.url}>{item.title}</Link>
                   </MenuItem>
                 ))}
               </MenuItems>
-            ) : (
-              <></>
-            )}
-            {withLogin ? (
-              <>
-                {customBtn ? (
-                  customBtn
-                ) : (
-                  <Button
-                    btn_type="button"
-                    variant="primary"
-                    width="auto"
-                    style={{
-                      padding: "5px 10px",
-                      height: "35px",
-                      fontSize: "10px",
-                    }}
-                    onClick={onLogin}
-                  >
-                    Войти
-                  </Button>
-                )}
-              </>
-            ) : (
-              <></>
-            )}
+            ) : null}
+
+            {withLogin &&
+              (customBtn ? (
+                customBtn
+              ) : (
+                <Button
+                  btn_type="button"
+                  variant="primary"
+                  width="auto"
+                  aria-label="Войти в личный кабинет"
+                  style={{
+                    padding: "5px 10px",
+                    height: "35px",
+                    fontSize: "10px",
+                  }}
+                  onClick={onLogin}
+                >
+                  Войти
+                </Button>
+              ))}
           </Flex>
         </Container>
       </NavWrapper>

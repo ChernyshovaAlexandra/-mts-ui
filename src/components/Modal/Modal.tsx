@@ -1,14 +1,12 @@
-import React, { FC, HTMLAttributes, memo, useEffect } from "react";
+import React, { FC, HTMLAttributes, memo } from "react";
 import { CloseButton, ModalContainer, Overlay, Title } from "./style";
 import IconX from "../../icons/IconX/IconX";
-import Text from "../Text/Text";
-import { mts_text_primary } from "../../consts";
 
 export interface ModalProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   isModalOpen: boolean;
   children: React.ReactNode;
-  handleClose: any;
+  handleClose: () => void;
   modalStyle?: React.CSSProperties;
   title?: string;
   disableClosing?: boolean;
@@ -26,19 +24,33 @@ export const Modal: FC<ModalProps> = memo(
   }) => {
     if (!isModalOpen) return null;
 
+    const titleId = title ? "modal-title" : undefined;
+
     return (
       <Overlay onClick={handleClose}>
         <ModalContainer
-          style={modalStyle}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={titleId}
           onClick={(e) => e.stopPropagation()}
+          style={modalStyle}
           {...rest}
         >
-          {title ? <Title variant="P4-Bold-Upp-Wide">{title}</Title> : <></>}
+          {title && (
+            <Title id={titleId} variant="P4-Bold-Upp-Wide">
+              {title}
+            </Title>
+          )}
+
           {!disableClosing && (
-            <CloseButton onClick={handleClose}>
+            <CloseButton
+              onClick={handleClose}
+              aria-label="Закрыть модальное окно"
+            >
               <IconX />
             </CloseButton>
           )}
+
           {children}
         </ModalContainer>
       </Overlay>

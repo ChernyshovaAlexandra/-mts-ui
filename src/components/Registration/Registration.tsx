@@ -1,9 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useState, useId } from "react";
 import Modal from "../Modal/Modal";
 import Input from "../FormItems/Input/Input";
 import Checkbox from "../FormItems/Checkbox/Checkbox";
 import Link from "../Link/Link";
 import { Select, SelectOption } from "../FormItems/Select/Select";
+import { Button } from "../Button/Button";
 
 export interface RegistrationProps {
   isOpen: boolean;
@@ -21,15 +22,19 @@ const Registration: FC<RegistrationProps> = ({
   const [agreed, setAgreed] = useState(false);
   const [age, setAge] = useState("");
   const [region, setRegion] = useState("");
+  const id = useId();
 
-  const handleSubmit = () => {
-    // тут будет логика отправки
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // логика отправки
     console.log("Регистрация отправлена");
   };
 
   return (
     <Modal isModalOpen={isOpen} handleClose={onClose} title="Регистрация">
       <form
+        onSubmit={handleSubmit}
+        aria-label="Форма регистрации"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -37,38 +42,64 @@ const Registration: FC<RegistrationProps> = ({
           marginTop: "1.3rem",
         }}
       >
-        <Input placeholder="email@example.com" />
-        <Input label="Имя и фамилия ребёнка" placeholder="Имя Фамилия" />
-        {ages || regions ? (
-          <div style={{ display: "flex", gap: 12 }}>
-            {ages ? (
+        <Input
+          id={`${id}-email`}
+          placeholder="email@example.com"
+          type="email"
+          aria-label="Email"
+          required
+        />
+        <Input
+          id={`${id}-name`}
+          label="Имя и фамилия ребёнка"
+          placeholder="Имя Фамилия"
+          required
+        />
+
+        {(ages || regions) && (
+          <div
+            role="group"
+            aria-label="Возраст и регион"
+            style={{ display: "flex", gap: 12 }}
+          >
+            {ages && (
               <Select
                 name="age"
                 onChange={setAge}
                 value={age}
                 label="Возраст ребёнка"
                 options={ages}
+                required
+                id={`${id}-age`}
               />
-            ) : (
-              <></>
             )}
-            {regions ? (
+            {regions && (
               <Select
                 name="region"
                 onChange={setRegion}
                 value={region}
                 label="Регион"
                 options={regions}
+                required
+                id={`${id}-region`}
               />
-            ) : (
-              <></>
             )}
           </div>
-        ) : (
-          <></>
         )}
-        <Input label="Придумай никнейм" placeholder="Никнейм" />
-        <Input label="Придумай пароль" placeholder="Пароль" type="password" />
+
+        <Input
+          id={`${id}-nickname`}
+          label="Придумай никнейм"
+          placeholder="Никнейм"
+          required
+        />
+        <Input
+          id={`${id}-password`}
+          label="Придумай пароль"
+          placeholder="Пароль"
+          type="password"
+          required
+        />
         <Checkbox
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
@@ -78,7 +109,19 @@ const Registration: FC<RegistrationProps> = ({
               <Link url="#">обработку персональных данных</Link>
             </>
           }
+          required
         />
+
+        <Button
+          type="submit"
+          variant="primary"
+          width="auto"
+          disabled={!agreed}
+          aria-disabled={!agreed}
+          aria-label="Отправить форму регистрации"
+        >
+          Зарегистрироваться
+        </Button>
       </form>
     </Modal>
   );

@@ -21,6 +21,8 @@ export const Separator: React.FC<SeparatorProps> = ({
 }) => {
   return (
     <Line
+      role="separator"
+      aria-orientation={orientation}
       orientation={orientation}
       thickness={thickness}
       length={length}

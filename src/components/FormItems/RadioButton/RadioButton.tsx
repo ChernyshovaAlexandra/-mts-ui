@@ -1,4 +1,4 @@
-import React, { memo, InputHTMLAttributes } from "react";
+import React, { memo, InputHTMLAttributes, useId } from "react";
 import { Wrapper, InputWrapper, Label } from "./style";
 import { ErrorMessage, StyledLabel } from "../Input/style";
 
@@ -20,11 +20,17 @@ export const RadioButton = memo(
     errorMessage,
     disabled,
   }: RadioButtonProps) => {
-    const id = `${name}-${value}`;
+    const generatedId = useId();
+    const id = `${name}-${value}-${generatedId}`;
+    const errorId = `${id}-error`;
 
     return (
       <>
-        <Wrapper as="label" htmlFor={id}>
+        <Wrapper
+          as="label"
+          htmlFor={id}
+          aria-describedby={errorMessage ? errorId : undefined}
+        >
           <InputWrapper style={style}>
             <input
               name={name}
@@ -34,6 +40,8 @@ export const RadioButton = memo(
               checked={checked}
               onChange={onChange}
               value={value}
+              aria-invalid={!!errorMessage}
+              aria-describedby={errorMessage ? errorId : undefined}
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,6 +49,8 @@ export const RadioButton = memo(
               height="16"
               viewBox="0 0 16 16"
               fill="none"
+              aria-hidden="true"
+              focusable="false"
             >
               <circle cx="8" cy="8" r="7.5" stroke="currentColor" />
               <circle
@@ -51,11 +61,15 @@ export const RadioButton = memo(
               />
             </svg>
           </InputWrapper>
-          <Label as="label" variant="P3-Regular-Comp" htmlFor={id}>
+
+          <Label as="span" variant="P3-Regular-Comp">
             {label}
           </Label>
         </Wrapper>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+
+        {errorMessage && (
+          <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
+        )}
       </>
     );
   }

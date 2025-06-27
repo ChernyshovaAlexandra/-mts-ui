@@ -13,33 +13,35 @@ export interface LinkProps
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
 }
 
-export const Link: FC<LinkProps> = (props) => {
-  const {
-    url,
-    to,
-    children,
-    style,
-    underlined,
-    type = "link",
-    onClick,
-  } = props;
-  // Если задано свойство "to", используем react-router-dom для навигации
+export const Link: FC<LinkProps> = ({
+  url,
+  to,
+  children,
+  style,
+  underlined,
+  type = "link",
+  onClick,
+  target,
+  rel,
+  ...rest
+}) => {
+  const isExternal = url?.startsWith("http");
+
   if (to) {
     return (
       <RouterLink
         to={to}
         style={style}
         onClick={onClick}
-        // Передаём класс или пропсы для стилизации, если требуется
         className={underlined ? "underlined" : ""}
-        {...props}
+        aria-current="page" // опционально: если используешь в навигации
+        {...rest}
       >
         {children}
       </RouterLink>
     );
   }
 
-  // Иначе используем обычный якорный элемент
   return (
     <StyledLink
       type={type}
@@ -47,7 +49,9 @@ export const Link: FC<LinkProps> = (props) => {
       href={url}
       style={style}
       onClick={onClick}
-      {...props}
+      target={target}
+      rel={target === "_blank" ? rel || "noopener noreferrer" : rel}
+      {...rest}
     >
       {children}
     </StyledLink>

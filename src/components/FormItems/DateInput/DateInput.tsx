@@ -1,5 +1,4 @@
-import { memo, useMemo } from "react";
-import { DatePicker } from "antd";
+import { memo, useMemo, useId } from "react";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import "dayjs/locale/ru";
@@ -11,7 +10,6 @@ import {
   StyledLabel,
   InputWrapper,
   ErrorMessage,
-  IconSlot,
 } from "../Input/style";
 import { DatePickerPopupStyles, StyledDatePicker } from "./style";
 import IconDate from "../../../icons/IconDate/IconDate";
@@ -41,15 +39,27 @@ export const DateInput = memo(
       [value]
     );
 
+    const inputId = useId();
+    const errorId = `${inputId}-error`;
+
     return (
-      <Wrapper>
+      <Wrapper
+        role="group"
+        aria-labelledby={inputId}
+        aria-describedby={errorMessage ? errorId : undefined}
+      >
         <DatePickerPopupStyles />
+
         {label && (
-          <StyledLabel $invalidInput={!!errorMessage}>{label}</StyledLabel>
+          <StyledLabel $invalidInput={!!errorMessage} htmlFor={inputId}>
+            {label}
+            {required ? " *" : ""}
+          </StyledLabel>
         )}
 
         <InputWrapper>
           <StyledDatePicker
+            id={inputId}
             locale={locale}
             popupClassName="mts-datepicker-popup"
             value={dateValue}
@@ -62,11 +72,15 @@ export const DateInput = memo(
             required={required}
             disabled={disabled}
             suffixIcon={<IconDate />}
+            aria-required={required}
             aria-invalid={!!errorMessage}
+            aria-describedby={errorMessage ? errorId : undefined}
           />
         </InputWrapper>
 
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {errorMessage && (
+          <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
+        )}
       </Wrapper>
     );
   }

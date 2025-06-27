@@ -17,7 +17,10 @@ export const Checkbox = memo(
     name,
     errorMessage,
     disabled,
+    ...rest
   }: CheckboxProps) => {
+    const errorId = errorMessage ? `${name}-error` : undefined;
+
     return (
       <>
         <Wrapper>
@@ -29,13 +32,20 @@ export const Checkbox = memo(
               type="checkbox"
               checked={checked}
               onChange={onChange}
+              aria-invalid={!!errorMessage}
+              aria-describedby={errorId}
+              {...rest}
             />
           </InputWrapper>
-          <StyledLabel $invalidInput={false} htmlFor={name}>
+          <StyledLabel $invalidInput={!!errorMessage} htmlFor={name}>
             {label}
           </StyledLabel>
         </Wrapper>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {errorMessage && (
+          <ErrorMessage id={errorId} role="alert">
+            {errorMessage}
+          </ErrorMessage>
+        )}
       </>
     );
   }

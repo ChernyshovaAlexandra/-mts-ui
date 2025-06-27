@@ -8,6 +8,11 @@ export const StyledTimePicker = styled(TimePicker)`
   width: 100%;
   padding-right: 12px;
 
+  .ant-picker-input > input:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
   &.ant-picker {
     cursor: pointer;
     background: #fff;

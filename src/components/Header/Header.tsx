@@ -1,6 +1,6 @@
 import React from "react";
-import { css } from "styled-components";
 import { StyledHeader } from "./style";
+
 export type HeaderVariant = "H1-Wide" | "H2-Wide" | "H3-Wide" | "H4-Wide";
 
 export interface HeaderProps
@@ -10,21 +10,23 @@ export interface HeaderProps
   variant?: HeaderVariant;
 }
 
-export const Header: React.FC<HeaderProps> = ({ children, style, variant }) => {
+export const Header: React.FC<HeaderProps> = ({
+  children,
+  style,
+  variant,
+  ...rest
+}) => {
+  const HeadingTag =
+    variant === "H2-Wide"
+      ? "h2"
+      : variant === "H3-Wide"
+        ? "h3"
+        : variant === "H4-Wide"
+          ? "h4"
+          : "h1";
+
   return (
-    <StyledHeader
-      as={
-        variant === "H2-Wide"
-          ? "h2"
-          : variant === "H3-Wide"
-            ? "h3"
-            : variant === "H4-Wide"
-              ? "h4"
-              : "h1"
-      }
-      variant={variant}
-      style={style}
-    >
+    <StyledHeader as={HeadingTag} variant={variant} style={style} {...rest}>
       {children}
     </StyledHeader>
   );

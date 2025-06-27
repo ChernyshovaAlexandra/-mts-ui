@@ -30,14 +30,22 @@ export const Faq: React.FC<FaqProps> = memo(({ items, style }) => {
     <section style={style}>
       {items.map((item, index) => {
         const isOpened = openItems.has(index);
+        const answerId = `faq-answer-${index}`;
+        const questionId = `faq-question-${index}`;
+
         return (
           <React.Fragment key={index}>
             <FaqStyledSection
+              as="button"
               isOpened={isOpened}
               onClick={() => toggleItem(index)}
+              aria-expanded={isOpened}
+              aria-controls={answerId}
+              id={questionId}
+              style={{ display: "flex", alignItems: "center" }}
             >
-              <IconDropdown />
-              <FaqQuestion variant="P3-Medium-Comp">
+              <IconDropdown aria-hidden />
+              <FaqQuestion as="span" variant="P3-Medium-Comp">
                 {item.question}
               </FaqQuestion>
             </FaqStyledSection>
@@ -51,7 +59,14 @@ export const Faq: React.FC<FaqProps> = memo(({ items, style }) => {
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   style={{ overflow: "hidden" }}
                 >
-                  <FaqAnswer variant="P3-Regular-Comp">{item.answer}</FaqAnswer>
+                  <FaqAnswer
+                    id={answerId}
+                    aria-labelledby={questionId}
+                    role="region"
+                    variant="P3-Regular-Comp"
+                  >
+                    {item.answer}
+                  </FaqAnswer>
                 </motion.div>
               )}
             </AnimatePresence>

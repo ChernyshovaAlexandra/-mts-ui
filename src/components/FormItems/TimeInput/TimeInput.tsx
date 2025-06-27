@@ -14,6 +14,7 @@ import { StyledTimePicker } from "./style";
 import IconTime from "../../../icons/IconTime/IconTime";
 
 export type TimeInputProps = {
+  inputId?: string;
   label?: string;
   errorMessage?: string | null;
   disabled?: boolean;
@@ -24,6 +25,7 @@ export type TimeInputProps = {
 
 export const TimeInput = memo(
   ({
+    inputId,
     label,
     errorMessage,
     disabled,
@@ -36,13 +38,18 @@ export const TimeInput = memo(
       [value]
     );
 
+    const errorId = inputId ? `${inputId}-error` : undefined;
+
     return (
       <Wrapper>
         {label && (
-          <StyledLabel $invalidInput={!!errorMessage}>{label}</StyledLabel>
+          <StyledLabel htmlFor={inputId} $invalidInput={!!errorMessage}>
+            {label}
+          </StyledLabel>
         )}
         <InputWrapper>
           <StyledTimePicker
+            id={inputId}
             placeholder="чч:мм"
             value={timeValue}
             onChange={(val) => {
@@ -54,9 +61,12 @@ export const TimeInput = memo(
             disabled={disabled}
             required={required}
             aria-invalid={!!errorMessage}
+            aria-describedby={errorMessage ? errorId : undefined}
           />
         </InputWrapper>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {errorMessage && (
+          <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
+        )}
       </Wrapper>
     );
   }

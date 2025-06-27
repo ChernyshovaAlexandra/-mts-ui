@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import ReactSelect, { StylesConfig } from "react-select";
 import { Wrapper } from "./style";
 import IconLock from "../../../icons/IconLock/IconLock";
@@ -31,6 +31,7 @@ export interface SelectProps {
   onChange: (name: string, value: string) => void;
   options: SelectOption[];
   placeholder?: string;
+  required?: boolean;
   label?: string;
   error?: string;
   disabled?: boolean;
@@ -50,7 +51,12 @@ export const Select: React.FC<SelectProps> = ({
   style,
   rsProps,
   id,
+  required,
 }) => {
+  const generatedId = useId();
+  const selectId = id || `select-${generatedId}`;
+  const errorId = `${selectId}-error`;
+
   const rsOptions = options.map((o) =>
     "options" in o
       ? { label: o.label, options: o.options }
@@ -59,12 +65,13 @@ export const Select: React.FC<SelectProps> = ({
 
   const flat = rsOptions.flatMap((o: any) => ("options" in o ? o.options : o));
   const selected = flat.find((o: any) => o.value === value) || null;
+
   const colourStyles: StylesConfig = {
     control: (styles, state) => ({
       ...styles,
       height: 48,
       minHeight: 48,
-      backgroundColor: `${mts_input_background}`,
+      backgroundColor: mts_input_background,
       border: `1px solid ${
         error
           ? mts_accent_light_negative
@@ -92,7 +99,6 @@ export const Select: React.FC<SelectProps> = ({
       padding: "10px 16px",
       fontFamily: `"MTS Compact", Arial, sans-serif`,
     }),
-
     placeholder: (styles) => ({
       ...styles,
       fontFamily: `"MTS Compact", Arial, sans-serif`,
@@ -101,7 +107,7 @@ export const Select: React.FC<SelectProps> = ({
       fontWeight: formBase.fontWeight,
       fontSize: formBase.fontSize,
     }),
-    option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+    option: (styles, { isFocused, isSelected }) => ({
       ...styles,
       fontFamily: `"MTS Compact", Arial, sans-serif`,
       backgroundColor: isSelected
@@ -113,16 +119,16 @@ export const Select: React.FC<SelectProps> = ({
         cursor: "pointer",
       },
     }),
-
     input: (styles) => ({
       ...styles,
       margin: 0,
     }),
   };
+
   return (
     <Wrapper style={style}>
       {label && (
-        <StyledLabel $invalidInput={!!error}>
+        <StyledLabel htmlFor={selectId} $invalidInput={!!error}>
           {label}
           {disabled && (
             <IconLock
@@ -135,13 +141,16 @@ export const Select: React.FC<SelectProps> = ({
       )}
 
       <ReactSelect
-        id={id}
+        inputId={selectId}
         instanceId={name}
         isDisabled={disabled}
+        aria-invalid={!!error}
+        aria-describedby={error ? errorId : undefined}
         placeholder={placeholder || "— выберите —"}
         options={rsOptions as any}
         value={selected as any}
         styles={colourStyles}
+        required={required}
         components={{
           IndicatorSeparator: () => null,
           DropdownIndicator: (props) => {
@@ -165,7 +174,7 @@ export const Select: React.FC<SelectProps> = ({
         {...rsProps}
       />
 
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
     </Wrapper>
   );
 };

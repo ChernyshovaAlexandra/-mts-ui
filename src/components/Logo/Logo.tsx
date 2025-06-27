@@ -1,21 +1,33 @@
 import { FC } from "react";
 import { mts_brand_red } from "../../consts";
 
-export interface LogoProps {
+export interface LogoProps extends React.SVGProps<SVGSVGElement> {
   style?: React.CSSProperties;
+  ariaLabel?: string;
+  hideFromScreenReader?: boolean;
 }
 
-export const Logo = (props: React.SVGProps<SVGSVGElement>) => {
+export const Logo: FC<LogoProps> = ({
+  width = 44,
+  height = 44,
+  ariaLabel = "Логотип МТС",
+  hideFromScreenReader = false,
+  ...props
+}) => {
   return (
     <svg
-      width={props.width ?? 44}
-      height={props.height ?? 44}
+      width={width}
+      height={height}
       viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label={ariaLabel}
+      aria-hidden={hideFromScreenReader}
       {...props}
     >
-      <g clipPath="url(#clip0_943_259651)">
+      <title>{ariaLabel}</title>
+      <g clipPath="url(#clip0)">
         <path d="M44 0H0V44H44V0Z" fill={mts_brand_red} />
         <path
           d="M29.312 3.3839V5.40886H33.7399V13.5357H36.2149V5.40886H40.6338V3.3839H29.312Z"
@@ -31,7 +43,7 @@ export const Logo = (props: React.SVGProps<SVGSVGElement>) => {
         />
       </g>
       <defs>
-        <clipPath id="clip0_943_259651">
+        <clipPath id="clip0">
           <rect width="44" height="44" fill="white" />
         </clipPath>
       </defs>

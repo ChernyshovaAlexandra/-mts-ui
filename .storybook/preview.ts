@@ -8,6 +8,13 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    a11y: {
+      // можно кастомизировать, если надо
+      disable: false,
+      element: "#root",
+      config: {},
+      options: {},
+    },
     default: "light",
     values: [
       { name: "light", value: "#f9fafb" }, // или #f3f4f6
