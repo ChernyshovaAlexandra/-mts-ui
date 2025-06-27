@@ -1,6 +1,10 @@
 import React from "react";
 
-export const IconChild = (props: React.SVGProps<SVGSVGElement>) => (
+export const IconChild = ({
+  "aria-label": ariaLabel,
+  role,
+  ...props
+}: React.SVGProps<SVGSVGElement>) => (
   <svg
     width={props.width ?? 24}
     height={props.height ?? 24}
@@ -8,6 +12,10 @@ export const IconChild = (props: React.SVGProps<SVGSVGElement>) => (
     fill="none"
     preserveAspectRatio="xMidYMid meet"
     xmlns="http://www.w3.org/2000/svg"
+    role={ariaLabel ? (role ?? "img") : (role ?? "presentation")}
+    aria-label={ariaLabel}
+    aria-hidden={ariaLabel ? undefined : true}
+    focusable="false"
     {...props}
   >
     <path
