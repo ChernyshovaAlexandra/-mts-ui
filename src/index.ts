@@ -124,6 +124,7 @@ export { IconChild } from "./icons/IconChild/IconChild";
 export { IconDate } from "./icons/IconDate/IconDate";
 export { IconArrowCircle } from "./icons/IconArrowCircle/IconArrowCircle";
 export { IconCheck } from "./icons/IconCheck/IconCheck";
+export { IconTime } from "./icons/IconTime/IconTime";
 
 export {
   AccessibilityProvider,

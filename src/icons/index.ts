@@ -15,3 +15,4 @@ export { default as IconSpinner } from "./IconSpinner/IconSpinner";
 export { default as IconDate } from "./IconDate/IconDate";
 export { default as IconCheck } from "./IconCheck/IconCheck";
 export { default as IconArrowCircle } from "./IconArrowCircle/IconArrowCircle";
+export { default as IconTime } from "./IconTime/IconTime";
