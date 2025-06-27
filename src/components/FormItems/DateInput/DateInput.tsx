@@ -27,63 +27,67 @@ export type DateInputProps = {
 
 export const DateInput = memo(
   forwardRef<any, DateInputProps>(
-  ({
-    label,
-    errorMessage,
-    disabled,
-    value = null,
-    onChange,
-    required,
-  }: DateInputProps, ref) => {
-    const dateValue = useMemo(
-      () => (value ? dayjs(value, "DD.MM.YYYY") : null),
-      [value]
-    );
+    (
+      {
+        label,
+        errorMessage,
+        disabled,
+        value = null,
+        onChange,
+        required,
+      }: DateInputProps,
+      ref
+    ) => {
+      const dateValue = useMemo(
+        () => (value ? dayjs(value, "DD.MM.YYYY") : null),
+        [value]
+      );
 
-    const inputId = useId();
-    const errorId = `${inputId}-error`;
+      const inputId = useId();
+      const errorId = `${inputId}-error`;
 
-    return (
-      <Wrapper
-        role="group"
-        aria-labelledby={inputId}
-        aria-describedby={errorMessage ? errorId : undefined}
-      >
-        <DatePickerPopupStyles />
+      return (
+        <Wrapper
+          role="group"
+          aria-labelledby={inputId}
+          aria-describedby={errorMessage ? errorId : undefined}
+        >
+          <DatePickerPopupStyles />
 
-        {label && (
-          <StyledLabel $invalidInput={!!errorMessage} htmlFor={inputId}>
-            {label}
-            {required ? " *" : ""}
-          </StyledLabel>
-        )}
+          {label && (
+            <StyledLabel $invalidInput={!!errorMessage} htmlFor={inputId}>
+              {label}
+              {required ? " *" : ""}
+            </StyledLabel>
+          )}
 
-        <InputWrapper>
-          <StyledDatePicker
-            ref={ref}
-            id={inputId}
-            locale={locale}
-            popupClassName="mts-datepicker-popup"
-            value={dateValue}
-            onChange={(val) => {
-              const dayjsVal = val as Dayjs | null;
-              onChange?.(dayjsVal ? dayjsVal.format("DD.MM.YYYY") : null);
-            }}
-            format="DD.MM.YYYY"
-            placeholder="дд.мм.гггг"
-            required={required}
-            disabled={disabled}
-            suffixIcon={<IconDate />}
-            aria-required={required}
-            aria-invalid={!!errorMessage}
-            aria-describedby={errorMessage ? errorId : undefined}
-          />
-        </InputWrapper>
+          <InputWrapper>
+            <StyledDatePicker
+              ref={ref}
+              id={inputId}
+              locale={locale}
+              popupClassName="mts-datepicker-popup"
+              value={dateValue}
+              onChange={(val) => {
+                const dayjsVal = val as Dayjs | null;
+                onChange?.(dayjsVal ? dayjsVal.format("DD.MM.YYYY") : null);
+              }}
+              format="DD.MM.YYYY"
+              placeholder="дд.мм.гггг"
+              required={required}
+              disabled={disabled}
+              suffixIcon={<IconDate />}
+              aria-required={required}
+              aria-invalid={!!errorMessage}
+              aria-describedby={errorMessage ? errorId : undefined}
+            />
+          </InputWrapper>
 
-        {errorMessage && (
-          <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
-        )}
-      </Wrapper>
-    );
-  });
+          {errorMessage && (
+            <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
+          )}
+        </Wrapper>
+      );
+    }
+  )
 );

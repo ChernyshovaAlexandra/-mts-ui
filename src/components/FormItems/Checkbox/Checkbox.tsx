@@ -10,47 +10,51 @@ export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Checkbox = memo(
   forwardRef<HTMLInputElement, CheckboxProps>(
-  ({
-    style,
-    checked,
-    onChange,
-    label,
-    name,
-    errorMessage,
-    disabled,
-    ...rest
-  }: CheckboxProps, ref) => {
-    const errorId = errorMessage ? `${name}-error` : undefined;
+    (
+      {
+        style,
+        checked,
+        onChange,
+        label,
+        name,
+        errorMessage,
+        disabled,
+        ...rest
+      }: CheckboxProps,
+      ref
+    ) => {
+      const errorId = errorMessage ? `${name}-error` : undefined;
 
-    return (
-      <>
-        <Wrapper>
-          <InputWrapper style={style}>
-            <input
-              ref={ref}
-              name={name}
-              id={name}
-              disabled={disabled}
-              type="checkbox"
-              checked={checked}
-              onChange={onChange}
-              aria-invalid={!!errorMessage}
-              aria-describedby={errorId}
-              {...rest}
-            />
-          </InputWrapper>
-          <StyledLabel $invalidInput={!!errorMessage} htmlFor={name}>
-            {label}
-          </StyledLabel>
-        </Wrapper>
-        {errorMessage && (
-          <ErrorMessage id={errorId} role="alert">
-            {errorMessage}
-          </ErrorMessage>
-        )}
-      </>
-    );
-    });
-  );
+      return (
+        <>
+          <Wrapper>
+            <InputWrapper style={style}>
+              <input
+                ref={ref}
+                name={name}
+                id={name}
+                disabled={disabled}
+                type="checkbox"
+                checked={checked}
+                onChange={onChange}
+                aria-invalid={!!errorMessage}
+                aria-describedby={errorId}
+                {...rest}
+              />
+            </InputWrapper>
+            <StyledLabel $invalidInput={!!errorMessage} htmlFor={name}>
+              {label}
+            </StyledLabel>
+          </Wrapper>
+          {errorMessage && (
+            <ErrorMessage id={errorId} role="alert">
+              {errorMessage}
+            </ErrorMessage>
+          )}
+        </>
+      );
+    }
+  )
+);
 
 export default Checkbox;
