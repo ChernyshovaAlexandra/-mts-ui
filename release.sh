@@ -7,6 +7,7 @@ echo "🚀 Starting release..."
 # Проверка: есть ли коммиты
 if [ -n "$(git status --porcelain)" ]; then
   echo "🔧 Committing local changes..."
+  npm run build
   git add .
   git commit -m "chore: release"
 fi
