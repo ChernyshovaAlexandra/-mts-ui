@@ -19,7 +19,7 @@ export type TimeInputProps = {
   errorMessage?: string | null;
   disabled?: boolean;
   required?: boolean;
-  value?: string;
+  value: string | null;
   onChange?: (value: string | null) => void;
 };
 
