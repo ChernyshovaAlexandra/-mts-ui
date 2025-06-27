@@ -1,4 +1,4 @@
-import React, { memo, InputHTMLAttributes, useId } from "react";
+import React, { memo, InputHTMLAttributes, useId, forwardRef } from "react";
 import { Wrapper, InputWrapper, Label } from "./style";
 import { ErrorMessage, StyledLabel } from "../Input/style";
 
@@ -10,6 +10,7 @@ export interface RadioButtonProps
 }
 
 export const RadioButton = memo(
+  forwardRef<HTMLInputElement, RadioButtonProps>(
   ({
     style,
     checked,
@@ -19,7 +20,7 @@ export const RadioButton = memo(
     value,
     errorMessage,
     disabled,
-  }: RadioButtonProps) => {
+  }: RadioButtonProps, ref) => {
     const generatedId = useId();
     const id = `${name}-${value}-${generatedId}`;
     const errorId = `${id}-error`;
@@ -33,6 +34,7 @@ export const RadioButton = memo(
         >
           <InputWrapper style={style}>
             <input
+              ref={ref}
               name={name}
               id={id}
               disabled={disabled}
@@ -71,8 +73,8 @@ export const RadioButton = memo(
           <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
         )}
       </>
-    );
-  }
-);
+      );
+    });
+  );
 
 export default RadioButton;

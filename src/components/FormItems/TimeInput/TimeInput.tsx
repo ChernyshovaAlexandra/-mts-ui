@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useMemo, forwardRef } from "react";
 import { TimePicker } from "antd";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
@@ -24,6 +24,7 @@ export type TimeInputProps = {
 };
 
 export const TimeInput = memo(
+  forwardRef<any, TimeInputProps>(
   ({
     inputId,
     label,
@@ -32,7 +33,7 @@ export const TimeInput = memo(
     value = null,
     onChange,
     required,
-  }: TimeInputProps) => {
+  }: TimeInputProps, ref) => {
     const timeValue = useMemo(
       () => (value ? dayjs(value, "HH:mm") : null),
       [value]
@@ -49,6 +50,7 @@ export const TimeInput = memo(
         )}
         <InputWrapper>
           <StyledTimePicker
+            ref={ref}
             id={inputId}
             placeholder="чч:мм"
             value={timeValue}
@@ -69,5 +71,5 @@ export const TimeInput = memo(
         )}
       </Wrapper>
     );
-  }
+  });
 );
