@@ -2,7 +2,12 @@ import React, { memo, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconDropdown } from "../../icons";
 import Separator from "../Separator/Separator";
-import { FaqStyledSection, FaqQuestion, FaqAnswer } from "./style";
+import {
+  FaqItemWrapper,
+  FaqStyledButton,
+  FaqQuestion,
+  FaqAnswer,
+} from "./style";
 
 export type FaqItem = {
   question: string;
@@ -15,13 +20,12 @@ export interface FaqProps {
 }
 
 export const Faq: React.FC<FaqProps> = memo(({ items, style }) => {
-  const [openItems, setOpenItems] = useState<Set<number>>(() => new Set());
+  const [openItems, setOpenItems] = useState<Set<number>>(new Set());
 
   const toggleItem = useCallback((index: number) => {
     setOpenItems((prev) => {
       const next = new Set(prev);
-      if (next.has(index)) next.delete(index);
-      else next.add(index);
+      next.has(index) ? next.delete(index) : next.add(index);
       return next;
     });
   }, []);
@@ -34,21 +38,20 @@ export const Faq: React.FC<FaqProps> = memo(({ items, style }) => {
         const questionId = `faq-question-${index}`;
 
         return (
-          <React.Fragment key={index}>
-            <FaqStyledSection
-              as="button"
-              isOpened={isOpened}
+          <FaqItemWrapper key={index}>
+            <FaqStyledButton
+              type="button"
               onClick={() => toggleItem(index)}
               aria-expanded={isOpened}
               aria-controls={answerId}
               id={questionId}
-              style={{ display: "flex", alignItems: "center" }}
+              isOpened={isOpened}
             >
-              <IconDropdown aria-hidden />
-              <FaqQuestion as="span" variant="P3-Medium-Comp">
+              <FaqQuestion as="span" variant="P4-Medium-Comp">
                 {item.question}
               </FaqQuestion>
-            </FaqStyledSection>
+              <IconDropdown aria-hidden />
+            </FaqStyledButton>
 
             <AnimatePresence initial={false}>
               {isOpened && (
@@ -70,9 +73,7 @@ export const Faq: React.FC<FaqProps> = memo(({ items, style }) => {
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {index < items.length - 1 && <Separator />}
-          </React.Fragment>
+          </FaqItemWrapper>
         );
       })}
     </section>

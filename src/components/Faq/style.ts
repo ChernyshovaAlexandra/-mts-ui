@@ -1,34 +1,45 @@
 import styled from "styled-components";
+import Text, { TextVariant } from "../Text/Text";
 import { visuallyImpairedMixin } from "../../accessibility";
-import Text from "../Text/Text";
-import { motion, AnimatePresence } from "framer-motion";
+import { mts_bg_secondary_elevated, mts_text_primary } from "../../consts";
+import { textStyles } from "../Text/style";
 
-export const FaqStyledSection = styled.div<{ isOpened: boolean }>`
-  position: relative;
+export const FaqItemWrapper = styled.div`
+  background-color: ${mts_bg_secondary_elevated};
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 8px;
+`;
+
+export const FaqStyledButton = styled.button<{ isOpened: boolean }>`
   display: flex;
-  padding: 10px 0;
-  flex-direction: column;
-  align-items: flex-start;
-  align-self: stretch;
-  gap: 14px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  width: 100%;
+  background: none;
+  border: none;
   cursor: pointer;
+  text-align: left;
 
   svg {
-    position: absolute;
-    right: 0;
-    top: 10px;
+    transition: transform 0.3s ease-in-out;
     transform: ${({ isOpened }) =>
-      isOpened ? `rotateX(180deg)` : `rotateX(0deg)`};
-    transition: all 0.2s ease-in-out;
+      isOpened ? "rotate(180deg)" : "rotate(0deg)"};
   }
+
   ${visuallyImpairedMixin};
 `;
 
-export const FaqQuestion = styled(Text)`
-  padding-right: 25px;
+export const FaqQuestion = styled(Text)<{ variant: TextVariant }>`
+  color: ${mts_text_primary};
+  ${({ variant }) => variant && textStyles[variant]};
+  flex: 1;
+  font-size: 20px;
 `;
 
-export const FaqAnswer = styled(Text)`
-  display: block;
-  transition: all 0.2s ease-in-out;
+export const FaqAnswer = styled(Text)<{ variant: TextVariant }>`
+  padding: 16px 24px;
+  color: ${mts_text_primary};
+  ${({ variant }) => variant && textStyles[variant]};
 `;
