@@ -16,3 +16,4 @@ export { default as IconDate } from "./IconDate/IconDate";
 export { default as IconCheck } from "./IconCheck/IconCheck";
 export { default as IconArrowCircle } from "./IconArrowCircle/IconArrowCircle";
 export { default as IconTime } from "./IconTime/IconTime";
+export { default as IconCamera } from "./IconCamera/IconCamera";

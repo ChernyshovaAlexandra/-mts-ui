@@ -39,6 +39,8 @@ export {
   Navigation,
   type NavigationProps,
 } from "./components/Navigation/Navigation";
+export { GalleryCard } from "./components/GalleryCard/GalleryCard";
+export { GalleryCarousel } from "./components/GalleryCard/GalleryCarousel";
 
 export { Carousel, type CarouselProps } from "./components/Carousel/Carousel";
 
@@ -129,6 +131,7 @@ export { IconDate } from "./icons/IconDate/IconDate";
 export { IconArrowCircle } from "./icons/IconArrowCircle/IconArrowCircle";
 export { IconCheck } from "./icons/IconCheck/IconCheck";
 export { IconTime } from "./icons/IconTime/IconTime";
+export { IconCamera } from "./icons/IconCamera/IconCamera";
 
 export {
   AccessibilityProvider,

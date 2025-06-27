@@ -66,6 +66,7 @@
   },
   "dependencies": {
     "framer-motion": "^12.7.5",
+    "fslightbox-react": "^1.8.0",
     "lucide-react": "^0.488.0",
     "react-router-dom": "^7.5.0",
     "react-select": "^5.10.1",

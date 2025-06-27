@@ -1,26 +1,8 @@
 import type { FC, ReactNode } from "react";
-import styled from "styled-components";
 import { Carousel as AntdCarousel } from "antd";
+import { CarouselContainer, ArrowButton, DotContainer, Dot } from "./style";
 import { IconArrowCircle } from "../../icons";
-
-const CarouselContainer = styled.div`
-  position: relative;
-`;
-
-const ArrowButton = styled.button<{ right?: boolean }>`
-  position: absolute;
-  top: 50%;
-  ${(props) => (props.right ? "right: -20px;" : "left: -20px;")}
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import { useRef, useState } from "react";
 
 export type CarouselProps = {
   items: ReactNode[];
@@ -28,6 +10,7 @@ export type CarouselProps = {
   slidesToScroll?: number;
   infinite?: boolean;
   arrowColor?: string;
+  showDots?: boolean;
 };
 
 export const Carousel: FC<CarouselProps> = ({
@@ -36,31 +19,47 @@ export const Carousel: FC<CarouselProps> = ({
   slidesToScroll = 1,
   infinite = false,
   arrowColor = "#FF0032",
+  showDots = false,
 }) => {
-  let carouselRef: any;
+  const carouselRef = useRef<any>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const renderArrow = (direction: "left" | "right") => (
-    <ArrowButton
-      onClick={() =>
-        direction === "left" ? carouselRef?.prev() : carouselRef?.next()
-      }
-      right={direction === "right"}
-      aria-label={`Прокрутить ${direction === "left" ? "влево" : "вправо"}`}
-    >
-      <IconArrowCircle direction={direction} color={arrowColor} />
-    </ArrowButton>
-  );
+  const totalSlides = items.length;
+  const lastSlideIndex = totalSlides - slidesToShow;
+
+  const isPrevDisabled = !infinite && currentSlide === 0;
+  const isNextDisabled = !infinite && currentSlide >= lastSlideIndex;
+
+  const renderArrow = (direction: "left" | "right") => {
+    const isDisabled = direction === "left" ? isPrevDisabled : isNextDisabled;
+
+    return (
+      <ArrowButton
+        onClick={() =>
+          direction === "left"
+            ? carouselRef.current?.prev()
+            : carouselRef.current?.next()
+        }
+        right={direction === "right"}
+        disabled={isDisabled}
+        aria-label={`Прокрутить ${direction === "left" ? "влево" : "вправо"}`}
+      >
+        <IconArrowCircle direction={direction} color={arrowColor} />
+      </ArrowButton>
+    );
+  };
 
   return (
     <CarouselContainer role="region" aria-label="Карусель с контентом">
       {renderArrow("left")}
 
       <AntdCarousel
-        ref={(ref) => (carouselRef = ref)}
+        ref={carouselRef}
         dots={false}
         infinite={infinite}
         slidesToShow={slidesToShow}
         slidesToScroll={slidesToScroll}
+        beforeChange={(_, next) => setCurrentSlide(next)}
         style={{ padding: "8px 32px" }}
       >
         {items.map((item, index) => (
@@ -71,6 +70,15 @@ export const Carousel: FC<CarouselProps> = ({
       </AntdCarousel>
 
       {renderArrow("right")}
+
+      {showDots && (
+        <DotContainer>
+          {items.map((_, index) => (
+            <Dot key={index} active={index === currentSlide} />
+          ))}
+        </DotContainer>
+      )}
     </CarouselContainer>
   );
 };
+export default Carousel;
