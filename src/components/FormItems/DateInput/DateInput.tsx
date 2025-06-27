@@ -1,4 +1,4 @@
-import { memo, useMemo, useId } from "react";
+import { memo, useMemo, useId, forwardRef } from "react";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
 import "dayjs/locale/ru";
@@ -26,6 +26,7 @@ export type DateInputProps = {
 };
 
 export const DateInput = memo(
+  forwardRef<any, DateInputProps>(
   ({
     label,
     errorMessage,
@@ -33,7 +34,7 @@ export const DateInput = memo(
     value = null,
     onChange,
     required,
-  }: DateInputProps) => {
+  }: DateInputProps, ref) => {
     const dateValue = useMemo(
       () => (value ? dayjs(value, "DD.MM.YYYY") : null),
       [value]
@@ -59,6 +60,7 @@ export const DateInput = memo(
 
         <InputWrapper>
           <StyledDatePicker
+            ref={ref}
             id={inputId}
             locale={locale}
             popupClassName="mts-datepicker-popup"
@@ -83,5 +85,5 @@ export const DateInput = memo(
         )}
       </Wrapper>
     );
-  }
+  });
 );

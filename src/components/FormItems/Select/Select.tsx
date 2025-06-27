@@ -1,5 +1,5 @@
-import React, { useId } from "react";
-import ReactSelect, { StylesConfig } from "react-select";
+import React, { useId, forwardRef } from "react";
+import ReactSelect, { StylesConfig, type SelectInstance } from "react-select";
 import { Wrapper } from "./style";
 import IconLock from "../../../icons/IconLock/IconLock";
 import {
@@ -39,7 +39,7 @@ export interface SelectProps {
   rsProps?: Record<string, unknown>;
 }
 
-export const Select: React.FC<SelectProps> = ({
+export const Select = forwardRef<SelectInstance, SelectProps>(({ 
   name,
   value,
   onChange,
@@ -52,7 +52,7 @@ export const Select: React.FC<SelectProps> = ({
   rsProps,
   id,
   required,
-}) => {
+}, ref) => {
   const generatedId = useId();
   const selectId = id || `select-${generatedId}`;
   const errorId = `${selectId}-error`;
@@ -141,6 +141,7 @@ export const Select: React.FC<SelectProps> = ({
       )}
 
       <ReactSelect
+        ref={ref}
         inputId={selectId}
         instanceId={name}
         isDisabled={disabled}
@@ -176,7 +177,6 @@ export const Select: React.FC<SelectProps> = ({
 
       {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
     </Wrapper>
-  );
-};
+});
 
 export default Select;
