@@ -32,7 +32,7 @@ export const DateInput = memo(
     label,
     errorMessage,
     disabled,
-    value,
+    value = null,
     onChange,
     required,
   }: DateInputProps) => {
