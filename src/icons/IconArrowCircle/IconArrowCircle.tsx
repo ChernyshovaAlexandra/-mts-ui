@@ -5,7 +5,7 @@ type Direction = "left" | "right";
 
 interface Props extends React.SVGProps<SVGSVGElement> {
   direction?: Direction;
-  outlined: boolean;
+  outlined?: boolean;
 }
 
 const Svg = styled.svg<{ $direction: Direction }>`
