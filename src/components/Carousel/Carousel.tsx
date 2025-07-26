@@ -89,7 +89,15 @@ export const Carousel: FC<CarouselProps> = ({
       {customPrevArrow ? (
         <div
           onClick={() => carouselRef.current?.prev()}
-          style={{ position: "absolute", left: 0, top: "50%", zIndex: 2 }}
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            marginTop: "auto",
+            marginBottom: "auto",
+            zIndex: 2,
+          }}
         >
           {customPrevArrow}
         </div>
@@ -125,7 +133,15 @@ export const Carousel: FC<CarouselProps> = ({
       {customNextArrow ? (
         <div
           onClick={() => carouselRef.current?.next()}
-          style={{ position: "absolute", right: 0, top: "50%", zIndex: 2 }}
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            marginTop: "auto",
+            marginBottom: "auto",
+            zIndex: 2,
+          }}
         >
           {customNextArrow}
         </div>
