@@ -11,7 +11,7 @@ export default {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "gray", "ghost", "icon"],
+      options: ["primary", "secondary", "tetriary", "gray", "ghost", "icon"],
     },
     btn_type: {
       control: "radio",

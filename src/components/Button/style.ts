@@ -22,7 +22,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
     700 0.75rem/1rem "MTS Wide",
     sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.05;
+  letter-spacing: 0.05px;
   padding: 14px;
   border-radius: 16px;
   width: ${({ width }) =>
