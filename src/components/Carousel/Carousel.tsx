@@ -86,7 +86,16 @@ export const Carousel: FC<CarouselProps> = ({
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      {customPrevArrow ?? renderDefaultArrow("left")}
+      {customPrevArrow ? (
+        <div
+          onClick={() => carouselRef.current?.prev()}
+          style={{ position: "absolute", left: 0, top: "50%", zIndex: 2 }}
+        >
+          {customPrevArrow}
+        </div>
+      ) : (
+        renderDefaultArrow("left")
+      )}
 
       <AntdCarousel
         ref={carouselRef}
@@ -113,7 +122,16 @@ export const Carousel: FC<CarouselProps> = ({
       </AntdCarousel>
 
       {/* Правая стрелка */}
-      {customNextArrow ?? renderDefaultArrow("right")}
+      {customNextArrow ? (
+        <div
+          onClick={() => carouselRef.current?.next()}
+          style={{ position: "absolute", right: 0, top: "50%", zIndex: 2 }}
+        >
+          {customNextArrow}
+        </div>
+      ) : (
+        renderDefaultArrow("right")
+      )}
 
       {/* Точки */}
       {showDots &&
