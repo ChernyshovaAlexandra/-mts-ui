@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react";
+import type { FC, KeyboardEvent, ReactNode } from "react";
 import { Carousel as AntdCarousel } from "antd";
 import { CarouselContainer, ArrowButton, DotContainer, Dot } from "./style";
 import { IconArrowCircle } from "../../icons";
@@ -11,6 +11,17 @@ export type CarouselProps = {
   infinite?: boolean;
   arrowColor?: string;
   showDots?: boolean;
+  /** Кастомные стрелки */
+  customPrevArrow?: ReactNode;
+  customNextArrow?: ReactNode;
+
+  /** Кастомные точки */
+  customDots?: (
+    activeIndex: number,
+    goTo: (index: number) => void
+  ) => ReactNode;
+
+  ariaLabel?: string;
 };
 
 export const Carousel: FC<CarouselProps> = ({
@@ -20,6 +31,10 @@ export const Carousel: FC<CarouselProps> = ({
   infinite = false,
   arrowColor = "#FF0032",
   showDots = false,
+  customPrevArrow,
+  customNextArrow,
+  customDots,
+  ariaLabel = "Карусель с контентом",
 }) => {
   const carouselRef = useRef<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -30,7 +45,12 @@ export const Carousel: FC<CarouselProps> = ({
   const isPrevDisabled = !infinite && currentSlide === 0;
   const isNextDisabled = !infinite && currentSlide >= lastSlideIndex;
 
-  const renderArrow = (direction: "left" | "right") => {
+  const goTo = (index: number) => {
+    carouselRef.current?.goTo(index);
+    setCurrentSlide(index);
+  };
+
+  const renderDefaultArrow = (direction: "left" | "right") => {
     const isDisabled = direction === "left" ? isPrevDisabled : isNextDisabled;
 
     return (
@@ -49,9 +69,24 @@ export const Carousel: FC<CarouselProps> = ({
     );
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowLeft") {
+      carouselRef.current?.prev();
+    }
+    if (e.key === "ArrowRight") {
+      carouselRef.current?.next();
+    }
+  };
+
   return (
-    <CarouselContainer role="region" aria-label="Карусель с контентом">
-      {renderArrow("left")}
+    <CarouselContainer
+      role="region"
+      aria-label={ariaLabel}
+      aria-roledescription="carousel"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+    >
+      {customPrevArrow ?? renderDefaultArrow("left")}
 
       <AntdCarousel
         ref={carouselRef}
@@ -61,23 +96,43 @@ export const Carousel: FC<CarouselProps> = ({
         slidesToScroll={slidesToScroll}
         beforeChange={(_, next) => setCurrentSlide(next)}
         style={{ padding: "8px 32px" }}
+        aria-live="polite"
       >
         {items.map((item, index) => (
-          <div key={index} style={{ padding: "0 8px" }}>
+          <div
+            key={index}
+            style={{ padding: "0 8px" }}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`Слайд ${index + 1} из ${totalSlides}`}
+            aria-current={index === currentSlide ? "true" : undefined}
+          >
             {item}
           </div>
         ))}
       </AntdCarousel>
 
-      {renderArrow("right")}
+      {/* Правая стрелка */}
+      {customNextArrow ?? renderDefaultArrow("right")}
 
-      {showDots && (
-        <DotContainer>
-          {items.map((_, index) => (
-            <Dot key={index} active={index === currentSlide} />
-          ))}
-        </DotContainer>
-      )}
+      {/* Точки */}
+      {showDots &&
+        (customDots ? (
+          customDots(currentSlide, goTo)
+        ) : (
+          <DotContainer role="tablist" aria-label="Индикаторы слайдов">
+            {items.map((_, index) => (
+              <Dot
+                key={index}
+                active={index === currentSlide}
+                onClick={() => goTo(index)}
+                role="tab"
+                aria-selected={index === currentSlide}
+                aria-label={`Перейти к слайду ${index + 1} из ${totalSlides}`}
+              />
+            ))}
+          </DotContainer>
+        ))}
     </CarouselContainer>
   );
 };
