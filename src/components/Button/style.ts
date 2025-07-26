@@ -42,6 +42,17 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
             background: ${mts_bg_hover};
           }
         `;
+      case "tetriary":
+        return css`
+          background: #ffffff;
+          color: ${mts_text_primary};
+          &:hover {
+            background: #e4e7ec;
+          }
+          &:disabled {
+            background: #969fa8;
+          }
+        `;
       case "gray":
         return css`
           background: ${mts_bg_lower};

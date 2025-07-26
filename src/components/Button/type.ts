@@ -1,6 +1,12 @@
 import React from "react";
 
-export type ButtonVariant = "primary" | "secondary" | "gray" | "ghost" | "icon";
+export type ButtonVariant =
+  | "primary"
+  | "secondary"
+  | "tetriary"
+  | "gray"
+  | "ghost"
+  | "icon";
 
 export interface BaseButtonProps {
   content?: string;

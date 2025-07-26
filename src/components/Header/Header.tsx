@@ -8,15 +8,18 @@ export interface HeaderProps
   children: React.ReactNode;
   style?: React.CSSProperties;
   variant?: HeaderVariant;
+  as?: keyof JSX.IntrinsicElements;
+  "aria-label"?: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   children,
   style,
   variant,
+  as,
   ...rest
 }) => {
-  const HeadingTag =
+  const defaultTag =
     variant === "H2-Wide"
       ? "h2"
       : variant === "H3-Wide"
@@ -24,6 +27,8 @@ export const Header: React.FC<HeaderProps> = ({
         : variant === "H4-Wide"
           ? "h4"
           : "h1";
+
+  const HeadingTag = as || defaultTag;
 
   return (
     <StyledHeader as={HeadingTag} variant={variant} style={style} {...rest}>
