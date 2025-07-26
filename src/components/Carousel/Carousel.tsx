@@ -22,6 +22,8 @@ export type CarouselProps = {
   ) => ReactNode;
 
   ariaLabel?: string;
+  arrowRightStyle?: React.CSSProperties;
+  arrowLeftStyle?: React.CSSProperties;
 };
 
 export const Carousel: FC<CarouselProps> = ({
@@ -35,6 +37,8 @@ export const Carousel: FC<CarouselProps> = ({
   customNextArrow,
   customDots,
   ariaLabel = "Карусель с контентом",
+  arrowRightStyle,
+  arrowLeftStyle
 }) => {
   const carouselRef = useRef<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -89,15 +93,7 @@ export const Carousel: FC<CarouselProps> = ({
       {customPrevArrow ? (
         <div
           onClick={() => carouselRef.current?.prev()}
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-            bottom: 0,
-            marginTop: "auto",
-            marginBottom: "auto",
-            zIndex: 2,
-          }}
+          style={{ ...arrowLeftStyle }}
         >
           {customPrevArrow}
         </div>
@@ -133,15 +129,7 @@ export const Carousel: FC<CarouselProps> = ({
       {customNextArrow ? (
         <div
           onClick={() => carouselRef.current?.next()}
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-            bottom: 0,
-            marginTop: "auto",
-            marginBottom: "auto",
-            zIndex: 2,
-          }}
+          style={{ ...arrowRightStyle }}
         >
           {customNextArrow}
         </div>
