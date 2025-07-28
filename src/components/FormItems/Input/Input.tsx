@@ -77,16 +77,7 @@ export const Input = memo(
         } as React.ChangeEvent<HTMLInputElement>);
         if (validatePattern && error) setError(null);
       };
-      console.log("[Input debug]", {
-        type,
-        value,
-        isPwdField,
-        showPw,
-        effectiveType,
-        hasValue,
-        disabled,
-        error,
-      });
+
       /* ――― JSX ――― */
       return (
         <Wrapper
