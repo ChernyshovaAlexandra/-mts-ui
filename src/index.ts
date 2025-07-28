@@ -9,6 +9,7 @@ export { Burger, type BurgerProps } from "./components/Burger/Burger";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
 export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
+export { Tag, type TagProps } from "./components/Tag/Tag";
 export {
   DateInput,
   type DateInputProps,
