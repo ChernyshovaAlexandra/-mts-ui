@@ -79,6 +79,8 @@ export const Input = memo(
       }, [errorMessage, error]);
 
       const isPassword = props.type === "password";
+      const effectiveType =
+        isPassword && showPassword ? "text" : (props.type ?? "text");
 
       return (
         <Wrapper
@@ -116,6 +118,7 @@ export const Input = memo(
               aria-label={label ? undefined : "Текстовое поле"}
               disabled={disabled}
               ref={inputRef}
+              type={effectiveType}
               {...props}
             />
 
@@ -134,16 +137,19 @@ export const Input = memo(
             )}
 
             {/* Очистка */}
-            {props.value && !error && !disabled && props.type !== "password" && (
-              <IconSlot
-                role="button"
-                aria-label="Очистить поле"
-                onClick={handleClear}
-                style={{ color: mts_text_secondary, cursor: "pointer" }}
-              >
-                <IconClear width={24} height={24} />
-              </IconSlot>
-            )}
+            {props.value &&
+              !error &&
+              !disabled &&
+              props.type !== "password" && (
+                <IconSlot
+                  role="button"
+                  aria-label="Очистить поле"
+                  onClick={handleClear}
+                  style={{ color: mts_text_secondary, cursor: "pointer" }}
+                >
+                  <IconClear width={24} height={24} />
+                </IconSlot>
+              )}
 
             {/* Переключатель видимости пароля */}
             {isPassword && !disabled && (
