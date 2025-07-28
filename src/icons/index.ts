@@ -20,3 +20,4 @@ export { default as IconCamera } from "./IconCamera/IconCamera";
 export { default as IconEye } from "./IconEye";
 export { default as IconEyeOff } from "./IconEyeOff/IconEyeOff";
 export { default as IconStar } from "./IconStar/IconStar";
+export { default as IconChevronRight } from "./IconChevronRight/IconChevronRight";
