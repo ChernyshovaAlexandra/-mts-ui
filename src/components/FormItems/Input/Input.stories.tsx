@@ -55,3 +55,13 @@ Disabled.args = {
   placeholder: "Enter your email",
   validatePattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
 };
+
+export const Password = Template.bind({});
+Password.args = {
+  disabled: false,
+  label: "Введите код",
+  type: "password",
+  value: "12345",
+  placeholder: "Enter your email",
+  validatePattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
+};

@@ -19,8 +19,11 @@ import {
 import IconError from "../../../icons/IconError/IconError";
 import IconInfo from "../../../icons/IconInfo/IconInfo";
 import IconClear from "../../../icons/IconClear/IconClear";
-import { mts_accent_light_negative, mts_text_secondary } from "../../../consts";
 import IconLock from "../../../icons/IconLock/IconLock";
+import IconEye from "../../../icons/IconEye";
+import IconEyeOff from "../../../icons/IconEyeOff/IconEyeOff";
+import { mts_accent_light_negative, mts_text_secondary } from "../../../consts";
+
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string | null;
@@ -39,11 +42,14 @@ export const Input = memo(
         label,
         id,
         disabled,
+        type,
         ...props
       }: InputProps,
       ref
     ) => {
       const [error, setError] = useState<string | null>(errorMessage || null);
+      const [showPassword, setShowPassword] = useState(false);
+
       const generatedId = useId();
       const inputId = id || `input-${generatedId}`;
       const errorId = `${inputId}-error`;
@@ -73,6 +79,10 @@ export const Input = memo(
           setError(errorMessage || null);
         }
       }, [errorMessage, error]);
+
+      const isPassword = type === "password";
+      const effectiveType =
+        isPassword && showPassword ? "text" : (type ?? "text");
 
       return (
         <Wrapper
@@ -105,27 +115,31 @@ export const Input = memo(
             <StyledInput
               {...props}
               id={inputId}
+              type={effectiveType}
               onChange={handleChange}
               aria-invalid={!!error}
               aria-describedby={error ? errorId : undefined}
-              aria-label={label ? undefined : "Текстовое поле"} // fallback если нет label
+              aria-label={label ? undefined : "Текстовое поле"}
               disabled={disabled}
               ref={inputRef}
             />
 
+            {/* Ошибка */}
             {error && (
               <IconSlot style={{ color: mts_accent_light_negative }}>
                 <IconError width="24" height="24" />
               </IconSlot>
             )}
 
+            {/* Инфо, если disabled */}
             {disabled && !error && (
               <IconSlot style={{ color: mts_text_secondary }}>
                 <IconInfo width="24" height="24" />
               </IconSlot>
             )}
 
-            {props.value && !error && !disabled && (
+            {/* Очистка */}
+            {props.value && !error && !disabled && !isPassword && (
               <IconSlot
                 role="button"
                 aria-label="Очистить поле"
@@ -133,6 +147,22 @@ export const Input = memo(
                 style={{ color: mts_text_secondary, cursor: "pointer" }}
               >
                 <IconClear width={24} height={24} />
+              </IconSlot>
+            )}
+
+            {/* Переключатель видимости пароля */}
+            {isPassword && !disabled && (
+              <IconSlot
+                role="button"
+                aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
+                onClick={() => setShowPassword((prev) => !prev)}
+                style={{ color: mts_text_secondary, cursor: "pointer" }}
+              >
+                {showPassword ? (
+                  <IconEyeOff width={24} height={24} />
+                ) : (
+                  <IconEye width={24} height={24} />
+                )}
               </IconSlot>
             )}
           </InputWrapper>

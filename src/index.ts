@@ -132,6 +132,8 @@ export { IconArrowCircle } from "./icons/IconArrowCircle/IconArrowCircle";
 export { IconCheck } from "./icons/IconCheck/IconCheck";
 export { IconTime } from "./icons/IconTime/IconTime";
 export { IconCamera } from "./icons/IconCamera/IconCamera";
+export { IconEye } from "./icons/IconEye";
+export { IconEyeOff } from "./icons/IconEyeOff/IconEyeOff";
 
 export {
   AccessibilityProvider,
