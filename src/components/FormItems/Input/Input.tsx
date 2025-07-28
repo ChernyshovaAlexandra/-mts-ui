@@ -24,7 +24,6 @@ import IconEye from "../../../icons/IconEye";
 import IconEyeOff from "../../../icons/IconEyeOff/IconEyeOff";
 import { mts_accent_light_negative, mts_text_secondary } from "../../../consts";
 
-
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string | null;
   validatePattern?: RegExp;
@@ -139,7 +138,7 @@ export const Input = memo(
             )}
 
             {/* Очистка */}
-            {props.value && !error && !disabled && !isPassword && (
+            {props.value && !error && !disabled && type !== "password" && (
               <IconSlot
                 role="button"
                 aria-label="Очистить поле"
