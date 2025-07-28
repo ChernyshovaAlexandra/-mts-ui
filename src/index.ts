@@ -134,6 +134,7 @@ export { IconTime } from "./icons/IconTime/IconTime";
 export { IconCamera } from "./icons/IconCamera/IconCamera";
 export { IconEye } from "./icons/IconEye";
 export { IconEyeOff } from "./icons/IconEyeOff/IconEyeOff";
+export { IconStar } from "./icons/IconStar/IconStar";
 
 export {
   AccessibilityProvider,
