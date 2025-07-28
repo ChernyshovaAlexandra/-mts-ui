@@ -41,46 +41,48 @@ export const Input = memo(
         label,
         id,
         disabled,
-        ...props
+        type, // сразу достаём type
+        ...otherProps // остальные пропсы без type
       }: InputProps,
       ref
     ) => {
-      const [error, setError] = useState<string | null>(errorMessage || null);
+      const [error, setError] = useState<string | null>(errorMessage);
       const [showPassword, setShowPassword] = useState(false);
 
       const generatedId = useId();
       const inputId = id || `input-${generatedId}`;
       const errorId = `${inputId}-error`;
 
+      const inputRef = useRef<HTMLInputElement>(null);
+      useImperativeHandle(ref, () => inputRef.current!);
+
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (error) setError(null);
         onChange?.(e);
       };
 
-      const inputRef = useRef<HTMLInputElement>(null);
-      useImperativeHandle(ref, () => inputRef.current!, []);
-
       const handleClear = () => {
         if (disabled) return;
         inputRef.current?.focus();
-
-        const event = {
-          target: { value: "" } as EventTarget & HTMLInputElement,
+        const ev = {
+          target: { value: "" },
         } as React.ChangeEvent<HTMLInputElement>;
-
-        onChange?.(event);
+        onChange?.(ev);
         if (validatePattern && error) setError(null);
       };
 
       useEffect(() => {
-        if (errorMessage !== error) {
-          setError(errorMessage || null);
-        }
-      }, [errorMessage, error]);
+        setError(errorMessage);
+      }, [errorMessage]);
 
-      const isPassword = props.type === "password";
+      const isPassword = type === "password";
+      // если пароль и showPassword=true -> показываем текст, иначе — оригинальный type
       const effectiveType =
-        isPassword && showPassword ? "text" : (props.type ?? "text");
+        isPassword && showPassword ? "text" : type || "text";
+
+      // показываем крестик только если это НЕ password-поле
+      const showClearIcon =
+        !!otherProps.value && !error && !disabled && !isPassword;
 
       return (
         <Wrapper
@@ -97,13 +99,9 @@ export const Input = memo(
               {label}
               {disabled && (
                 <IconLock
-                  width="18"
-                  height="18"
-                  style={{
-                    position: "relative",
-                    top: "3px",
-                    marginLeft: "3px",
-                  }}
+                  width={18}
+                  height={18}
+                  style={{ position: "relative", top: 3, marginLeft: 3 }}
                 />
               )}
             </StyledLabel>
@@ -112,51 +110,49 @@ export const Input = memo(
           <InputWrapper>
             <StyledInput
               id={inputId}
+              type={effectiveType}
               onChange={handleChange}
+              onBlur={onBlur}
               aria-invalid={!!error}
               aria-describedby={error ? errorId : undefined}
               aria-label={label ? undefined : "Текстовое поле"}
               disabled={disabled}
               ref={inputRef}
-              type={effectiveType}
-              {...props}
+              {...otherProps}
             />
 
-            {/* Ошибка */}
+            {/* иконка ошибки */}
             {error && (
               <IconSlot style={{ color: mts_accent_light_negative }}>
-                <IconError width="24" height="24" />
+                <IconError width={24} height={24} />
               </IconSlot>
             )}
 
-            {/* Инфо, если disabled */}
+            {/* иконка “i”, если disabled без ошибки */}
             {disabled && !error && (
               <IconSlot style={{ color: mts_text_secondary }}>
-                <IconInfo width="24" height="24" />
+                <IconInfo width={24} height={24} />
               </IconSlot>
             )}
 
-            {/* Очистка */}
-            {props.value &&
-              !error &&
-              !disabled &&
-              props.type !== "password" && (
-                <IconSlot
-                  role="button"
-                  aria-label="Очистить поле"
-                  onClick={handleClear}
-                  style={{ color: mts_text_secondary, cursor: "pointer" }}
-                >
-                  <IconClear width={24} height={24} />
-                </IconSlot>
-              )}
+            {/* крестик очистки */}
+            {showClearIcon && (
+              <IconSlot
+                role="button"
+                aria-label="Очистить поле"
+                onClick={handleClear}
+                style={{ color: mts_text_secondary, cursor: "pointer" }}
+              >
+                <IconClear width={24} height={24} />
+              </IconSlot>
+            )}
 
-            {/* Переключатель видимости пароля */}
+            {/* глаз для пароля */}
             {isPassword && !disabled && (
               <IconSlot
                 role="button"
                 aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={() => setShowPassword((v) => !v)}
                 style={{ color: mts_text_secondary, cursor: "pointer" }}
               >
                 {showPassword ? (
