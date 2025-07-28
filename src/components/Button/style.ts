@@ -38,7 +38,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
         return css`
           background: ${mts_bg_secondary};
           color: ${mts_text_primary};
-          &:hover {
+          &:not(:disabled):hover {
             background: ${mts_bg_hover};
           }
         `;
@@ -46,7 +46,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
         return css`
           background: #ffffff;
           color: ${mts_text_primary};
-          &:hover {
+          &:not(:disabled):hover {
             background: #e4e7ec;
           }
           &:disabled {
@@ -60,7 +60,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
           border: 1px solid rgba(255, 255, 255, 0.4);
           backdrop-filter: blur(10px);
 
-          &:hover {
+          &:not(:disabled):hover {
             background-color: #bcc3d040;
           }
         `;
@@ -71,7 +71,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
           border: 1px solid rgba(255, 255, 255, 0.4);
           border-radius: 32px;
 
-          &:hover {
+          &:not(:disabled):hover {
             background: #ffffff30;
           }
         `;
@@ -84,7 +84,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
           justify-content: center;
           border-radius: 32px;
 
-          &:hover {
+          &:not(:disabled):hover {
             background: #ffffff30;
           }
         `;
@@ -93,7 +93,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
         return css`
           background: ${mts_brand_red};
           color: #fff;
-          &:hover {
+          &:not(:disabled):hover {
             background: #e4002e;
             color: #fff;
           }
@@ -103,6 +103,8 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
 
   &:disabled {
     cursor: not-allowed;
+    background-color: #969fa8 !important;
+    color: #fff !important;
   }
 
   &:not(:disabled) {
