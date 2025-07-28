@@ -4,7 +4,13 @@ import Text from "../Text/Text";
 
 export interface TagProps {
   title: string;
-  variant?: string;
+  /**
+   * Вариант оформления:
+   * - primary  – базовый, красный фон
+   * - gray     – серая плашка
+   * - pill     – белая «таблетка» с серым текстом (используется для номера вопроса)
+   */
+  variant?: "primary" | "gray" | "pill";
   ariaLabel?: string;
   role?: string;
 }
@@ -16,8 +22,8 @@ export const Tag: React.FC<TagProps> = ({
   ariaLabel,
 }) => {
   return (
-    <StyledTag role={role} aria-label={ariaLabel ?? title}>
-      <Text variant="P4-Bold-Upp-Wide">{title}</Text>
+    <StyledTag role={role} aria-label={ariaLabel ?? title} $variant={variant}>
+      <span>{title}</span>
     </StyledTag>
   );
 };
