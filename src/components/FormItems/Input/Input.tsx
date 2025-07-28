@@ -41,7 +41,6 @@ export const Input = memo(
         label,
         id,
         disabled,
-        type,
         ...props
       }: InputProps,
       ref
@@ -79,9 +78,7 @@ export const Input = memo(
         }
       }, [errorMessage, error]);
 
-      const isPassword = type === "password";
-      const effectiveType =
-        isPassword && showPassword ? "text" : (type ?? "text");
+      const isPassword = props.type === "password";
 
       return (
         <Wrapper
@@ -112,15 +109,14 @@ export const Input = memo(
 
           <InputWrapper>
             <StyledInput
-              {...props}
               id={inputId}
-              type={effectiveType}
               onChange={handleChange}
               aria-invalid={!!error}
               aria-describedby={error ? errorId : undefined}
               aria-label={label ? undefined : "Текстовое поле"}
               disabled={disabled}
               ref={inputRef}
+              {...props}
             />
 
             {/* Ошибка */}
@@ -138,7 +134,7 @@ export const Input = memo(
             )}
 
             {/* Очистка */}
-            {props.value && !error && !disabled && type !== "password" && (
+            {props.value && !error && !disabled && props.type !== "password" && (
               <IconSlot
                 role="button"
                 aria-label="Очистить поле"
