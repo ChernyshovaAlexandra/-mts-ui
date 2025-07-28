@@ -1,3 +1,4 @@
+import { StepStatus } from "./components/Stepper/Stepper";
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";
@@ -44,6 +45,13 @@ export { GalleryCard } from "./components/GalleryCard/GalleryCard";
 export { GalleryCarousel } from "./components/GalleryCard/GalleryCarousel";
 
 export { Carousel, type CarouselProps } from "./components/Carousel/Carousel";
+
+export {
+  Stepper,
+  type StepperProps,
+  type Step,
+  type StepStatus,
+} from "./components/Stepper/Stepper";
 
 export {
   mts_text_primary,
@@ -137,6 +145,7 @@ export { IconEye } from "./icons/IconEye";
 export { IconEyeOff } from "./icons/IconEyeOff/IconEyeOff";
 export { IconStar } from "./icons/IconStar/IconStar";
 export { IconChevronRight } from "./icons/IconChevronRight/IconChevronRight";
+export { IconMinus } from "./icons/IconMinus/IconMinus";
 
 export {
   AccessibilityProvider,
