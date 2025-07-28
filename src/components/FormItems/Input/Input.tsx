@@ -41,8 +41,9 @@ export const Input = memo(
         label,
         id,
         disabled,
-        type, // сразу достаём type
-        ...otherProps // остальные пропсы без type
+        type, // HTML type — пароль или нет
+        value, // строка значения
+        ...otherProps
       }: InputProps,
       ref
     ) => {
@@ -55,6 +56,15 @@ export const Input = memo(
 
       const inputRef = useRef<HTMLInputElement>(null);
       useImperativeHandle(ref, () => inputRef.current!);
+
+      useEffect(() => {
+        setError(errorMessage);
+      }, [errorMessage]);
+
+      const isPassword = type === "password";
+      // если это пароль и пользователь нажал «глаз», переключаем в text
+      const effectiveType =
+        isPassword && showPassword ? "text" : type || "text";
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (error) setError(null);
@@ -71,13 +81,8 @@ export const Input = memo(
         if (validatePattern && error) setError(null);
       };
 
-      useEffect(() => {
-        setError(errorMessage);
-      }, [errorMessage]);
-
-      const isPassword = type === "password";
-      const effectiveType =
-        isPassword && showPassword ? "text" : type || "text";
+      // Показываем иконку только если есть какое-то value
+      const hasValue = typeof value === "string" && value.length > 0;
 
       return (
         <Wrapper
@@ -106,6 +111,7 @@ export const Input = memo(
             <StyledInput
               id={inputId}
               type={effectiveType}
+              value={value}
               onChange={handleChange}
               onBlur={onBlur}
               aria-invalid={!!error}
@@ -123,43 +129,43 @@ export const Input = memo(
               </IconSlot>
             )}
 
-            {/* иконка “i”, если disabled без ошибки */}
+            {/* иконка Info, когда disabled и без ошибки */}
             {disabled && !error && (
               <IconSlot style={{ color: mts_text_secondary }}>
                 <IconInfo width={24} height={24} />
               </IconSlot>
             )}
-            {!disabled && !error && otherProps.value && (
-              <>
-                {/* глаз для пароля */}
-                {type === "password" ? (
-                  <IconSlot
-                    role="button"
-                    aria-label={
-                      showPassword ? "Скрыть пароль" : "Показать пароль"
-                    }
-                    onClick={() => setShowPassword((v) => !v)}
-                    style={{ color: mts_text_secondary, cursor: "pointer" }}
-                  >
-                    {showPassword ? (
-                      <IconEyeOff width={24} height={24} />
-                    ) : (
-                      <IconEye width={24} height={24} />
-                    )}
-                  </IconSlot>
-                ) : (
-                  /* крестик очистки */
-                  <IconSlot
-                    role="button"
-                    aria-label="Очистить поле"
-                    onClick={handleClear}
-                    style={{ color: mts_text_secondary, cursor: "pointer" }}
-                  >
-                    <IconClear width={24} height={24} />
-                  </IconSlot>
-                )}
-              </>
-            )}
+
+            {/* если есть value и мы не disabled и нет ошибки */}
+            {hasValue &&
+              !disabled &&
+              !error &&
+              // Если это пароль — показываем глаз, иначе — крестик
+              (isPassword ? (
+                <IconSlot
+                  role="button"
+                  aria-label={
+                    showPassword ? "Скрыть пароль" : "Показать пароль"
+                  }
+                  onClick={() => setShowPassword((v) => !v)}
+                  style={{ color: mts_text_secondary, cursor: "pointer" }}
+                >
+                  {showPassword ? (
+                    <IconEyeOff width={24} height={24} />
+                  ) : (
+                    <IconEye width={24} height={24} />
+                  )}
+                </IconSlot>
+              ) : (
+                <IconSlot
+                  role="button"
+                  aria-label="Очистить поле"
+                  onClick={handleClear}
+                  style={{ color: mts_text_secondary, cursor: "pointer" }}
+                >
+                  <IconClear width={24} height={24} />
+                </IconSlot>
+              ))}
           </InputWrapper>
 
           {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
