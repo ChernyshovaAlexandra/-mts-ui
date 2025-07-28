@@ -41,47 +41,53 @@ export const Input = memo(
         label,
         id,
         disabled,
-        type, // HTML type — пароль или нет
-        value, // строка значения
-        ...otherProps
-      }: InputProps,
+        type, // original type
+        value, // current value
+        ...rest
+      },
       ref
     ) => {
       const [error, setError] = useState<string | null>(errorMessage);
-      const [showPassword, setShowPassword] = useState(false);
+      const [showPw, setShowPw] = useState(false);
 
-      const generatedId = useId();
-      const inputId = id || `input-${generatedId}`;
+      const genId = useId();
+      const inputId = id || `input-${genId}`;
       const errorId = `${inputId}-error`;
 
       const inputRef = useRef<HTMLInputElement>(null);
       useImperativeHandle(ref, () => inputRef.current!);
 
-      useEffect(() => {
-        setError(errorMessage);
-      }, [errorMessage]);
+      useEffect(() => setError(errorMessage), [errorMessage]);
 
-      const isPassword = type === "password";
-      // если это пароль и пользователь нажал «глаз», переключаем в text
+      /* ――― helpers ――― */
+      const isPwdField = (type ?? "").toLowerCase() === "password";
+      const effectiveType = isPwdField && showPw ? "text" : type || "text";
+      const hasValue = typeof value === "string" && value.length > 0;
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (error) setError(null);
         onChange?.(e);
       };
 
-      const handleClear = () => {
+      const clear = () => {
         if (disabled) return;
         inputRef.current?.focus();
-        const ev = {
+        onChange?.({
           target: { value: "" },
-        } as React.ChangeEvent<HTMLInputElement>;
-        onChange?.(ev);
+        } as React.ChangeEvent<HTMLInputElement>);
         if (validatePattern && error) setError(null);
       };
-
-      // Показываем иконку только если есть какое-то value
-      const hasValue = typeof value === "string" && value.length > 0;
-
+      console.log("[Input debug]", {
+        type,
+        value,
+        isPwdField,
+        showPw,
+        effectiveType,
+        hasValue,
+        disabled,
+        error,
+      });
+      /* ――― JSX ――― */
       return (
         <Wrapper
           role="group"
@@ -108,7 +114,7 @@ export const Input = memo(
           <InputWrapper>
             <StyledInput
               id={inputId}
-              type={type}
+              type={effectiveType}
               value={value}
               onChange={handleChange}
               onBlur={onBlur}
@@ -117,38 +123,33 @@ export const Input = memo(
               aria-label={label ? undefined : "Текстовое поле"}
               disabled={disabled}
               ref={inputRef}
-              {...otherProps}
+              {...rest}
             />
 
-            {/* иконка ошибки */}
             {error && (
               <IconSlot style={{ color: mts_accent_light_negative }}>
                 <IconError width={24} height={24} />
               </IconSlot>
             )}
 
-            {/* иконка Info, когда disabled и без ошибки */}
             {disabled && !error && (
               <IconSlot style={{ color: mts_text_secondary }}>
                 <IconInfo width={24} height={24} />
               </IconSlot>
             )}
 
-            {/* если есть value и мы не disabled и нет ошибки */}
+            {/* единственный блок с иконкой справа */}
             {hasValue &&
               !disabled &&
               !error &&
-              // Если это пароль — показываем глаз, иначе — крестик
-              (isPassword ? (
+              (isPwdField ? (
                 <IconSlot
                   role="button"
-                  aria-label={
-                    showPassword ? "Скрыть пароль" : "Показать пароль"
-                  }
-                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPw ? "Скрыть пароль" : "Показать пароль"}
+                  onClick={() => setShowPw((v) => !v)}
                   style={{ color: mts_text_secondary, cursor: "pointer" }}
                 >
-                  {showPassword ? (
+                  {showPw ? (
                     <IconEyeOff width={24} height={24} />
                   ) : (
                     <IconEye width={24} height={24} />
@@ -158,7 +159,7 @@ export const Input = memo(
                 <IconSlot
                   role="button"
                   aria-label="Очистить поле"
-                  onClick={handleClear}
+                  onClick={clear}
                   style={{ color: mts_text_secondary, cursor: "pointer" }}
                 >
                   <IconClear width={24} height={24} />
