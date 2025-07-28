@@ -76,13 +76,8 @@ export const Input = memo(
       }, [errorMessage]);
 
       const isPassword = type === "password";
-      // если пароль и showPassword=true -> показываем текст, иначе — оригинальный type
       const effectiveType =
         isPassword && showPassword ? "text" : type || "text";
-
-      // показываем крестик только если это НЕ password-поле
-      const showClearIcon =
-        !!otherProps.value && !error && !disabled && !isPassword;
 
       return (
         <Wrapper
@@ -134,33 +129,36 @@ export const Input = memo(
                 <IconInfo width={24} height={24} />
               </IconSlot>
             )}
-
-            {/* крестик очистки */}
-            {showClearIcon && (
-              <IconSlot
-                role="button"
-                aria-label="Очистить поле"
-                onClick={handleClear}
-                style={{ color: mts_text_secondary, cursor: "pointer" }}
-              >
-                <IconClear width={24} height={24} />
-              </IconSlot>
-            )}
-
-            {/* глаз для пароля */}
-            {isPassword && !disabled && (
-              <IconSlot
-                role="button"
-                aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
-                onClick={() => setShowPassword((v) => !v)}
-                style={{ color: mts_text_secondary, cursor: "pointer" }}
-              >
-                {showPassword ? (
-                  <IconEyeOff width={24} height={24} />
+            {!disabled && !error && otherProps.value && (
+              <>
+                {/* глаз для пароля */}
+                {type === "password" ? (
+                  <IconSlot
+                    role="button"
+                    aria-label={
+                      showPassword ? "Скрыть пароль" : "Показать пароль"
+                    }
+                    onClick={() => setShowPassword((v) => !v)}
+                    style={{ color: mts_text_secondary, cursor: "pointer" }}
+                  >
+                    {showPassword ? (
+                      <IconEyeOff width={24} height={24} />
+                    ) : (
+                      <IconEye width={24} height={24} />
+                    )}
+                  </IconSlot>
                 ) : (
-                  <IconEye width={24} height={24} />
+                  /* крестик очистки */
+                  <IconSlot
+                    role="button"
+                    aria-label="Очистить поле"
+                    onClick={handleClear}
+                    style={{ color: mts_text_secondary, cursor: "pointer" }}
+                  >
+                    <IconClear width={24} height={24} />
+                  </IconSlot>
                 )}
-              </IconSlot>
+              </>
             )}
           </InputWrapper>
 
