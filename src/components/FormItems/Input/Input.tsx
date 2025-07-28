@@ -63,8 +63,6 @@ export const Input = memo(
 
       const isPassword = type === "password";
       // если это пароль и пользователь нажал «глаз», переключаем в text
-      const effectiveType =
-        isPassword && showPassword ? "text" : type || "text";
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (error) setError(null);
@@ -110,7 +108,7 @@ export const Input = memo(
           <InputWrapper>
             <StyledInput
               id={inputId}
-              type={effectiveType}
+              type={type}
               value={value}
               onChange={handleChange}
               onBlur={onBlur}
