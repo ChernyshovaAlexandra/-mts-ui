@@ -34,7 +34,7 @@ export const Link: FC<LinkProps> = ({
         style={style}
         onClick={onClick}
         className={underlined ? "underlined" : ""}
-        aria-current="page" // опционально: если используешь в навигации
+        aria-current="page"
         {...rest}
       >
         {children}
