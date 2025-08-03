@@ -1,4 +1,3 @@
-import { StepStatus } from "./components/Stepper/Stepper";
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";
@@ -10,6 +9,10 @@ export { Burger, type BurgerProps } from "./components/Burger/Burger";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
 export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
+export {
+  RadioGroup,
+  type RadioGroupProps,
+} from "./components/FormItems/RadioGroup/RadioGroup";
 export { Tag, type TagProps } from "./components/Tag/Tag";
 export {
   DateInput,

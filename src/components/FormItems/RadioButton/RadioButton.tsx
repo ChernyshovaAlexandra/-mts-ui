@@ -21,6 +21,7 @@ export const RadioButton = memo(
         value,
         errorMessage,
         disabled,
+        ...rest
       }: RadioButtonProps,
       ref
     ) => {
@@ -34,20 +35,25 @@ export const RadioButton = memo(
             as="label"
             htmlFor={id}
             aria-describedby={errorMessage ? errorId : undefined}
+            data-disabled={disabled ? "" : undefined}
           >
-            <InputWrapper style={style}>
+            <InputWrapper style={style} $checked={!!checked}>
               <input
-                ref={ref}
-                name={name}
-                id={id}
-                disabled={disabled}
-                type="radio"
-                checked={checked}
-                onChange={onChange}
-                value={value}
-                aria-invalid={!!errorMessage}
+                /* eslint-disable-next-line jsx-a11y/aria-props */
+                aria-invalid={Boolean(errorMessage)}
                 aria-describedby={errorMessage ? errorId : undefined}
+                checked={checked}
+                disabled={disabled}
+                id={id}
+                name={name}
+                onChange={onChange}
+                ref={ref}
+                type="radio"
+                value={value}
+                {...rest}
               />
+
+              {/* радиокнопка — SVG */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -58,12 +64,7 @@ export const RadioButton = memo(
                 focusable="false"
               >
                 <circle cx="8" cy="8" r="7.5" stroke="currentColor" />
-                <circle
-                  cx="8.00055"
-                  cy="8.00006"
-                  r="3.19586"
-                  fill="currentColor"
-                />
+                <circle cx="8" cy="8" r="3.2" fill="currentColor" />
               </svg>
             </InputWrapper>
 
@@ -80,5 +81,7 @@ export const RadioButton = memo(
     }
   )
 );
+
+RadioButton.displayName = "RadioButton";
 
 export default RadioButton;
