@@ -36,6 +36,31 @@ const mapStatusToColor = (status: StepStatus): string => {
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  --gap: clamp(8px, 2.4vw, 16px);
+  --divider-w: clamp(16px, 6vw, 60px);
+  --size: clamp(20px, 5vw, 32px);
+
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+
+  /* мобильный: скролл + снап по кружкам */
+  overflow-x: auto;
+  padding: 0 4px;
+  scroll-snap-type: x mandatory;
+
+  /* прячем скроллбар */
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    /* десктоп: растягиваем разделители, без скролла */
+    overflow: visible;
+    scroll-snap-type: none;
+  }
 `;
 
 /* ---------- circle ---------- */
@@ -52,6 +77,7 @@ export const Circle = styled.div<CircleProps>`
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
+  flex-shrink: 0;
   font:
     700 20px / var(--size) "Inter",
     sans-serif;
@@ -86,9 +112,15 @@ export const Circle = styled.div<CircleProps>`
 /* ---------- divider ---------- */
 
 export const Divider = styled.span`
-  display: inline-block;
-  width: 60px;
   height: 2px;
-  margin: 0 12px;
   background: rgba(188, 195, 208, 0.5);
+
+  flex: 0 0 var(--divider-w);
+
+  margin: 0;
+
+  @media (min-width: 768px) {
+    flex: 1 1 auto;
+    max-width: 120px; /* чтобы не были слишком длинными на очень широких экранах */
+  }
 `;

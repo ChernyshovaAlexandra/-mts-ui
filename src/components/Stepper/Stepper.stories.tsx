@@ -40,6 +40,10 @@ export const Default: Story = {
       { index: 3, status: "error" },
       { index: 4, status: "active" },
       { index: 5, status: "disabled" },
+      { index: 6, status: "success" },
+      { index: 7, status: "error" },
+      { index: 8, status: "active" },
+      { index: 9, status: "disabled" },
     ],
   },
 };
