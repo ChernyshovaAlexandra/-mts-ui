@@ -21,6 +21,7 @@ export interface TextProps
   role?: React.AriaRole;
   "aria-label"?: string;
   as?: keyof JSX.IntrinsicElements;
+  ref?: React.Ref<HTMLParagraphElement>; 
 }
 
 export const Text: React.FC<TextProps> = ({
@@ -30,11 +31,13 @@ export const Text: React.FC<TextProps> = ({
   className,
   role,
   as = "p",
+  ref,
   ...rest
 }) => {
   return (
     <StyledText
       as={as}
+      ref={ref}
       variant={variant}
       style={style}
       className={className}
