@@ -15,6 +15,7 @@ export type CarouselProps = {
   customPrevArrow?: ReactNode;
   customNextArrow?: ReactNode;
   beforeChange?: () => void;
+  afterChange?: (current: number) => void;
 
   /** Кастомные точки */
   customDots?: (
@@ -41,6 +42,7 @@ export const Carousel: FC<CarouselProps> = ({
   arrowRightStyle,
   arrowLeftStyle,
   beforeChange,
+  afterChange,
 }) => {
   const carouselRef = useRef<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -52,6 +54,7 @@ export const Carousel: FC<CarouselProps> = ({
   const isNextDisabled = !infinite && currentSlide >= lastSlideIndex;
 
   const goTo = (index: number) => {
+    beforeChange?.();
     carouselRef.current?.goTo(index);
     setCurrentSlide(index);
   };
@@ -61,11 +64,12 @@ export const Carousel: FC<CarouselProps> = ({
 
     return (
       <ArrowButton
-        onClick={() =>
+        onClick={() => {
+          beforeChange?.();
           direction === "left"
             ? carouselRef.current?.prev()
-            : carouselRef.current?.next()
-        }
+            : carouselRef.current?.next();
+        }}
         right={direction === "right"}
         disabled={isDisabled}
         aria-label={`Прокрутить ${direction === "left" ? "влево" : "вправо"}`}
@@ -77,9 +81,11 @@ export const Carousel: FC<CarouselProps> = ({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowLeft") {
+      beforeChange?.();
       carouselRef.current?.prev();
     }
     if (e.key === "ArrowRight") {
+      beforeChange?.();
       carouselRef.current?.next();
     }
   };
@@ -94,7 +100,10 @@ export const Carousel: FC<CarouselProps> = ({
     >
       {customPrevArrow ? (
         <div
-          onClick={() => carouselRef.current?.prev()}
+          onClick={() => {
+            beforeChange?.();
+            carouselRef.current?.prev();
+          }}
           style={{ ...arrowLeftStyle }}
         >
           {customPrevArrow}
@@ -110,9 +119,10 @@ export const Carousel: FC<CarouselProps> = ({
         slidesToShow={slidesToShow}
         slidesToScroll={slidesToScroll}
         beforeChange={(_, next) => {
-          beforeChange && beforeChange();
+          beforeChange?.();
           setCurrentSlide(next);
         }}
+        afterChange={(cur) => afterChange?.(cur)}
         style={{ padding: "8px 32px" }}
         aria-live="polite"
       >
@@ -133,7 +143,10 @@ export const Carousel: FC<CarouselProps> = ({
       {/* Правая стрелка */}
       {customNextArrow ? (
         <div
-          onClick={() => carouselRef.current?.next()}
+          onClick={() => {
+            beforeChange?.();
+            carouselRef.current?.next();
+          }}
           style={{ ...arrowRightStyle }}
         >
           {customNextArrow}
