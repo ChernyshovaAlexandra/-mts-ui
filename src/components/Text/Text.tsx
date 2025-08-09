@@ -3,7 +3,9 @@ import { StyledText } from "./style";
 
 export type TextVariant =
   | "P1-Regular-Comp"
+  | "P1-Regular-Text"
   | "P2-Regular-Comp"
+  | "P2-Regular-Text"
   | "P3-Bold-Comp"
   | "P3-Medium-Comp"
   | "P3-Regular-Comp"
@@ -22,7 +24,7 @@ export interface TextProps
   role?: React.AriaRole;
   "aria-label"?: string;
   as?: keyof JSX.IntrinsicElements;
-  ref?: React.Ref<HTMLParagraphElement>; 
+  ref?: React.Ref<HTMLParagraphElement>;
 }
 
 export const Text: React.FC<TextProps> = ({
