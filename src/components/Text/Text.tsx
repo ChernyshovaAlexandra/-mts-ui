@@ -7,6 +7,7 @@ export type TextVariant =
   | "P3-Bold-Comp"
   | "P3-Medium-Comp"
   | "P3-Regular-Comp"
+  | "P3-Regular-Text"
   | "P4-Bold-Upp-Wide"
   | "P4-Regular-Comp"
   | "P4-Medium-Comp"

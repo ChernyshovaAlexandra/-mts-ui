@@ -39,7 +39,7 @@ export const textStyles = {
     font-size: 14px;
     line-height: 20px;
     font-weight: 700;
-    letter-spacing: .05;
+    letter-spacing: 0.05;
     text-transform: uppercase;
     font-family: "MTS Wide", sans-serif;
   `,
@@ -58,6 +58,12 @@ export const textStyles = {
   "P4-Regular-Text": css`
     font-size: 14px;
     line-height: 20px;
+    font-weight: 400;
+    font-family: "MTS Text", sans-serif;
+  `,
+  "P3-Regular-Text": css`
+    font-size: 17px;
+    line-height: 1.4;
     font-weight: 400;
     font-family: "MTS Text", sans-serif;
   `,
