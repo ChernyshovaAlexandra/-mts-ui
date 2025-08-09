@@ -109,8 +109,6 @@ export const Circle = styled.div<CircleProps>`
   `}
 `;
 
-/* ---------- divider ---------- */
-
 export const Divider = styled.span`
   height: 2px;
   background: rgba(188, 195, 208, 0.5);
@@ -121,6 +119,6 @@ export const Divider = styled.span`
 
   @media (min-width: 768px) {
     flex: 1 1 auto;
-    max-width: 120px; /* чтобы не были слишком длинными на очень широких экранах */
+    max-width: 120px;
   }
 `;
