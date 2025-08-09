@@ -11,11 +11,23 @@ export const textStyles = {
     font-weight: 400;
     font-family: "MTS Compact", sans-serif;
   `,
+  "P1-Regular-Text": css`
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+    font-family: "MTS Text", sans-serif;
+  `,
   "P2-Regular-Comp": css`
     font-size: 20px;
     line-height: 28px;
     font-weight: 400;
     font-family: "MTS Compact", sans-serif;
+  `,
+  "P2-Regular-Text": css`
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+    font-family: "MTS Text", sans-serif;
   `,
   "P3-Bold-Comp": css`
     font-size: 17px;
