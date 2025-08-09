@@ -14,6 +14,7 @@ export type CarouselProps = {
   /** Кастомные стрелки */
   customPrevArrow?: ReactNode;
   customNextArrow?: ReactNode;
+  beforeChange?: () => void;
 
   /** Кастомные точки */
   customDots?: (
@@ -39,6 +40,7 @@ export const Carousel: FC<CarouselProps> = ({
   ariaLabel = "Карусель с контентом",
   arrowRightStyle,
   arrowLeftStyle,
+  beforeChange,
 }) => {
   const carouselRef = useRef<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -49,16 +51,7 @@ export const Carousel: FC<CarouselProps> = ({
   const isPrevDisabled = !infinite && currentSlide === 0;
   const isNextDisabled = !infinite && currentSlide >= lastSlideIndex;
 
-  const pauseAllVideos = () => {
-    if (!carouselRef.current) return;
-    const root = (carouselRef.current as any).innerSlider?.list || document;
-    (root.querySelectorAll("video") as NodeListOf<HTMLVideoElement>).forEach(
-      (v) => v.pause()
-    );
-  };
-
   const goTo = (index: number) => {
-    pauseAllVideos();
     carouselRef.current?.goTo(index);
     setCurrentSlide(index);
   };
@@ -68,12 +61,11 @@ export const Carousel: FC<CarouselProps> = ({
 
     return (
       <ArrowButton
-        onClick={() => {
-          pauseAllVideos();
+        onClick={() =>
           direction === "left"
             ? carouselRef.current?.prev()
-            : carouselRef.current?.next();
-        }}
+            : carouselRef.current?.next()
+        }
         right={direction === "right"}
         disabled={isDisabled}
         aria-label={`Прокрутить ${direction === "left" ? "влево" : "вправо"}`}
@@ -85,11 +77,9 @@ export const Carousel: FC<CarouselProps> = ({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "ArrowLeft") {
-      pauseAllVideos();
       carouselRef.current?.prev();
     }
     if (e.key === "ArrowRight") {
-      pauseAllVideos();
       carouselRef.current?.next();
     }
   };
@@ -104,10 +94,7 @@ export const Carousel: FC<CarouselProps> = ({
     >
       {customPrevArrow ? (
         <div
-          onClick={() => {
-            pauseAllVideos();
-            carouselRef.current?.prev();
-          }}
+          onClick={() => carouselRef.current?.prev()}
           style={{ ...arrowLeftStyle }}
         >
           {customPrevArrow}
@@ -123,7 +110,7 @@ export const Carousel: FC<CarouselProps> = ({
         slidesToShow={slidesToShow}
         slidesToScroll={slidesToScroll}
         beforeChange={(_, next) => {
-          pauseAllVideos();
+          beforeChange && beforeChange();
           setCurrentSlide(next);
         }}
         style={{ padding: "8px 32px" }}
@@ -143,12 +130,10 @@ export const Carousel: FC<CarouselProps> = ({
         ))}
       </AntdCarousel>
 
+      {/* Правая стрелка */}
       {customNextArrow ? (
         <div
-          onClick={() => {
-            pauseAllVideos();
-            carouselRef.current?.next();
-          }}
+          onClick={() => carouselRef.current?.next()}
           style={{ ...arrowRightStyle }}
         >
           {customNextArrow}
@@ -157,6 +142,7 @@ export const Carousel: FC<CarouselProps> = ({
         renderDefaultArrow("right")
       )}
 
+      {/* Точки */}
       {showDots &&
         (customDots ? (
           customDots(currentSlide, goTo)
