@@ -149,6 +149,7 @@ export { IconEyeOff } from "./icons/IconEyeOff/IconEyeOff";
 export { IconStar } from "./icons/IconStar/IconStar";
 export { IconChevronRight } from "./icons/IconChevronRight/IconChevronRight";
 export { IconMinus } from "./icons/IconMinus/IconMinus";
+export { IconAttention } from "./icons/IconAttention/IconAttention";
 
 export {
   AccessibilityProvider,

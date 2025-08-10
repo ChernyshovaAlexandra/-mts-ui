@@ -16,7 +16,7 @@ import {
   InputWrapper,
   IconSlot,
 } from "./style";
-import IconError from "../../../icons/IconError/IconError";
+import IconError from "../../../icons/IconAttention/IconAttention";
 import IconInfo from "../../../icons/IconInfo/IconInfo";
 import IconClear from "../../../icons/IconClear/IconClear";
 import IconLock from "../../../icons/IconLock/IconLock";
