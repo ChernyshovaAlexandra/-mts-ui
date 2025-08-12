@@ -3,7 +3,7 @@ import { visuallyImpairedMixin } from "../../accessibility";
 import { mts_text_primary, mts_bg_secondary, mts_bg_hover } from "../../consts";
 import Text from "../Text/Text";
 
-export const Overlay = styled.div`
+export const Overlay2 = styled.div`
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.4);

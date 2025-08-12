@@ -1,5 +1,5 @@
 import React, { FC, HTMLAttributes, memo } from "react";
-import { CloseButton, ModalContainer, Overlay, Title } from "./style";
+import { CloseButton, ModalContainer, Overlay2, Title } from "./style";
 import IconX from "../../icons/IconX/IconX";
 
 export interface ModalProps
@@ -27,7 +27,7 @@ export const Modal: FC<ModalProps> = memo(
     const titleId = title ? "modal-title" : undefined;
 
     return (
-      <Overlay onClick={handleClose}>
+      <Overlay2 onClick={handleClose}>
         <ModalContainer
           role="dialog"
           aria-modal="true"
@@ -53,7 +53,7 @@ export const Modal: FC<ModalProps> = memo(
 
           {children}
         </ModalContainer>
-      </Overlay>
+      </Overlay2>
     );
   }
 );
