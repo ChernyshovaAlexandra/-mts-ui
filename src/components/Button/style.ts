@@ -19,7 +19,7 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
 
   text-align: center;
   font:
-    700 0.75rem/1rem "MTS Wide",
+    500 0.75rem/1rem "MTS Wide",
     sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.05px;
