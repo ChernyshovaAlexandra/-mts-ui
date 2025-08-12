@@ -15,6 +15,7 @@ export const Overlay = styled.div`
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   clip-path: none !important;
+  height: 100vh;
 `;
 
 export const ModalContainer = styled.div`

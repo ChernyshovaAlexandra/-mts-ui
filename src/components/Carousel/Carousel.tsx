@@ -11,6 +11,7 @@ export type CarouselProps = {
   infinite?: boolean;
   arrowColor?: string;
   showDots?: boolean;
+  style?: React.CSSProperties;
   /** Кастомные стрелки */
   customPrevArrow?: ReactNode;
   customNextArrow?: ReactNode;
@@ -43,6 +44,7 @@ export const Carousel: FC<CarouselProps> = ({
   arrowLeftStyle,
   beforeChange,
   afterChange,
+  style,
 }) => {
   const carouselRef = useRef<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -113,6 +115,7 @@ export const Carousel: FC<CarouselProps> = ({
       )}
 
       <AntdCarousel
+        style={{ padding: "8px 32px", ...style }}
         ref={carouselRef}
         dots={false}
         infinite={infinite}
@@ -123,7 +126,6 @@ export const Carousel: FC<CarouselProps> = ({
           setCurrentSlide(next);
         }}
         afterChange={(cur) => afterChange?.(cur)}
-        style={{ padding: "8px 32px" }}
         aria-live="polite"
       >
         {items.map((item, index) => (
