@@ -65,7 +65,7 @@ export const Input = memo(
       const hasValue = typeof value === "string" && value.length > 0;
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (error) setError(null);
+        // if (error) setError(null);
         onChange?.(e);
       };
 
