@@ -4,7 +4,8 @@ import { mts_text_primary, mts_bg_secondary, mts_bg_hover } from "../../consts";
 import Text from "../Text/Text";
 
 export const Overlay2 = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
