@@ -147,6 +147,8 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
         )}
 
         <ReactSelect
+          menuPortalTarget={document.body}
+          menuPosition="fixed"
           ref={ref}
           inputId={selectId}
           instanceId={name}
