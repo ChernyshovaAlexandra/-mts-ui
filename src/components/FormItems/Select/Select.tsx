@@ -158,7 +158,10 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           placeholder={placeholder || "— выберите —"}
           options={rsOptions as any}
           value={selected as any}
-          styles={colourStyles}
+          styles={{
+            ...colourStyles,
+            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+          }}
           required={required}
           components={{
             IndicatorSeparator: () => null,
