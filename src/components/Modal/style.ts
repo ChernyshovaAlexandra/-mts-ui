@@ -31,10 +31,12 @@ export const ModalContainer = styled.div`
   -webkit-overflow-scrolling: touch;
 
   @media (max-width: 480px) {
-    border-radius: 16px;
-    max-width: 90%;
-    max-height: 85vh;
-    padding: 16px;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    padding: 16px 16px 40px;
   }
   ${visuallyImpairedMixin};
 `;
