@@ -9,7 +9,7 @@ export const SnackbarWrapper = styled.div`
   left: auto;
   right: 24px;
   margin: auto;
-  width: calc(100% - 48px);
+  width: 100%;
   padding: 24px 32px;
   color: ${mts_text_primary};
   background-color: #fff;
@@ -35,5 +35,9 @@ export const SnackbarWrapper = styled.div`
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+  }
+
+  @media screen and (min-width: 780px) {
+    width: calc(100% - 48px);
   }
 `;

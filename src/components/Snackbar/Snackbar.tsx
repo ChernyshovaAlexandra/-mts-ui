@@ -2,10 +2,7 @@ import React, { FC, memo, useEffect } from "react";
 import { SnackbarWrapper } from "./style";
 import { IconError, IconSuccess } from "../../icons";
 import { Flex } from "antd";
-import {
-  mts_accent_light_positive,
-  mts_brand_red_dark,
-} from "../../consts";
+import { mts_accent_light_positive, mts_brand_red_dark } from "../../consts";
 
 export interface SnackBarProps {
   message: string | React.ReactNode;
@@ -31,7 +28,13 @@ export const Snackbar: FC<SnackBarProps> = memo(
 
     return (
       <div
-        style={{ width: "100%", position: "relative", ...style }}
+        style={{
+          position: "fixed",
+          bottom: "16px",
+          zIndex: 9999,
+          width: "calc(100% - 32px)",
+          ...style,
+        }}
         role="status"
         aria-live={type === "error" ? "assertive" : "polite"}
         aria-atomic="true"
