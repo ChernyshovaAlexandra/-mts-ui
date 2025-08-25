@@ -1,0 +1,1 @@
+const e={parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}},a11y:{disable:!1,element:"#root",config:{},options:{}},default:"light",values:[{name:"light",value:"#f9fafb"},{name:"dark",value:"#1e1e1e"}]}};export{e as default};

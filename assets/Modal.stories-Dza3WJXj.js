@@ -1,0 +1,8 @@
+import{j as e}from"./jsx-runtime-D_zvdyIk.js";import{M as a}from"./Modal-Dv0gOM4Y.js";import{B as s}from"./Button-DyV1B2ed.js";import{T as d}from"./Text-C8FsFEkf.js";import"./index-CgfFrydU.js";import"./_commonjsHelpers-CqkleIqs.js";import"./styled-components.browser.esm-CzyguTxk.js";import"./fonts-C-rNwtaq.js";import"./index-DzNPuTIb.js";import"./IconMinus-B3RIS-SV.js";import"./Spinner-B0W7zFVU.js";import"./IconAttention--HYYox4d.js";import"./IconDate-7erjMhfW.js";import"./IconTime-WL88UYBd.js";import"./style-S1LL3O2C.js";const _={title:"МТС/Modal",component:a,tags:["autodocs"]},l=o=>e.jsx("div",{style:{background:"linear-gradient(135deg, #8e2de2, #f27121)",width:"100%",height:"100vh",position:"relative"},children:e.jsx(a,{...o,children:o.children})}),t=l.bind({});t.args={isModalOpen:!0,title:"Восстановить пароль",children:e.jsxs("div",{style:{padding:"20px",textAlign:"center"},children:[e.jsx(d,{children:"This is the content of the modal."}),e.jsx(s,{btn_type:"button",variant:"primary",style:{marginTop:"10px"},onClick:()=>console.log("Button inside modal clicked"),children:"Confirm"})]}),handleClose:()=>console.log("Modal closed")};var r,i,n;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`(args: any) => <div style={{
+  background: "linear-gradient(135deg, #8e2de2, #f27121)",
+  width: "100%",
+  height: "100vh",
+  position: "relative"
+}}>
+    <Modal {...args}>{args.children}</Modal>
+  </div>`,...(n=(i=t.parameters)==null?void 0:i.docs)==null?void 0:n.source}}};const B=["Default"];export{t as Default,B as __namedExportsOrder,_ as default};
