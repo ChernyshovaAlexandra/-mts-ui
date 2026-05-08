@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { ButtonElementProps, LinkElementProps } from "./type";
 import {
   mts_text_primary,
   mts_bg_secondary,
@@ -11,7 +10,7 @@ import {
 } from "../../consts";
 import "../../assets/fonts.css";
 
-const sharedStyles = css<{ variant?: string; width?: string }>`
+const sharedStyles = css<{ $variant?: string; $width?: string }>`
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -26,15 +25,15 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
   letter-spacing: 0.05px;
   padding: 14px;
   border-radius: 16px;
-  width: ${({ width }) =>
-    width === "auto" ? "auto" : width === "max" ? "100%" : width || "100%"};
+  width: ${({ $width }) =>
+    $width === "auto" ? "auto" : $width === "max" ? "100%" : $width || "100%"};
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 320px;
   border: 1px solid transparent;
 
-  ${({ variant }) => {
-    switch (variant) {
+  ${({ $variant }) => {
+    switch ($variant) {
       case "secondary":
         return css`
           background: ${mts_bg_secondary};
@@ -135,17 +134,18 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
   ${visuallyImpairedMixin};
 `;
 
-export const StyledBtn = styled.button<
-  Pick<ButtonElementProps, "style" | "disabled" | "width" | "variant">
->`
+export interface StyledBtnProps {
+  $variant?: string;
+  $width?: string;
+}
+
+export const StyledBtn = styled.button<StyledBtnProps>`
   outline: none;
   -webkit-appearance: none;
   ${sharedStyles}
 `;
 
-export const StyledBtnLink = styled.a<
-  Pick<LinkElementProps, "href" | "style" | "variant" | "width">
->`
+export const StyledBtnLink = styled.a<StyledBtnProps>`
   text-decoration: none;
   -webkit-appearance: none;
   ${sharedStyles}

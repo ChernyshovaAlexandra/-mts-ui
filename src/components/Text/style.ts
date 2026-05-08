@@ -95,9 +95,9 @@ export const textStyles = {
   `,
 };
 
-export const StyledText = styled.p<{ variant?: TextVariant }>`
+export const StyledText = styled.p<{ $variant?: TextVariant }>`
   margin: 0;
   color: ${mts_text_primary};
-  ${({ variant }) => variant && textStyles[variant]};
+  ${({ $variant }) => $variant && textStyles[$variant]};
   ${visuallyImpairedMixin};
 `;

@@ -43,7 +43,7 @@ export const Text: React.FC<TextProps> = ({
     <StyledText
       as={as}
       ref={ref}
-      variant={variant}
+      $variant={variant}
       style={style}
       className={className}
       role={role}

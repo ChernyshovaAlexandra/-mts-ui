@@ -2,8 +2,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
-import postcss from 'rollup-plugin-postcss';
-
+import postcss from "rollup-plugin-postcss";
+import copy from "rollup-plugin-copy";
 
 export default {
   input: "src/index.ts",
@@ -24,7 +24,14 @@ export default {
     resolve(),
     commonjs(),
     typescript({ tsconfig: "./tsconfig.json" }),
-    postcss()
+    postcss({
+      extract: "index.css",
+      minimize: true,
+    }),
+    copy({
+      targets: [{ src: "src/assets/fonts/*", dest: "dist/fonts" }],
+      hook: "writeBundle",
+    }),
   ],
   external: ["react", "react-dom", "styled-components", "antd"],
 };

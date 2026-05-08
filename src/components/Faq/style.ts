@@ -11,7 +11,7 @@ export const FaqItemWrapper = styled.div`
   margin-bottom: 8px;
 `;
 
-export const FaqStyledButton = styled.button<{ isOpened: boolean }>`
+export const FaqStyledButton = styled.button<{ $isOpened: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,8 +24,8 @@ export const FaqStyledButton = styled.button<{ isOpened: boolean }>`
 
   svg {
     transition: transform 0.3s ease-in-out;
-    transform: ${({ isOpened }) =>
-      isOpened ? "rotate(180deg)" : "rotate(0deg)"};
+    transform: ${({ $isOpened }) =>
+      $isOpened ? "rotate(180deg)" : "rotate(0deg)"};
   }
 
   ${visuallyImpairedMixin};

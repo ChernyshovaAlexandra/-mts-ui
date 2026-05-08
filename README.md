@@ -32,9 +32,19 @@ npm install @chernyshovaalexandra/mtsui
 
 ## Использование
 
+Один раз в точке входа приложения подключите CSS со шрифтами МТС:
+
+```tsx
+import "@chernyshovaalexandra/mtsui/styles.css";
+```
+
+Шрифты в формате `woff2`/`woff`/`ttf` лежат в `dist/fonts/` пакета и
+подгружаются по относительному пути из `styles.css` — современные сборщики
+(Vite, Webpack, Next, esbuild) обработают это автоматически.
+
 ```tsx
 import React from "react";
-import { Button } from "@mts/ui";
+import { Button } from "@chernyshovaalexandra/mtsui";
 
 const App = () => (
   <div>

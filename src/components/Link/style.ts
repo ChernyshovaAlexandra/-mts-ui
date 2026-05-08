@@ -5,12 +5,16 @@ import {
   mts_brand_red,
   mts_accent_light_active,
 } from "../../consts";
-import { LinkProps } from "./Link";
 import "../../assets/fonts.css";
 
-export const StyledLink = styled.a<LinkProps>`
-  color: ${({ type }) =>
-    type === "menuItem" ? mts_text_primary : mts_accent_light_active};
+export interface StyledLinkProps {
+  $type?: "menuItem" | "link";
+  $underlined?: boolean;
+}
+
+export const StyledLink = styled.a<StyledLinkProps>`
+  color: ${({ $type }) =>
+    $type === "menuItem" ? mts_text_primary : mts_accent_light_active};
   font:
     16px / 1.2 "MTS Compact",
     "Arial",
@@ -30,17 +34,17 @@ export const StyledLink = styled.a<LinkProps>`
     transition: all 0.3s ease-in;
     bottom: -6px;
     margin: auto;
-    width: ${({ underlined }) => (underlined ? "100%" : "0")};
-    display: ${({ type }) => (type === "menuItem" ? "block" : "none")};
+    width: ${({ $underlined }) => ($underlined ? "100%" : "0")};
+    display: ${({ $type }) => ($type === "menuItem" ? "block" : "none")};
   }
   &:hover {
-    color: ${({ type }) =>
-      type === "menuItem" ? "inherit" : mts_text_primary};
+    color: ${({ $type }) =>
+      $type === "menuItem" ? "inherit" : mts_text_primary};
 
     &::after {
-      width: ${({ underlined }) => (underlined ? "0" : "100%")};
+      width: ${({ $underlined }) => ($underlined ? "0" : "100%")};
       transition: all 0.3s ease-in;
-      display: ${({ type }) => (type === "menuItem" ? "block" : "none")};
+      display: ${({ $type }) => ($type === "menuItem" ? "block" : "none")};
     }
   }
   ${visuallyImpairedMixin};

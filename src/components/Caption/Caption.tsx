@@ -33,7 +33,7 @@ export const Caption: React.FC<CaptionProps> = ({
     <StyledCaption
       as={as}
       ref={ref}
-      variant={variant}
+      $variant={variant}
       style={style}
       className={className}
       role={role}

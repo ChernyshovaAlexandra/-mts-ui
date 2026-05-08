@@ -44,8 +44,8 @@ export const Link: FC<LinkProps> = ({
 
   return (
     <StyledLink
-      type={type}
-      underlined={underlined}
+      $type={type}
+      $underlined={underlined}
       href={url}
       style={style}
       onClick={onClick}

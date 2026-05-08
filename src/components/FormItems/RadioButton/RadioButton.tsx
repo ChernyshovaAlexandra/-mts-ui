@@ -68,7 +68,7 @@ export const RadioButton = memo(
               </svg>
             </InputWrapper>
 
-            <Label as="span" variant="P3-Regular-Comp">
+            <Label as="span" $variant="P3-Regular-Comp">
               {label}
             </Label>
           </Wrapper>

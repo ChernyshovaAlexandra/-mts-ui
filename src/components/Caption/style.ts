@@ -36,9 +36,9 @@ export const captionStyles = {
   `,
 };
 
-export const StyledCaption = styled.span<{ variant?: CaptionVariant }>`
+export const StyledCaption = styled.span<{ $variant?: CaptionVariant }>`
   margin: 0;
   color: ${mts_text_primary};
-  ${({ variant }) => variant && captionStyles[variant]};
+  ${({ $variant }) => $variant && captionStyles[$variant]};
   ${visuallyImpairedMixin};
 `;

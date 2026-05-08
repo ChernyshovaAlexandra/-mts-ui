@@ -10,7 +10,7 @@ export type ContainerProps = {
 
 export const Container: FC<ContainerProps> = memo(
   ({ children, wide = false, style }) => (
-    <StyledContainer wide={wide} style={style}>
+    <StyledContainer $wide={wide} style={style}>
       {children}
     </StyledContainer>
   )

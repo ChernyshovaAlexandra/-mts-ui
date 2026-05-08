@@ -30,3 +30,6 @@ out*
 
 # Claude Code local settings
 .claude/
+
+# This project uses yarn — never commit npm lockfile
+package-lock.json

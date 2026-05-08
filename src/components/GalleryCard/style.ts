@@ -88,12 +88,11 @@ export const CarouselContainer = styled.div`
 `;
 
 export const ArrowButton = styled.button<{
-  right?: boolean;
-  disabled?: boolean;
+  $right?: boolean;
 }>`
   position: absolute;
   top: 50%;
-  ${(p) => (p.right ? "right: 8px;" : "left: 8px;")}
+  ${({ $right }) => ($right ? "right: 8px;" : "left: 8px;")}
   transform: translateY(-50%);
   background: transparent;
   border: none;
@@ -115,10 +114,10 @@ export const DotContainer = styled.div`
   gap: 8px;
 `;
 
-export const Dot = styled.span<{ active: boolean }>`
+export const Dot = styled.span<{ $active: boolean }>`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: ${({ active }) => (active ? "#FF0032" : "transparent")};
+  background: ${({ $active }) => ($active ? "#FF0032" : "transparent")};
   border: 2px solid #ff0032;
 `;

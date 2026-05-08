@@ -27,8 +27,8 @@ export const Button: React.FC<ButtonProps> = ({
     return (
       <StyledBtnLink
         role="link"
-        variant={variant}
-        width={width}
+        $variant={variant}
+        $width={width}
         href={isDisabled ? undefined : link}
         data-tip={tooltip}
         style={style}
@@ -67,8 +67,8 @@ export const Button: React.FC<ButtonProps> = ({
 
     return (
       <StyledBtn
-        variant={variant}
-        width={width}
+        $variant={variant}
+        $width={width}
         type={buttonType || "button"}
         onClick={onClick}
         style={style}

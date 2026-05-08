@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({
   const HeadingTag = as || defaultTag;
 
   return (
-    <StyledHeader as={HeadingTag} variant={variant} style={style} {...rest}>
+    <StyledHeader as={HeadingTag} $variant={variant} style={style} {...rest}>
       {children}
     </StyledHeader>
   );

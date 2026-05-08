@@ -72,7 +72,7 @@ export const Carousel: FC<CarouselProps> = ({
             ? carouselRef.current?.prev()
             : carouselRef.current?.next();
         }}
-        right={direction === "right"}
+        $right={direction === "right"}
         disabled={isDisabled}
         aria-label={`Прокрутить ${direction === "left" ? "влево" : "вправо"}`}
       >
@@ -166,7 +166,7 @@ export const Carousel: FC<CarouselProps> = ({
             {items.map((_, index) => (
               <Dot
                 key={index}
-                active={index === currentSlide}
+                $active={index === currentSlide}
                 onClick={() => goTo(index)}
                 role="tab"
                 aria-selected={index === currentSlide}

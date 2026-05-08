@@ -45,7 +45,7 @@ export const Faq: React.FC<FaqProps> = memo(({ items, style }) => {
               aria-expanded={isOpened}
               aria-controls={answerId}
               id={questionId}
-              isOpened={isOpened}
+              $isOpened={isOpened}
             >
               <FaqQuestion as="span" variant="P4-Medium-Comp">
                 {item.question}

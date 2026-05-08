@@ -63,9 +63,9 @@ const headerStyles = {
   `,
 };
 
-export const StyledHeader = styled.h1<{ variant?: HeaderVariant }>`
+export const StyledHeader = styled.h1<{ $variant?: HeaderVariant }>`
   margin: 0;
   color: ${mts_text_primary};
-  ${({ variant }) => variant && headerStyles[variant]};
+  ${({ $variant }) => $variant && headerStyles[$variant]};
   ${visuallyImpairedMixin};
 `;

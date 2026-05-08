@@ -20,7 +20,7 @@ export const GalleryCarousel: React.FC<GalleryCarouselProps> = ({ items }) => {
 
     return (
       <ArrowButton
-        right={dir === "right"}
+        $right={dir === "right"}
         disabled={isDisabled}
         onClick={() =>
           dir === "left"
@@ -61,7 +61,7 @@ export const GalleryCarousel: React.FC<GalleryCarouselProps> = ({ items }) => {
 
       <DotContainer>
         {items.map((_, index) => (
-          <Dot key={index} active={index === currentSlide} />
+          <Dot key={index} $active={index === currentSlide} />
         ))}
       </DotContainer>
     </CarouselContainer>
