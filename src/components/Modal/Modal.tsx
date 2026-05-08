@@ -51,10 +51,9 @@ export const Modal: FC<ModalProps> = memo(
   }) => {
     useEffect(() => {
       if (!isModalOpen) return;
-      const prev = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
-        document.body.style.overflow = prev;
+        document.body.style.overflow = "";
       };
     }, [isModalOpen]);
 
