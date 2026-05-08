@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Burger } from "./Burger";
 
 export default {
-  title: "МТС/Burger",
+  title: "МТС/Actions/Burger",
   component: Burger,
   tags: ["autodocs"],
 } as Meta;

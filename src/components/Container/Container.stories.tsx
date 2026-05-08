@@ -4,7 +4,7 @@ import Container, { ContainerProps } from "./Container";
 import { Text } from "../Text/Text";
 
 export default {
-  title: "МТС/Container",
+  title: "МТС/Content/Container",
   component: Container,
   tags: ["autodocs"],
   parameters: {

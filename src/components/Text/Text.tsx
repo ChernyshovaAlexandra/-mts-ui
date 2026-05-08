@@ -10,9 +10,11 @@ export type TextVariant =
   | "P3-Medium-Comp"
   | "P3-Regular-Comp"
   | "P3-Regular-Text"
+  | "P4-Bold-Comp"
   | "P4-Bold-Upp-Wide"
-  | "P4-Regular-Comp"
   | "P4-Medium-Comp"
+  | "P4-Medium-Upp-Comp"
+  | "P4-Regular-Comp"
   | "P4-Regular-Text";
 
 export interface TextProps

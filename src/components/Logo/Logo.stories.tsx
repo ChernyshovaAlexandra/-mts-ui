@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Logo } from "./Logo"; // Убедись, что путь к файлу компонента правильный
 
 export default {
-  title: "МТС/Logo",
+  title: "МТС/Branding/Logo",
   component: Logo,
   tags: ["autodocs"],
 } as Meta;

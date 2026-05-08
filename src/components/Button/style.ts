@@ -4,6 +4,7 @@ import { ButtonElementProps, LinkElementProps } from "./type";
 import {
   mts_text_primary,
   mts_bg_secondary,
+  mts_bg_secondary_elevated,
   mts_bg_hover,
   mts_brand_red,
   mts_bg_lower,
@@ -86,6 +87,17 @@ const sharedStyles = css<{ variant?: string; width?: string }>`
 
           &:not(:disabled):hover {
             background: #ffffff30;
+          }
+        `;
+      case "menu-item":
+        return css`
+          background: ${mts_bg_secondary_elevated};
+          color: #d8400c;
+          font-weight: 700;
+          letter-spacing: 0.6px;
+
+          &:not(:disabled):hover {
+            background: ${mts_bg_hover};
           }
         `;
       case "primary":

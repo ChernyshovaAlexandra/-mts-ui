@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Link, LinkProps } from "./Link";
 
 export default {
-  title: "МТС/Link",
+  title: "МТС/Actions/Link",
   component: Link,
   tags: ["autodocs"],
 } as Meta<LinkProps>;

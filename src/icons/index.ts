@@ -23,3 +23,6 @@ export { default as IconStar } from "./IconStar/IconStar";
 export { default as IconChevronRight } from "./IconChevronRight/IconChevronRight";
 export { default as IconMinus } from "./IconMinus/IconMinus";
 export { default as IconAttention } from "./IconAttention/IconAttention";
+export { default as IconSearch } from "./IconSearch/IconSearch";
+export { default as IconNotification } from "./IconNotification/IconNotification";
+export { default as IconSettings } from "./IconSettings/IconSettings";

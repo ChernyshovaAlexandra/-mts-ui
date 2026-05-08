@@ -1,64 +1,120 @@
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { mts_text_primary, mts_bg_secondary, mts_bg_hover } from "../../consts";
+import {
+  mts_bg_modal,
+  mts_bg_overlay,
+  mts_bg_secondary,
+  mts_bg_hover,
+  mts_text_primary,
+  mts_text_secondary,
+  mts_control_stroke,
+} from "../../consts";
 import Text from "../Text/Text";
 
-export const Overlay2 = styled.div`
-  position: sticky;
-  top: 0;
+export const Overlay = styled.div`
+  position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: ${mts_bg_overlay};
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: safe center;
   z-index: 999999999;
-  backdrop-filter: blur(5px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
-  clip-path: none !important;
-  height: 100vh;
-  
+  padding: 16px;
+
+  @media (max-width: 480px) {
+    align-items: flex-end;
+    padding: 0;
+  }
 `;
 
 export const ModalContainer = styled.div`
-  background: white;
-  border-radius: 24px;
-  padding: 20px;
-  max-width: 400px;
-  width: 100%;
-  max-height: 90vh;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   position: relative;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-top: 2rem;
+  background: ${mts_bg_modal};
+  border-radius: 24px;
+  width: 440px;
+  max-width: 100%;
+  padding: 32px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  box-shadow: 0 20px 40px rgba(20, 21, 24, 0.16);
 
   @media (max-width: 480px) {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 0;
-    padding: 16px 16px 40px;
+    width: calc(100% - 16px);
+    border-radius: 24px 24px 0 0;
+    margin: 0 8px;
   }
   ${visuallyImpairedMixin};
+`;
+
+export const MobileIndicator = styled.span`
+  display: none;
+
+  @media (max-width: 480px) {
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 4px;
+    border-radius: 2px;
+    background: ${mts_control_stroke};
+  }
+`;
+
+export const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  padding: 0 16px;
+`;
+
+export const Title = styled(Text)`
+  color: ${mts_text_primary};
+  text-align: center;
+`;
+
+export const Subtitle = styled(Text)`
+  color: ${mts_text_secondary};
+  text-align: center;
+`;
+
+export const Body = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  gap: 12px;
+
+  & > * {
+    flex: 1;
+  }
 `;
 
 export const CloseButton = styled.button`
   position: absolute;
   top: 12px;
-  right: 16px;
+  right: 12px;
   width: 32px;
   height: 32px;
   background-color: ${mts_bg_secondary};
   border: none;
-  border-radius: 0.7rem;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-
   cursor: pointer;
+  padding: 0;
 
   &:hover {
     background-color: ${mts_bg_hover};
@@ -70,17 +126,4 @@ export const CloseButton = styled.button`
     color: ${mts_text_primary};
   }
   ${visuallyImpairedMixin};
-`;
-
-export const Title = styled(Text)`
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 24px;
-  max-width: calc(100% - 100px);
-  color: rgb(29, 32, 35);
-  position: relative;
-  left: 0;
-  right: 0;
-  margin: auto;
 `;

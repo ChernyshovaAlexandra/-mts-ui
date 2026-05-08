@@ -63,8 +63,8 @@ export const RadioButton = memo(
                 aria-hidden="true"
                 focusable="false"
               >
-                <circle cx="8" cy="8" r="7.5" stroke="currentColor" />
-                <circle cx="8" cy="8" r="3.2" fill="currentColor" />
+                <circle cx="8" cy="8" r="7.25" />
+                <circle cx="8" cy="8" r="3.2" />
               </svg>
             </InputWrapper>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Checkbox, CheckboxProps } from "./Checkbox";
 
@@ -11,7 +11,19 @@ export default {
   },
 } as Meta<CheckboxProps>;
 
-const Template: StoryFn<CheckboxProps> = (args: any) => <Checkbox {...args} />;
+const Template: StoryFn<CheckboxProps> = ({ checked, onChange, ...args }) => {
+  const [value, setValue] = useState(!!checked);
+  return (
+    <Checkbox
+      {...args}
+      checked={value}
+      onChange={(e) => {
+        setValue(e.target.checked);
+        onChange?.(e);
+      }}
+    />
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {

@@ -3,7 +3,7 @@ import { Carousel } from "./Carousel";
 import styled from "styled-components";
 
 const meta: Meta<typeof Carousel> = {
-  title: "МТС/Carousel",
+  title: "МТС/Content/Carousel",
   component: Carousel,
   tags: ["autodocs"],
 };

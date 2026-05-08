@@ -1,44 +1,89 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { Modal, ModalProps } from "./Modal";
-import { Button } from "../Button/Button";
-import { Text } from "../Text/Text";
+import Input from "../FormItems/Input/Input";
+import { Select } from "../FormItems/Select/Select";
 
 export default {
-  title: "МТС/Modal",
+  title: "МТС/Feedback/Modal",
   component: Modal,
   tags: ["autodocs"],
 } as Meta<ModalProps>;
 
-const Template: StoryFn<ModalProps> = (args: any) => (
+const Stage: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div
     style={{
-      background: "linear-gradient(135deg, #8e2de2, #f27121)",
+      background: "#F2F3F7",
       width: "100%",
       height: "100vh",
       position: "relative",
     }}
   >
-    <Modal {...args}>{args.children}</Modal>
+    {children}
   </div>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+const Template: StoryFn<ModalProps> = (args) => (
+  <Stage>
+    <Modal {...args} />
+  </Stage>
+);
+
+export const WithInput = Template.bind({});
+WithInput.args = {
   isModalOpen: true,
-  title: "Восстановить пароль",
+  title: "Заголовок",
+  subtitle: "Сопутствующее сообщение",
+  cancelText: "Отменить",
+  submitText: "Выполнить",
+  handleClose: () => console.log("close"),
+  onSubmit: () => console.log("submit"),
+  children: <Input id="modal-input" placeholder="Placeholder" />,
+};
+
+export const WithDropdown = Template.bind({});
+WithDropdown.args = {
+  isModalOpen: true,
+  title: "Сменить язык",
+  subtitle: "Выберите из списка",
+  cancelText: "Отменить",
+  submitText: "Сохранить",
+  handleClose: () => console.log("close"),
+  onSubmit: () => console.log("submit"),
   children: (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <Text>This is the content of the modal.</Text>
-      <Button
-        btn_type="button"
-        variant="primary"
-        style={{ marginTop: "10px" }}
-        onClick={() => console.log("Button inside modal clicked")}
-      >
-        Confirm
-      </Button>
-    </div>
+    <Select
+      name="lang"
+      value=""
+      onChange={() => {}}
+      options={[
+        { value: "ru", label: "Русский" },
+        { value: "en", label: "Английский" },
+        { value: "it", label: "Итальянский" },
+      ]}
+    />
   ),
-  handleClose: () => console.log("Modal closed"),
+};
+
+export const WithoutSubtitle = Template.bind({});
+WithoutSubtitle.args = {
+  isModalOpen: true,
+  title: "Заголовок",
+  cancelText: "Отменить",
+  submitText: "Выполнить",
+  handleClose: () => console.log("close"),
+  onSubmit: () => console.log("submit"),
+  children: <Input id="modal-input-2" placeholder="Placeholder" />,
+};
+
+export const WithCloseButton = Template.bind({});
+WithCloseButton.args = {
+  isModalOpen: true,
+  title: "Заголовок",
+  subtitle: "Сопутствующее сообщение",
+  showCloseButton: true,
+  cancelText: "Отменить",
+  submitText: "Выполнить",
+  handleClose: () => console.log("close"),
+  onSubmit: () => console.log("submit"),
+  children: <Input id="modal-input-3" placeholder="Placeholder" />,
 };

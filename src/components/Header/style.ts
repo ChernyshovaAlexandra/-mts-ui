@@ -8,12 +8,13 @@ const headerStyles = {
   "H1-Wide": css`
     font-family: "MTS Wide", sans-serif;
     font-size: 36px;
-    line-height: 40px;
+    line-height: 1.1;
     font-weight: 500;
+    letter-spacing: 0;
 
     @media (max-width: 768px) {
       font-size: 24px;
-      line-height: 32px;
+      line-height: 1.1;
     }
 
     @supports (-webkit-touch-callout: none) {
@@ -23,12 +24,13 @@ const headerStyles = {
   "H2-Wide": css`
     font-family: "MTS Wide", sans-serif;
     font-size: 32px;
-    line-height: 36px;
+    line-height: 1.1;
     font-weight: 500;
+    letter-spacing: 0;
 
     @media (max-width: 768px) {
       font-size: 22px;
-      line-height: 28px;
+      line-height: 1.1;
     }
 
     @supports (-webkit-touch-callout: none) {
@@ -38,23 +40,25 @@ const headerStyles = {
   "H3-Wide": css`
     font-family: "MTS Wide", sans-serif;
     font-size: 24px;
-    line-height: 28px;
+    line-height: 1.2;
     font-weight: 500;
+    letter-spacing: 0;
 
     @media (max-width: 768px) {
       font-size: 18px;
-      line-height: 24px;
+      line-height: 1.2;
     }
   `,
   "H4-Wide": css`
     font-family: "MTS Wide", sans-serif;
     font-size: 20px;
-    line-height: 24px;
+    line-height: 1.2;
     font-weight: 500;
+    letter-spacing: 0;
 
     @media (max-width: 768px) {
       font-size: 16px;
-      line-height: 20px;
+      line-height: 1.2;
     }
   `,
 };

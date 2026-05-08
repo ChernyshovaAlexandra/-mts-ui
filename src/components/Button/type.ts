@@ -6,7 +6,8 @@ export type ButtonVariant =
   | "tetriary"
   | "gray"
   | "ghost"
-  | "icon";
+  | "icon"
+  | "menu-item";
 
 export interface BaseButtonProps {
   content?: string;

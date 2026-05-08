@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Header, HeaderProps } from "./Header";
 
 export default {
-  title: "МТС/Header",
+  title: "МТС/Typography/Header",
   component: Header,
   tags: ["autodocs"],
   argTypes: {

@@ -5,7 +5,7 @@ import { useState } from "react";
 import Text from "../components/Text/Text";
 
 export default {
-  title: "МТС/Icons",
+  title: "МТС/Foundations/Icons",
 };
 
 export const AllIcons = () => {

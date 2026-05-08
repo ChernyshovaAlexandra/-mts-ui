@@ -5,7 +5,7 @@ import { Button } from "../Button/Button";
 import { action } from "@storybook/addon-actions";
 
 export default {
-  title: "МТС/Navigation",
+  title: "МТС/Navigation/Navigation",
   component: Navigation,
   tags: ["autodocs"],
   argTypes: {

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import { RadioButton, RadioButtonProps } from "./RadioButton";
 
@@ -11,9 +11,23 @@ export default {
   },
 } as Meta<RadioButtonProps>;
 
-const Template: StoryFn<RadioButtonProps> = (args: any) => (
-  <RadioButton {...args} />
-);
+const Template: StoryFn<RadioButtonProps> = ({
+  checked,
+  onChange,
+  ...args
+}) => {
+  const [value, setValue] = useState(!!checked);
+  return (
+    <RadioButton
+      {...args}
+      checked={value}
+      onChange={(e) => {
+        setValue(e.target.checked);
+        onChange?.(e);
+      }}
+    />
+  );
+};
 
 export const Default = Template.bind({});
 Default.args = {

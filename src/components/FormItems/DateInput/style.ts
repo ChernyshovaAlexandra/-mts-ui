@@ -5,7 +5,7 @@ import "../../../assets/fonts.css";
 
 import { inputBaseStyles } from "../Input/style";
 
-import { mts_text_secondary } from "../../../consts";
+import { mts_text_secondary, mts_input_background } from "../../../consts";
 
 export const StyledDatePicker = styled(DatePicker)`
   ${inputBaseStyles}
@@ -15,10 +15,10 @@ export const StyledDatePicker = styled(DatePicker)`
 
   &.ant-picker {
     cursor: pointer;
-    background: #fff;
+    background: ${mts_input_background};
 
     &:hover {
-      background: #fff;
+      background: ${mts_input_background};
     }
   }
 

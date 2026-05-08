@@ -5,6 +5,16 @@ export { Modal, type ModalProps } from "./components/Modal/Modal";
 export { Button } from "./components/Button/Button";
 export { type ButtonProps } from "./components/Button/type";
 export { Header, type HeaderProps } from "./components/Header/Header";
+export {
+  Caption,
+  type CaptionProps,
+  type CaptionVariant,
+} from "./components/Caption/Caption";
+export { Avatar, type AvatarProps } from "./components/Avatar/Avatar";
+export {
+  UserMenu,
+  type UserMenuProps,
+} from "./components/UserMenu/UserMenu";
 export { Burger, type BurgerProps } from "./components/Burger/Burger";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
 export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
@@ -150,6 +160,9 @@ export { IconStar } from "./icons/IconStar/IconStar";
 export { IconChevronRight } from "./icons/IconChevronRight/IconChevronRight";
 export { IconMinus } from "./icons/IconMinus/IconMinus";
 export { IconAttention } from "./icons/IconAttention/IconAttention";
+export { IconSearch } from "./icons/IconSearch/IconSearch";
+export { IconNotification } from "./icons/IconNotification/IconNotification";
+export { IconSettings } from "./icons/IconSettings/IconSettings";
 
 export {
   AccessibilityProvider,

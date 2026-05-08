@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import type { Meta, StoryFn } from "@storybook/react";
 import Registration, { RegistrationProps } from "./Registration";
 
 const meta: Meta<typeof Registration> = {
-  title: "МТС/Registration",
+  title: "МТС/Templates/Registration",
   component: Registration,
   tags: ["autodocs"],
   args: {
@@ -20,7 +19,7 @@ const meta: Meta<typeof Registration> = {
 
 export default meta;
 
-const Template: StoryFn<RegistrationProps> = (args: any) => (
+const Template: StoryFn<RegistrationProps> = (args) => (
   <div
     style={{
       background: "linear-gradient(135deg, #8e2de2, #f27121)",
@@ -29,7 +28,7 @@ const Template: StoryFn<RegistrationProps> = (args: any) => (
       position: "relative",
     }}
   >
-    <Registration {...args} />;
+    <Registration {...args} />
   </div>
 );
 
@@ -37,4 +36,5 @@ export const Default = Template.bind({});
 Default.args = {
   isOpen: true,
   onClose: () => console.info(""),
+  onSubmit: (data) => console.info("registration submit", data),
 };

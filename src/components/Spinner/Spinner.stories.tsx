@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Spinner, SpinnerProps } from "./Spinner";
 
 export default {
-  title: "МТС/Spinner",
+  title: "МТС/Feedback/Spinner",
   component: Spinner,
   tags: ["autodocs"],
   argTypes: {

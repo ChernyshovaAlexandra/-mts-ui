@@ -27,3 +27,6 @@ Thumbs.db
 .bashrc
 
 out*
+
+# Claude Code local settings
+.claude/

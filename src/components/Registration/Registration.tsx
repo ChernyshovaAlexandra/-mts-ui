@@ -6,69 +6,125 @@ import Link from "../Link/Link";
 import { Select, SelectOption } from "../FormItems/Select/Select";
 import { Button } from "../Button/Button";
 
+export interface RegistrationFormData {
+  email: string;
+  name: string;
+  age: string;
+  region: string;
+  nickname: string;
+  password: string;
+}
+
 export interface RegistrationProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit?: (data: RegistrationFormData) => void;
   ages?: SelectOption[];
   regions?: SelectOption[];
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PASSWORD_MIN = 6;
+
 const Registration: FC<RegistrationProps> = ({
   isOpen,
   onClose,
+  onSubmit,
   ages,
   regions,
 }) => {
-  const [agreed, setAgreed] = useState(false);
+  const id = useId();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [region, setRegion] = useState("");
-  const id = useId();
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+  const [agreed, setAgreed] = useState(false);
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof RegistrationFormData, string>>
+  >({});
+
+  const validate = () => {
+    const next: Partial<Record<keyof RegistrationFormData, string>> = {};
+    if (!email.trim()) next.email = "Введите email";
+    else if (!EMAIL_RE.test(email)) next.email = "Некорректный формат email";
+    if (!name.trim()) next.name = "Введите имя и фамилию";
+    if (ages && !age) next.age = "Выберите возраст";
+    if (regions && !region) next.region = "Выберите регион";
+    if (!nickname.trim()) next.nickname = "Введите никнейм";
+    if (!password) next.password = "Введите пароль";
+    else if (password.length < PASSWORD_MIN)
+      next.password = `Минимум ${PASSWORD_MIN} символов`;
+    return next;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // логика отправки
-    console.log("Регистрация отправлена");
+    const next = validate();
+    setErrors(next);
+    if (Object.keys(next).length > 0) return;
+    onSubmit?.({ email, name, age, region, nickname, password });
   };
 
+  const groupLabel =
+    ages && regions
+      ? "Возраст и регион"
+      : ages
+        ? "Возраст"
+        : "Регион";
+
   return (
-    <Modal isModalOpen={isOpen} handleClose={onClose} title="Регистрация">
+    <Modal
+      isModalOpen={isOpen}
+      handleClose={onClose}
+      title="Регистрация"
+      showCloseButton
+    >
       <form
         onSubmit={handleSubmit}
         aria-label="Форма регистрации"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
-          marginTop: "1.3rem",
-        }}
+        noValidate
+        style={{ display: "flex", flexDirection: "column", gap: 16 }}
       >
         <Input
           id={`${id}-email`}
+          name="email"
+          label="Email"
           placeholder="email@example.com"
           type="email"
-          aria-label="Email"
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          errorMessage={errors.email}
           required
         />
         <Input
           id={`${id}-name`}
+          name="name"
           label="Имя и фамилия ребёнка"
           placeholder="Имя Фамилия"
+          autoComplete="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          errorMessage={errors.name}
           required
         />
 
         {(ages || regions) && (
           <div
             role="group"
-            aria-label="Возраст и регион"
+            aria-label={groupLabel}
             style={{ display: "flex", gap: 12 }}
           >
             {ages && (
               <Select
                 name="age"
-                onChange={setAge}
+                onChange={(_, value) => setAge(value)}
                 value={age}
                 label="Возраст ребёнка"
                 options={ages}
+                errorMessage={errors.age}
                 required
                 id={`${id}-age`}
               />
@@ -76,10 +132,11 @@ const Registration: FC<RegistrationProps> = ({
             {regions && (
               <Select
                 name="region"
-                onChange={setRegion}
+                onChange={(_, value) => setRegion(value)}
                 value={region}
                 label="Регион"
                 options={regions}
+                errorMessage={errors.region}
                 required
                 id={`${id}-region`}
               />
@@ -89,18 +146,28 @@ const Registration: FC<RegistrationProps> = ({
 
         <Input
           id={`${id}-nickname`}
+          name="nickname"
           label="Придумай никнейм"
-          placeholder="Никнейм"
+          autoComplete="username"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          errorMessage={errors.nickname}
           required
         />
         <Input
           id={`${id}-password`}
+          name="password"
           label="Придумай пароль"
-          placeholder="Пароль"
           type="password"
+          autoComplete="new-password"
+          minLength={PASSWORD_MIN}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          errorMessage={errors.password}
           required
         />
         <Checkbox
+          name={`${id}-consent`}
           checked={agreed}
           onChange={(e) => setAgreed(e.target.checked)}
           label={
@@ -109,15 +176,13 @@ const Registration: FC<RegistrationProps> = ({
               <Link url="#">обработку персональных данных</Link>
             </>
           }
-          required
         />
 
         <Button
-          type="submit"
+          buttonType="submit"
           variant="primary"
-          width="auto"
+          width="max"
           disabled={!agreed}
-          aria-disabled={!agreed}
           aria-label="Отправить форму регистрации"
         >
           Зарегистрироваться

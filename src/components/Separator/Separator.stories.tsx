@@ -2,7 +2,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Separator } from "./Separator";
 
 export default {
-  title: "МТС/Separator",
+  title: "МТС/Content/Separator",
   component: Separator,
   tags: ["autodocs"],
 } as Meta;

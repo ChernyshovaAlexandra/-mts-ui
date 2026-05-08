@@ -5,13 +5,21 @@ import Button from "./Button";
 import { IconInfo, IconLeft } from "../../icons";
 
 export default {
-  title: "МТС/Button",
+  title: "МТС/Actions/Button",
   component: Button,
   tags: ["autodocs"],
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "tetriary", "gray", "ghost", "icon"],
+      options: [
+        "primary",
+        "secondary",
+        "tetriary",
+        "gray",
+        "ghost",
+        "icon",
+        "menu-item",
+      ],
     },
     btn_type: {
       control: "radio",

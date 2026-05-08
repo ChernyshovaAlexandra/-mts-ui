@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Breadcrumbs, BreadcrumbsProps } from "./Breadcrumbs";
 
 const meta: Meta<typeof Breadcrumbs> = {
-  title: "МТС/Breadcrumbs",
+  title: "МТС/Navigation/Breadcrumbs",
   component: Breadcrumbs,
   tags: ["autodocs"],
 };
