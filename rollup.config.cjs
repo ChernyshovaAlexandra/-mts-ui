@@ -30,7 +30,7 @@ export default {
     }),
     copy({
       targets: [{ src: "src/assets/fonts/*", dest: "dist/fonts" }],
-      hook: "writeBundle",
+      hook: "closeBundle",
     }),
   ],
   external: ["react", "react-dom", "styled-components", "antd"],
