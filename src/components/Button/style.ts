@@ -2,15 +2,80 @@ import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
   mts_text_primary,
-  mts_bg_secondary,
-  mts_bg_secondary_elevated,
+  mts_bg_lower,
   mts_bg_hover,
   mts_brand_red,
-  mts_bg_lower,
+  mts_bg_inverted,
+  mts_bg_disabled,
 } from "../../consts";
 import "../../assets/fonts.css";
 
-const sharedStyles = css<{ $variant?: string; $width?: string }>`
+const sizeStyles = css<{ $size?: string }>`
+  ${({ $size }) => {
+    switch ($size) {
+      case "xs":
+        return css`
+          padding: 4px;
+          border-radius: 8px;
+          font-size: 0.625rem;
+          line-height: 0.75rem;
+          gap: 4px;
+          .btn-icon svg {
+            width: 16px;
+            height: 16px;
+          }
+        `;
+      case "s":
+        return css`
+          padding: 8px;
+          border-radius: 12px;
+          font-size: 0.625rem;
+          line-height: 0.75rem;
+          gap: 4px;
+          .btn-icon svg {
+            width: 16px;
+            height: 16px;
+          }
+        `;
+      case "m":
+        return css`
+          padding: 10px;
+          border-radius: 16px;
+          font-size: 0.75rem;
+          line-height: 1rem;
+          .btn-icon svg {
+            width: 24px;
+            height: 24px;
+          }
+        `;
+      case "xl":
+        return css`
+          padding: 24px;
+          border-radius: 20px;
+          font-size: 0.875rem;
+          line-height: 1.25rem;
+          .btn-icon svg {
+            width: 24px;
+            height: 24px;
+          }
+        `;
+      case "l":
+      default:
+        return css`
+          padding: 14px;
+          border-radius: 16px;
+          font-size: 0.75rem;
+          line-height: 1rem;
+          .btn-icon svg {
+            width: 24px;
+            height: 24px;
+          }
+        `;
+    }
+  }}
+`;
+
+const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>`
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -18,25 +83,36 @@ const sharedStyles = css<{ $variant?: string; $width?: string }>`
   gap: 8px;
 
   text-align: center;
-  font:
-    500 0.75rem/1rem "MTS Wide",
-    sans-serif;
+  font-family: "MTS Wide", sans-serif;
+  font-weight: 700;
+  font-style: normal;
   text-transform: uppercase;
-  letter-spacing: 0.05px;
-  padding: 14px;
-  border-radius: 16px;
+  letter-spacing: 0.05em;
   width: ${({ $width }) =>
     $width === "auto" ? "auto" : $width === "max" ? "100%" : $width || "100%"};
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 320px;
+  min-height: 44px;
+  min-width: 44px;
   border: 1px solid transparent;
+
+  ${sizeStyles}
 
   ${({ $variant }) => {
     switch ($variant) {
+      case "alternative":
+        return css`
+          background: ${mts_bg_inverted};
+          color: #fafafa;
+          &:not(:disabled):hover {
+            background: #2d3136;
+          }
+        `;
       case "secondary":
         return css`
-          background: ${mts_bg_secondary};
+          background: ${mts_bg_lower};
           color: ${mts_text_primary};
           &:not(:disabled):hover {
             background: ${mts_bg_hover};
@@ -49,52 +125,40 @@ const sharedStyles = css<{ $variant?: string; $width?: string }>`
           &:not(:disabled):hover {
             background: #e4e7ec;
           }
-          &:disabled {
-            background: #969fa8;
-          }
         `;
       case "gray":
         return css`
-          background: ${mts_bg_lower};
+          background: rgba(255, 255, 255, 0.08);
           color: #fff;
-          border: 1px solid rgba(255, 255, 255, 0.4);
-          backdrop-filter: blur(10px);
-
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           &:not(:disabled):hover {
-            background-color: #bcc3d040;
+            background: rgba(255, 255, 255, 0.16);
           }
         `;
       case "ghost":
         return css`
-          background: #ffffff12;
-          color: #fff;
-          border: 1px solid rgba(255, 255, 255, 0.4);
-          border-radius: 32px;
-
+          background: transparent;
+          color: ${mts_text_primary};
           &:not(:disabled):hover {
-            background: #ffffff30;
+            background: ${mts_bg_hover};
           }
         `;
       case "icon":
         return css`
-          background: #ffffff12;
+          background: rgba(255, 255, 255, 0.08);
           color: #fff;
           padding: 6px;
-          border-radius: 50%;
-          justify-content: center;
           border-radius: 32px;
-
           &:not(:disabled):hover {
-            background: #ffffff30;
+            background: rgba(255, 255, 255, 0.16);
           }
         `;
+      case "negative":
       case "menu-item":
         return css`
-          background: ${mts_bg_secondary_elevated};
+          background: ${mts_bg_lower};
           color: #d8400c;
-          font-weight: 700;
-          letter-spacing: 0.6px;
-
           &:not(:disabled):hover {
             background: ${mts_bg_hover};
           }
@@ -106,7 +170,6 @@ const sharedStyles = css<{ $variant?: string; $width?: string }>`
           color: #fff;
           &:not(:disabled):hover {
             background: #e4002e;
-            color: #fff;
           }
         `;
     }
@@ -114,18 +177,29 @@ const sharedStyles = css<{ $variant?: string; $width?: string }>`
 
   &:disabled {
     cursor: not-allowed;
-    background-color: #969fa8 !important;
-    color: #fff !important;
+    opacity: 0.6;
+    background: ${mts_bg_disabled} !important;
+    color: #969fa8 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   &:not(:disabled) {
     cursor: pointer;
   }
 
+  .btn-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
   .btn-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     svg {
       width: 18px;
       height: 18px;
@@ -137,6 +211,7 @@ const sharedStyles = css<{ $variant?: string; $width?: string }>`
 export interface StyledBtnProps {
   $variant?: string;
   $width?: string;
+  $size?: string;
 }
 
 export const StyledBtn = styled.button<StyledBtnProps>`

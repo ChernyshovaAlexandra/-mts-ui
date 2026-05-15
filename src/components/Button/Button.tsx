@@ -16,6 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
       content,
       width,
       variant,
+      size,
       icon,
       children,
       onClick,
@@ -29,6 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
         role="link"
         $variant={variant}
         $width={width}
+        $size={size}
         href={isDisabled ? undefined : link}
         data-tip={tooltip}
         style={style}
@@ -47,7 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
         {loading ? (
           <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
         ) : (
-          children || content
+          <span className="btn-label">{children || content}</span>
         )}
       </StyledBtnLink>
     );
@@ -61,6 +63,7 @@ export const Button: React.FC<ButtonProps> = ({
       children,
       width,
       variant,
+      size,
       icon,
       ...rest
     } = props as ButtonElementProps;
@@ -69,6 +72,7 @@ export const Button: React.FC<ButtonProps> = ({
       <StyledBtn
         $variant={variant}
         $width={width}
+        $size={size}
         type={buttonType || "button"}
         onClick={onClick}
         style={style}
@@ -81,7 +85,7 @@ export const Button: React.FC<ButtonProps> = ({
         {loading ? (
           <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
         ) : (
-          children || content
+          <span className="btn-label">{children || content}</span>
         )}
       </StyledBtn>
     );

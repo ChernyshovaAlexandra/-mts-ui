@@ -3,6 +3,11 @@ const mts_text_primary = `#1D2023`;
 const mts_text_secondary = `#626C77`;
 const mts_text_tertiary = `#9EA3A9`;
 const mts_text_headline = `#FF5000`;
+const mts_text_inverted = `#FAFAFA`;
+
+// Links
+const mts_text_primary_link = `#0070E5`;
+const mts_text_secondary_link = `#626C77`;
 
 // Accent (Light theme values из гайдлайна)
 const mts_accent_light_active = `#007CFF`;
@@ -80,6 +85,10 @@ export {
   mts_text_secondary,
   mts_text_tertiary,
   mts_text_headline,
+  mts_text_inverted,
+  // Links
+  mts_text_primary_link,
+  mts_text_secondary_link,
   // Accent
   mts_accent_light_active,
   mts_accent_light_positive,

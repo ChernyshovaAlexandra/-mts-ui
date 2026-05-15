@@ -2,6 +2,7 @@ export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";
 export { Modal, type ModalProps } from "./components/Modal/Modal";
+export { Banner, type BannerProps, type BannerVariant } from "./components/Banner/Banner";
 export { Button } from "./components/Button/Button";
 export { type ButtonProps } from "./components/Button/type";
 export { Header, type HeaderProps } from "./components/Header/Header";

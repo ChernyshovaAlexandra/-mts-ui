@@ -2,16 +2,21 @@ import React from "react";
 
 export type ButtonVariant =
   | "primary"
+  | "alternative"
   | "secondary"
   | "tetriary"
   | "gray"
   | "ghost"
   | "icon"
+  | "negative"
   | "menu-item";
+
+export type ButtonSize = "xs" | "s" | "m" | "l" | "xl";
 
 export interface BaseButtonProps {
   content?: string;
   variant: ButtonVariant;
+  size?: ButtonSize;
   tooltip?: string;
   style?: React.CSSProperties;
   disabled?: boolean;

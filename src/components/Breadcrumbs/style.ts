@@ -1,51 +1,53 @@
 // style.ts
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { mts_text_primary } from "../../consts/index.js";
+import { mts_text_primary, mts_text_secondary } from "../../consts/index.js";
 import "../../assets/fonts.css";
 import { StyledLink } from "../Link/style.js";
 
 export const Wrapper = styled.ol`
   display: flex;
   align-items: center;
+  gap: 4px;
   list-style: none;
   padding: 0;
   margin: 0 0 24px;
-  font-size: 14px;
   ${visuallyImpairedMixin};
 `;
 
 export const CrumbItem = styled.li`
   display: flex;
   align-items: center;
+  gap: 4px;
 `;
 
 export const CrumbLink = styled(StyledLink)`
   display: inline-flex;
   align-items: center;
-  gap: 6px;
   text-decoration: none;
-  color: ${mts_text_primary};
-  font: 17px "MTS Compact", "Arial", sans-serif;
-  font-weight: 500;
+  color: ${mts_text_secondary};
+  font-family: "MTS Compact", "Arial", sans-serif;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 400;
+  &::after {
+    display: none;
+  }
   ${visuallyImpairedMixin};
 `;
 
 export const CrumbText = styled.span`
   color: ${mts_text_primary};
-  opacity: 0.4;
   cursor: default;
-  font: 17px "MTS Compact", "Arial", sans-serif;
-  font-weight: 500;
+  font-family: "MTS Compact", "Arial", sans-serif;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 400;
   ${visuallyImpairedMixin};
 `;
 
 export const Separator = styled.span`
-  margin: 0 8px;
-  color: ${mts_text_primary};
   display: inline-flex;
   align-items: center;
-  font: 17px "MTS Compact", "Arial", sans-serif;
-  font-weight: 500;
-  ${visuallyImpairedMixin};
+  color: ${mts_text_secondary};
 `;
