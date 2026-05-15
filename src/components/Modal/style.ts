@@ -6,10 +6,8 @@ import {
   mts_bg_secondary,
   mts_bg_hover,
   mts_text_primary,
-  mts_text_secondary,
   mts_control_stroke,
 } from "../../consts";
-import Text from "../Text/Text";
 
 export const Overlay = styled.div`
   position: fixed;
@@ -76,16 +74,6 @@ export const Header = styled.div`
   padding: 0 16px;
 `;
 
-export const Title = styled(Text)`
-  color: ${mts_text_primary};
-  text-align: center;
-`;
-
-export const Subtitle = styled(Text)`
-  color: ${mts_text_secondary};
-  text-align: center;
-`;
-
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,6 +86,7 @@ export const Footer = styled.div`
 
   & > * {
     flex: 1;
+    max-width: none;
   }
 `;
 

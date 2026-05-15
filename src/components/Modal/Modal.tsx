@@ -1,4 +1,5 @@
 import React, { FC, HTMLAttributes, memo, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   Body,
   CloseButton,
@@ -7,11 +8,11 @@ import {
   MobileIndicator,
   ModalContainer,
   Overlay,
-  Subtitle,
-  Title,
 } from "./style";
 import IconX from "../../icons/IconX/IconX";
 import { Button } from "../Button/Button";
+import Text from "../Text/Text";
+import { mts_text_primary, mts_text_secondary } from "../../consts";
 
 export interface ModalProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
@@ -72,7 +73,7 @@ export const Modal: FC<ModalProps> = memo(
     const subtitleId = subtitle ? "modal-subtitle" : undefined;
     const hasFooter = Boolean(cancelText || submitText);
 
-    return (
+    return createPortal(
       <Overlay onClick={disableClosing ? undefined : handleClose}>
         <ModalContainer
           role="dialog"
@@ -98,14 +99,23 @@ export const Modal: FC<ModalProps> = memo(
           {(title || subtitle) && (
             <Header>
               {title && (
-                <Title id={titleId} variant="P3-Medium-Comp" as="h2">
+                <Text
+                  id={titleId}
+                  variant="P3-Medium-Comp"
+                  as="h2"
+                  style={{ color: mts_text_primary, textAlign: "center" }}
+                >
                   {title}
-                </Title>
+                </Text>
               )}
               {subtitle && (
-                <Subtitle id={subtitleId} variant="P4-Regular-Comp">
+                <Text
+                  id={subtitleId}
+                  variant="P4-Regular-Comp"
+                  style={{ color: mts_text_secondary, textAlign: "center" }}
+                >
                   {subtitle}
-                </Subtitle>
+                </Text>
               )}
             </Header>
           )}
@@ -137,7 +147,8 @@ export const Modal: FC<ModalProps> = memo(
             </Footer>
           )}
         </ModalContainer>
-      </Overlay>
+      </Overlay>,
+      document.body
     );
   }
 );
