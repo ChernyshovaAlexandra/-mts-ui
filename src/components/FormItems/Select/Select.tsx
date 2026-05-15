@@ -162,6 +162,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
             onClose={handleSheetClose}
             title={label || placeholder || "Выберите"}
             onReset={value ? handleReset : undefined}
+            fixedHeight={withRegions}
           >
             {withRegions && (
               <SearchWrapper>

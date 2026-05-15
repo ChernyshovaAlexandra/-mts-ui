@@ -20,7 +20,7 @@ export const Overlay = styled(motion.div)`
   z-index: 10000;
 `;
 
-export const Sheet = styled(motion.div)`
+export const Sheet = styled(motion.div)<{ $fixedHeight?: boolean }>`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -31,10 +31,10 @@ export const Sheet = styled(motion.div)`
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08), 0 -8px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  max-height: 85vh;
+  ${({ $fixedHeight }) => $fixedHeight ? "height: 85vh;" : "max-height: 85vh;"}
 `;
 
-export const DragIndicator = styled.span`
+export const DragIndicator = styled.span<{ $collapsable?: boolean }>`
   display: block;
   margin: 12px auto 0;
   width: 32px;
@@ -42,6 +42,7 @@ export const DragIndicator = styled.span`
   border-radius: 2px;
   background: ${mts_control_stroke};
   flex-shrink: 0;
+  ${({ $collapsable }) => $collapsable && "cursor: grab; touch-action: none;"}
 `;
 
 export const Header = styled.div`
@@ -93,6 +94,7 @@ export const OptionsContainer = styled.div`
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
 `;
 
 export const OptionRow = styled.button<{ $selected?: boolean }>`
@@ -175,7 +177,7 @@ export const SearchInput = styled.input`
 export const SearchIconWrapper = styled.span`
   position: absolute;
   right: 32px;
-  top: 50%;
+  top: 22px;
   transform: translateY(-50%);
   display: flex;
   align-items: center;

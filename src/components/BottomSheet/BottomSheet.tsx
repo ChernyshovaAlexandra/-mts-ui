@@ -23,6 +23,8 @@ export interface BottomSheetProps {
   onApply?: () => void;
   resetText?: string;
   applyText?: string;
+  fixedHeight?: boolean;
+  collapsable?: boolean;
 }
 
 export const BottomSheet: FC<BottomSheetProps> = memo(
@@ -35,8 +37,23 @@ export const BottomSheet: FC<BottomSheetProps> = memo(
     onApply,
     resetText = "Сбросить",
     applyText = "Применить",
+    fixedHeight,
+    collapsable,
   }) => {
     const hasFooter = Boolean(onReset || onApply);
+
+    const swipeProps = collapsable
+      ? {
+          drag: "y" as const,
+          dragConstraints: { top: 0, bottom: 0 },
+          dragElastic: { top: 0, bottom: 0.4 },
+          onDragEnd: (_: never, info: { offset: { y: number }; velocity: { y: number } }) => {
+            if (info.offset.y > 80 || info.velocity.y > 400) {
+              onClose();
+            }
+          },
+        }
+      : {};
 
     return createPortal(
       <AnimatePresence>
@@ -54,8 +71,10 @@ export const BottomSheet: FC<BottomSheetProps> = memo(
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              $fixedHeight={fixedHeight}
+              {...swipeProps}
             >
-              <DragIndicator aria-hidden="true" />
+              <DragIndicator aria-hidden="true" $collapsable={collapsable} />
               {title && (
                 <Header>
                   <SheetTitle>{title}</SheetTitle>
