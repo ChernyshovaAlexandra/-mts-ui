@@ -86,7 +86,11 @@ export const Footer = styled.div`
 
   & > * {
     flex: 1;
-    max-width: none;
+    max-width: none !important;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
   }
 `;
 

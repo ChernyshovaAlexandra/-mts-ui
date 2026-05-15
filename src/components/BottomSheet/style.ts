@@ -6,6 +6,9 @@ import {
   mts_bg_primary_elevated,
   mts_bg_lower,
   mts_bg_secondary,
+  mts_control_stroke,
+  mts_input_background,
+  mts_input_stroke,
   mts_text_primary,
   mts_text_secondary,
 } from "../../consts";
@@ -32,14 +35,13 @@ export const Sheet = styled(motion.div)`
 `;
 
 export const DragIndicator = styled.span`
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
+  display: block;
+  margin: 12px auto 0;
   width: 32px;
   height: 4px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.35);
+  background: ${mts_control_stroke};
+  flex-shrink: 0;
 `;
 
 export const Header = styled.div`
@@ -137,8 +139,48 @@ export const SheetFooter = styled.div`
 
   & > * {
     flex: 1;
-    max-width: none;
+    max-width: none !important;
   }
+`;
+
+export const SearchWrapper = styled.div`
+  padding: 0 20px 8px;
+  flex-shrink: 0;
+  position: relative;
+`;
+
+export const SearchInput = styled.input`
+  width: 100%;
+  height: 44px;
+  background: ${mts_input_background};
+  border: 1px solid ${mts_input_stroke};
+  border-radius: 12px;
+  padding: 0 44px 0 16px;
+  font-family: "MTS Compact", sans-serif;
+  font-size: 17px;
+  line-height: 24px;
+  color: ${mts_text_primary};
+  outline: none;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: ${mts_text_secondary};
+  }
+
+  &:focus {
+    border-color: #626c77;
+  }
+`;
+
+export const SearchIconWrapper = styled.span`
+  position: absolute;
+  right: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: ${mts_text_secondary};
 `;
 
 // Mobile select trigger field

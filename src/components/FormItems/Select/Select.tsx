@@ -20,7 +20,11 @@ import {
   OptionRow,
   OptionLabel,
   GroupLabel,
+  SearchWrapper,
+  SearchInput,
+  SearchIconWrapper,
 } from "../../BottomSheet/style";
+import { IconSearch } from "../../../icons";
 
 export interface SelectLeaf {
   label: string;
@@ -75,6 +79,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
     const [filteredRegions, setFilteredRegions] = useState(regions);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [mobileSearch, setMobileSearch] = useState("");
 
     useEffect(() => {
       const check = () => setIsMobile(window.innerWidth <= 768);
@@ -96,9 +101,19 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
       setIsSheetOpen(false);
     };
 
+    const handleSheetOpen = () => {
+      setMobileSearch("");
+      setIsSheetOpen(true);
+    };
+
+    const handleSheetClose = () => {
+      setMobileSearch("");
+      setIsSheetOpen(false);
+    };
+
     const handleReset = () => {
       onChange(name, "");
-      setIsSheetOpen(false);
+      handleSheetClose();
     };
 
     // ─── Mobile: custom trigger + BottomSheet ───────────────────────────
@@ -128,7 +143,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
             $hasValue={Boolean(selectedOption)}
             $isError={!!error}
             $disabled={disabled}
-            onClick={() => !disabled && setIsSheetOpen(true)}
+            onClick={() => !disabled && handleSheetOpen()}
           >
             <MobileFieldText>
               {selectedOption ? selectedOption.label : (placeholder || "— выберите —")}
@@ -144,11 +159,25 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
 
           <BottomSheet
             isOpen={isSheetOpen}
-            onClose={() => setIsSheetOpen(false)}
+            onClose={handleSheetClose}
             title={label || placeholder || "Выберите"}
             onReset={value ? handleReset : undefined}
           >
-            {(activeOptions as any[]).map((o, i) =>
+            {withRegions && (
+              <SearchWrapper>
+                <SearchInput
+                  type="text"
+                  placeholder="Поиск города"
+                  value={mobileSearch}
+                  onChange={(e) => setMobileSearch(e.target.value)}
+                  autoComplete="off"
+                />
+                <SearchIconWrapper>
+                  <IconSearch width={20} height={20} />
+                </SearchIconWrapper>
+              </SearchWrapper>
+            )}
+            {(withRegions ? filterRegions(mobileSearch) : (activeOptions as any[])).map((o, i) =>
               "options" in o ? (
                 <div key={i} role="group" aria-label={o.label}>
                   <GroupLabel>{o.label}</GroupLabel>
