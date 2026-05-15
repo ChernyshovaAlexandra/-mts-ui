@@ -1,0 +1,167 @@
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { visuallyImpairedMixin } from "../../accessibility";
+import "../../assets/fonts.css";
+import {
+  mts_bg_primary_elevated,
+  mts_bg_lower,
+  mts_bg_secondary,
+  mts_text_primary,
+  mts_text_secondary,
+} from "../../consts";
+
+export const Overlay = styled(motion.div)`
+  position: fixed;
+  inset: 0;
+  background: rgba(29, 32, 35, 0.4);
+  z-index: 10000;
+`;
+
+export const Sheet = styled(motion.div)`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+  background: ${mts_bg_primary_elevated};
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08), 0 -8px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+`;
+
+export const DragIndicator = styled.span`
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.35);
+`;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 20px 20px 12px;
+  flex-shrink: 0;
+`;
+
+export const SheetTitle = styled.p`
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 4px 0;
+  font-family: "MTS Wide", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  color: ${mts_text_primary};
+`;
+
+export const CloseButton = styled.button`
+  width: 32px;
+  height: 32px;
+  background: ${mts_bg_lower};
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+
+  &:hover {
+    background: ${mts_bg_secondary};
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: ${mts_text_primary};
+  }
+  ${visuallyImpairedMixin};
+`;
+
+export const OptionsContainer = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+`;
+
+export const OptionRow = styled.button<{ $selected?: boolean }>`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    background: ${mts_bg_lower};
+  }
+
+  ${visuallyImpairedMixin};
+`;
+
+export const OptionLabel = styled.span`
+  font-family: "MTS Compact", sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 24px;
+  color: ${mts_text_primary};
+`;
+
+export const GroupLabel = styled.p`
+  margin: 0;
+  padding: 12px 20px 4px;
+  font-family: "MTS Compact", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: ${mts_text_secondary};
+`;
+
+export const SheetFooter = styled.div`
+  display: flex;
+  gap: 12px;
+  padding: 8px 20px 24px;
+  flex-shrink: 0;
+
+  & > * {
+    flex: 1;
+    max-width: none;
+  }
+`;
+
+// Mobile select trigger field
+export const MobileField = styled.div<{ $hasValue?: boolean; $isError?: boolean; $disabled?: boolean }>`
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background: rgba(188, 195, 208, 0.3);
+  border: 1px solid ${({ $isError }) => ($isError ? "#F95721" : "rgba(188, 195, 208, 0.5)")};
+  border-radius: 16px;
+  padding: 0 8px 0 16px;
+  cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
+  opacity: ${({ $disabled }) => ($disabled ? 0.6 : 1)};
+  font-family: "MTS Compact", sans-serif;
+  font-size: 17px;
+  line-height: 24px;
+  color: ${({ $hasValue }) => ($hasValue ? mts_text_primary : mts_text_secondary)};
+`;
+
+export const MobileFieldText = styled.span`
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;

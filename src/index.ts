@@ -4,6 +4,7 @@ export { Text, type TextProps } from "./components/Text/Text";
 export { Modal, type ModalProps } from "./components/Modal/Modal";
 export { Banner, type BannerProps, type BannerVariant } from "./components/Banner/Banner";
 export { CookieBanner, type CookieBannerProps } from "./components/CookieBanner/CookieBanner";
+export { BottomSheet, type BottomSheetProps } from "./components/BottomSheet/BottomSheet";
 export { Button } from "./components/Button/Button";
 export { type ButtonProps } from "./components/Button/type";
 export { Header, type HeaderProps } from "./components/Header/Header";

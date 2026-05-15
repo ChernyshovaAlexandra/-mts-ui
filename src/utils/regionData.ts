@@ -1,6 +1,9 @@
-import type { SelectGroup } from "../components/FormItems/Select/Select";
+export interface RegionGroup {
+  label: string;
+  options: { label: string; value: string }[];
+}
 
-export const regions: SelectGroup[] = [
+export const regions: RegionGroup[] = [
   {
     label: "Дальний Восток",
     options: [
@@ -337,7 +340,7 @@ export const regions: SelectGroup[] = [
   },
 ];
 
-export const filterRegions = (input: string): SelectGroup[] => {
+export const filterRegions = (input: string): RegionGroup[] => {
   const q = input.toLowerCase().trim();
   if (!q) return regions;
   return regions

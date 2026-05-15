@@ -1,4 +1,4 @@
-import React, { useId, forwardRef, useState } from "react";
+import React, { useId, forwardRef, useState, useEffect } from "react";
 import ReactSelect, { StylesConfig, type SelectInstance } from "react-select";
 import { Wrapper } from "./style";
 import IconLock from "../../../icons/IconLock/IconLock";
@@ -11,8 +11,16 @@ import {
 } from "../../../consts";
 import { ErrorMessage, StyledLabel } from "../Input/style";
 import { formBase } from "../shared/formBaseTokens";
-import { IconDropdown } from "../../../icons";
+import { IconDropdown, IconCheck } from "../../../icons";
 import { regions, filterRegions } from "../../../utils/regionData";
+import { BottomSheet } from "../../BottomSheet/BottomSheet";
+import {
+  MobileField,
+  MobileFieldText,
+  OptionRow,
+  OptionLabel,
+  GroupLabel,
+} from "../../BottomSheet/style";
 
 export interface SelectLeaf {
   label: string;
@@ -65,18 +73,139 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
     const errorId = `${selectId}-error`;
 
     const [filteredRegions, setFilteredRegions] = useState(regions);
+    const [isSheetOpen, setIsSheetOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+      const check = () => setIsMobile(window.innerWidth <= 768);
+      check();
+      window.addEventListener("resize", check);
+      return () => window.removeEventListener("resize", check);
+    }, []);
+
     const activeOptions = withRegions ? filteredRegions : options;
 
+    // flat list for finding selected label
+    const flatOptions: SelectLeaf[] = (activeOptions as any[]).flatMap((o) =>
+      "options" in o ? o.options : [o]
+    );
+    const selectedOption = flatOptions.find((o) => o.value === value) || null;
+
+    const handleMobileSelect = (optValue: string) => {
+      onChange(name, optValue);
+      setIsSheetOpen(false);
+    };
+
+    const handleReset = () => {
+      onChange(name, "");
+      setIsSheetOpen(false);
+    };
+
+    // ─── Mobile: custom trigger + BottomSheet ───────────────────────────
+    if (isMobile) {
+      return (
+        <Wrapper style={style}>
+          {label && (
+            <StyledLabel htmlFor={selectId} $invalidInput={!!error}>
+              {label}
+              {disabled && (
+                <IconLock
+                  width={18}
+                  height={18}
+                  style={{ position: "relative", top: 3, marginLeft: 3 }}
+                />
+              )}
+            </StyledLabel>
+          )}
+
+          <MobileField
+            id={selectId}
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded={isSheetOpen}
+            aria-invalid={!!error}
+            aria-describedby={error ? errorId : undefined}
+            $hasValue={Boolean(selectedOption)}
+            $isError={!!error}
+            $disabled={disabled}
+            onClick={() => !disabled && setIsSheetOpen(true)}
+          >
+            <MobileFieldText>
+              {selectedOption ? selectedOption.label : (placeholder || "— выберите —")}
+            </MobileFieldText>
+            <IconDropdown
+              width={18}
+              height={18}
+              style={{ color: "#626C77", flexShrink: 0 }}
+            />
+          </MobileField>
+
+          {error && <ErrorMessage id={errorId}>{error}</ErrorMessage>}
+
+          <BottomSheet
+            isOpen={isSheetOpen}
+            onClose={() => setIsSheetOpen(false)}
+            title={label || placeholder || "Выберите"}
+            onReset={value ? handleReset : undefined}
+          >
+            {(activeOptions as any[]).map((o, i) =>
+              "options" in o ? (
+                <div key={i} role="group" aria-label={o.label}>
+                  <GroupLabel>{o.label}</GroupLabel>
+                  {o.options.map((opt: SelectLeaf) => (
+                    <OptionRow
+                      key={opt.value}
+                      type="button"
+                      $selected={opt.value === value}
+                      onClick={() => handleMobileSelect(opt.value)}
+                      role="option"
+                      aria-selected={opt.value === value}
+                    >
+                      <OptionLabel>{opt.label}</OptionLabel>
+                      {opt.value === value && (
+                        <IconCheck
+                          width={24}
+                          height={24}
+                          style={{ color: mts_text_primary, flexShrink: 0 }}
+                        />
+                      )}
+                    </OptionRow>
+                  ))}
+                </div>
+              ) : (
+                <OptionRow
+                  key={(o as SelectLeaf).value}
+                  type="button"
+                  $selected={(o as SelectLeaf).value === value}
+                  onClick={() => handleMobileSelect((o as SelectLeaf).value)}
+                  role="option"
+                  aria-selected={(o as SelectLeaf).value === value}
+                >
+                  <OptionLabel>{(o as SelectLeaf).label}</OptionLabel>
+                  {(o as SelectLeaf).value === value && (
+                    <IconCheck
+                      width={24}
+                      height={24}
+                      style={{ color: mts_text_primary, flexShrink: 0 }}
+                    />
+                  )}
+                </OptionRow>
+              )
+            )}
+          </BottomSheet>
+        </Wrapper>
+      );
+    }
+
+    // ─── Desktop: ReactSelect ────────────────────────────────────────────
     const rsOptions = activeOptions.map((o) =>
       "options" in o
         ? { label: o.label, options: o.options }
         : { label: o.label, value: o.value }
     );
-
-    const flat = rsOptions.flatMap((o: any) =>
-      "options" in o ? o.options : o
-    );
-    const selected = flat.find((o: any) => o.value === value) || null;
+    const rsSelected = (rsOptions as any[])
+      .flatMap((o: any) => ("options" in o ? o.options : [o]))
+      .find((o: any) => o.value === value) || null;
 
     const colourStyles: StylesConfig = {
       control: (styles, state) => ({
@@ -122,19 +251,10 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
       option: (styles, { isFocused, isSelected }) => ({
         ...styles,
         fontFamily: `"MTS Compact", Arial, sans-serif`,
-        backgroundColor: isSelected
-          ? "#F0F0F0"
-          : isFocused
-            ? "#F5F7F9"
-            : "transparent",
-        ":hover": {
-          cursor: "pointer",
-        },
+        backgroundColor: isSelected ? "#F0F0F0" : isFocused ? "#F5F7F9" : "transparent",
+        ":hover": { cursor: "pointer" },
       }),
-      input: (styles) => ({
-        ...styles,
-        margin: 0,
-      }),
+      input: (styles) => ({ ...styles, margin: 0 }),
     };
 
     return (
@@ -163,7 +283,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           aria-describedby={error ? errorId : undefined}
           placeholder={placeholder || "— выберите —"}
           options={rsOptions as any}
-          value={selected as any}
+          value={rsSelected as any}
           styles={{
             ...colourStyles,
             menuPortal: (base) => ({ ...base, zIndex: 9999 }),
@@ -190,7 +310,11 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           }}
           onChange={(opt: any) => onChange(name, opt?.value ?? "")}
           isSearchable={withRegions || undefined}
-          onInputChange={withRegions ? (input) => setFilteredRegions(filterRegions(input)) : undefined}
+          onInputChange={
+            withRegions
+              ? (input) => setFilteredRegions(filterRegions(input))
+              : undefined
+          }
           {...rsProps}
         />
 
