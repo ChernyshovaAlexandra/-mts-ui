@@ -173,6 +173,12 @@ export {
 } from "./accessibility";
 
 export {
+  allowedDomains,
+  isEmailAllowed,
+  russianLettersPattern,
+} from "./utils/emailValidation";
+
+export {
   mts_darkest_blackberry,
   mts_dark_blackberry,
   mts_normal_blackberry,

@@ -23,10 +23,13 @@ import IconLock from "../../../icons/IconLock/IconLock";
 import IconEye from "../../../icons/IconEye";
 import IconEyeOff from "../../../icons/IconEyeOff/IconEyeOff";
 import { mts_accent_light_negative, mts_text_secondary } from "../../../consts";
+import { isEmailAllowed } from "../../../utils/emailValidation";
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string | null;
   validatePattern?: RegExp;
+  validate?: (value: string) => string | null;
+  corporative?: boolean;
   label?: string;
 };
 
@@ -36,6 +39,8 @@ export const Input = memo(
       {
         errorMessage = null,
         validatePattern,
+        validate,
+        corporative,
         onBlur,
         onChange,
         label,
@@ -65,8 +70,20 @@ export const Input = memo(
       const hasValue = typeof value === "string" && value.length > 0;
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // if (error) setError(null);
+        if (error) setError(null);
         onChange?.(e);
+      };
+
+      const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        const val = e.target.value;
+        if (val) {
+          if (corporative && !isEmailAllowed(val)) {
+            setError("Введите корпоративный email");
+          } else if (validate) {
+            setError(validate(val));
+          }
+        }
+        onBlur?.(e);
       };
 
       const clear = () => {
@@ -108,7 +125,7 @@ export const Input = memo(
               type={effectiveType}
               value={value}
               onChange={handleChange}
-              onBlur={onBlur}
+              onBlur={handleBlur}
               aria-invalid={!!error}
               aria-describedby={error ? errorId : undefined}
               aria-label={label ? undefined : "Текстовое поле"}
