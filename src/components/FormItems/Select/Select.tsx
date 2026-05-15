@@ -1,4 +1,4 @@
-import React, { useId, forwardRef } from "react";
+import React, { useId, forwardRef, useState } from "react";
 import ReactSelect, { StylesConfig, type SelectInstance } from "react-select";
 import { Wrapper } from "./style";
 import IconLock from "../../../icons/IconLock/IconLock";
@@ -12,6 +12,7 @@ import {
 import { ErrorMessage, StyledLabel } from "../Input/style";
 import { formBase } from "../shared/formBaseTokens";
 import { IconDropdown } from "../../../icons";
+import { regions, filterRegions } from "../../../utils/regionData";
 
 export interface SelectLeaf {
   label: string;
@@ -29,7 +30,7 @@ export interface SelectProps {
   errorMessage?: string;
   value: string;
   onChange: (name: string, value: string) => void;
-  options: SelectOption[];
+  options?: SelectOption[];
   placeholder?: string;
   required?: boolean;
   label?: string;
@@ -37,6 +38,7 @@ export interface SelectProps {
   disabled?: boolean;
   style?: React.CSSProperties;
   rsProps?: Record<string, unknown>;
+  withRegions?: boolean;
 }
 
 export const Select = forwardRef<SelectInstance, SelectProps>(
@@ -45,7 +47,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
       name,
       value,
       onChange,
-      options,
+      options = [],
       placeholder,
       label,
       errorMessage: error,
@@ -54,6 +56,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
       rsProps,
       id,
       required,
+      withRegions,
     },
     ref
   ) => {
@@ -61,7 +64,10 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
     const selectId = id || `select-${generatedId}`;
     const errorId = `${selectId}-error`;
 
-    const rsOptions = options.map((o) =>
+    const [filteredRegions, setFilteredRegions] = useState(regions);
+    const activeOptions = withRegions ? filteredRegions : options;
+
+    const rsOptions = activeOptions.map((o) =>
       "options" in o
         ? { label: o.label, options: o.options }
         : { label: o.label, value: o.value }
@@ -183,6 +189,8 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
             },
           }}
           onChange={(opt: any) => onChange(name, opt?.value ?? "")}
+          isSearchable={withRegions || undefined}
+          onInputChange={withRegions ? (input) => setFilteredRegions(filterRegions(input)) : undefined}
           {...rsProps}
         />
 

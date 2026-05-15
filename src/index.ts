@@ -178,6 +178,8 @@ export {
   russianLettersPattern,
 } from "./utils/emailValidation";
 
+export { regions, filterRegions } from "./utils/regionData";
+
 export {
   mts_darkest_blackberry,
   mts_dark_blackberry,
