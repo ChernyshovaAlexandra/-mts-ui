@@ -1,3 +1,4 @@
+export { Breadcrumbs, type BreadcrumbsProps } from "./components/Breadcrumbs/Breadcrumbs";
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";
