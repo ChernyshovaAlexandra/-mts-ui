@@ -170,6 +170,8 @@ export { IconSearch } from "./icons/IconSearch/IconSearch";
 export { IconNotification } from "./icons/IconNotification/IconNotification";
 export { IconSettings } from "./icons/IconSettings/IconSettings";
 
+export { TabBar, type TabBarProps, type TabBarItem } from "./components/TabBar/TabBar";
+
 export {
   AccessibilityProvider,
   useAccessibility,
