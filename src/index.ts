@@ -58,6 +58,8 @@ export {
   Navigation,
   type NavigationProps,
 } from "./components/Navigation/Navigation";
+export { default as Registration, type RegistrationProps, type RegistrationFormData } from "./components/Registration/Registration";
+export { Card, type CardProps, type CardVariant } from "./components/Card/Card";
 export { GalleryCard } from "./components/GalleryCard/GalleryCard";
 export { GalleryCarousel } from "./components/GalleryCard/GalleryCarousel";
 
