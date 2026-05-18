@@ -24,12 +24,13 @@ export const Button: React.FC<ButtonProps> = ({
     } = props as LinkElementProps;
 
     const isDisabled = disabled || loading;
+    const iconOnly = !!icon && !children && !content;
 
     return (
       <StyledBtnLink
         role="link"
         $variant={variant}
-        $width={width}
+        $width={iconOnly ? "auto" : width}
         $size={size}
         href={isDisabled ? undefined : link}
         data-tip={tooltip}
@@ -48,9 +49,9 @@ export const Button: React.FC<ButtonProps> = ({
         {icon && <span className="btn-icon">{icon}</span>}
         {loading ? (
           <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
-        ) : (
+        ) : (children || content) ? (
           <span className="btn-label">{children || content}</span>
-        )}
+        ) : null}
       </StyledBtnLink>
     );
   } else {
@@ -68,10 +69,12 @@ export const Button: React.FC<ButtonProps> = ({
       ...rest
     } = props as ButtonElementProps;
 
+    const iconOnly = !!icon && !children && !content;
+
     return (
       <StyledBtn
         $variant={variant}
-        $width={width}
+        $width={iconOnly ? "auto" : width}
         $size={size}
         type={buttonType || "button"}
         onClick={onClick}
@@ -84,9 +87,9 @@ export const Button: React.FC<ButtonProps> = ({
         {icon && <span className="btn-icon">{icon}</span>}
         {loading ? (
           <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
-        ) : (
+        ) : (children || content) ? (
           <span className="btn-label">{children || content}</span>
-        )}
+        ) : null}
       </StyledBtn>
     );
   }
