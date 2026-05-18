@@ -4,8 +4,10 @@ import {
   mts_text_primary,
   mts_text_secondary,
   mts_bg_secondary,
+  mts_bg_primary,
 } from "../../consts";
 import { visuallyImpairedMixin } from "../../accessibility";
+import { Text } from "../Text/Text";
 import type { TableSize, TableVariant } from "./Table";
 
 const CELL_PADDING: Record<TableSize, string> = {
@@ -26,7 +28,7 @@ export const TableContainer = styled.div<{ $variant: TableVariant }>`
   flex-direction: column;
   border-radius: 16px;
   overflow: hidden;
-  background: ${({ $variant }) => ($variant === "grey" ? mts_bg_secondary : "white")};
+  background: ${({ $variant }) => ($variant === "grey" ? mts_bg_secondary : mts_bg_primary)};
   border: ${({ $variant }) => ($variant === "grey" ? "none" : `1px solid ${mts_input_stroke}`)};
   box-sizing: border-box;
 `;
@@ -35,7 +37,7 @@ export const TableHeaderRow = styled.div<{ $variant: TableVariant }>`
   display: flex;
   align-items: stretch;
   border-bottom: 1px solid ${mts_input_stroke};
-  background: ${({ $variant }) => ($variant === "grey" ? mts_bg_secondary : "white")};
+  background: ${({ $variant }) => ($variant === "grey" ? mts_bg_secondary : mts_bg_primary)};
 `;
 
 export const TableHeaderCell = styled.div<{
@@ -68,7 +70,7 @@ export const HeaderText = styled.div`
   user-select: none;
 `;
 
-export const HeaderLabel = styled.span`
+export const HeaderLabel = styled(Text).attrs({ as: "span" })`
   font-family: "MTS Compact", sans-serif;
   font-weight: 500;
   font-size: 14px;

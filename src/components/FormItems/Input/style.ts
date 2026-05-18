@@ -88,7 +88,6 @@ export const StyledLabel = styled.label<{ $invalidInput: boolean }>`
 export const InputWrapper = styled.div`
   position: relative;
   max-width: 100%;
-  width: 500px;
 `;
 
 export const IconSlot = styled.div`

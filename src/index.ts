@@ -108,6 +108,9 @@ export {
   mts_text_secondary,
   mts_text_tertiary,
   mts_text_headline,
+  mts_text_inverted,
+  mts_text_primary_link,
+  mts_text_secondary_link,
   // Accent
   mts_accent_light_active,
   mts_accent_light_positive,

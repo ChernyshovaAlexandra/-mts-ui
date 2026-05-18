@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { mts_text_primary, mts_text_secondary } from "../../consts";
 import { Text } from "../Text/Text";
 import { Caption } from "../Caption/Caption";
+import { Link } from "../Link/Link";
 import { InlineEdit } from "../InlineEdit/InlineEdit";
 import "../../assets/fonts.css";
 
@@ -74,21 +75,10 @@ export const TableCellStatus: FC<TableCellStatusProps> = ({ color, children }) =
 
 // ── Link ──────────────────────────────────────────────────────────────────────
 
-const LinkAnchor = styled.a`
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-family: "MTS Compact", sans-serif;
+const LinkAnchor = styled(Link)`
   font-size: 14px;
-  font-weight: 400;
   line-height: 20px;
-  color: #0070e5;
-  text-decoration: none;
   white-space: nowrap;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 export interface TableCellLinkProps {
@@ -99,8 +89,14 @@ export interface TableCellLinkProps {
 }
 
 export const TableCellLink: FC<TableCellLinkProps> = ({ href, onClick, icon, children }) => (
-  <LinkAnchor href={href} onClick={onClick} target={href ? "_blank" : undefined} rel="noopener noreferrer">
-    {icon}
+  <LinkAnchor
+    href={href}
+    onClick={onClick}
+    variant={icon ? "icon-left" : "default"}
+    icon={icon}
+    target={href ? "_blank" : undefined}
+    rel="noopener noreferrer"
+  >
     {children}
   </LinkAnchor>
 );

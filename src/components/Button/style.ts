@@ -2,11 +2,16 @@ import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
   mts_text_primary,
+  mts_text_inverted,
   mts_bg_lower,
   mts_bg_hover,
+  mts_bg_primary,
   mts_brand_red,
   mts_bg_inverted,
   mts_bg_disabled,
+  mts_control_blur,
+  mts_greyscale_400,
+  mts_greyscale_700,
 } from "../../consts";
 import "../../assets/fonts.css";
 
@@ -93,7 +98,6 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 320px;
   min-height: 44px;
   min-width: 44px;
   border: 1px solid transparent;
@@ -105,9 +109,9 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
       case "alternative":
         return css`
           background: ${mts_bg_inverted};
-          color: #fafafa;
+          color: ${mts_text_inverted};
           &:not(:disabled):hover {
-            background: #2d3136;
+            background: ${mts_greyscale_700};
           }
         `;
       case "secondary":
@@ -120,16 +124,16 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
         `;
       case "tetriary":
         return css`
-          background: #ffffff;
+          background: ${mts_bg_primary};
           color: ${mts_text_primary};
           &:not(:disabled):hover {
-            background: #e4e7ec;
+            background: ${mts_bg_hover};
           }
         `;
       case "gray":
         return css`
-          background: rgba(255, 255, 255, 0.08);
-          color: #fff;
+          background: ${mts_control_blur};
+          color: ${mts_text_inverted};
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           &:not(:disabled):hover {
@@ -146,8 +150,8 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
         `;
       case "icon":
         return css`
-          background: rgba(255, 255, 255, 0.08);
-          color: #fff;
+          background: ${mts_control_blur};
+          color: ${mts_text_inverted};
           padding: 6px;
           border-radius: 32px;
           &:not(:disabled):hover {
@@ -167,7 +171,7 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
       default:
         return css`
           background: ${mts_brand_red};
-          color: #fff;
+          color: ${mts_text_inverted};
           &:not(:disabled):hover {
             background: #e4002e;
           }
@@ -179,7 +183,7 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
     cursor: not-allowed;
     opacity: 0.6;
     background: ${mts_bg_disabled} !important;
-    color: #969fa8 !important;
+    color: ${mts_greyscale_400} !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
