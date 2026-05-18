@@ -316,7 +316,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           value={rsSelected as any}
           styles={{
             ...colourStyles,
-            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+            menuPortal: (base) => ({ ...base, zIndex: 1000000000 }),
           }}
           required={required}
           components={{

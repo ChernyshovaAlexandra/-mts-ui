@@ -67,6 +67,8 @@ export const StyledCounter = styled.span<{
   white-space: nowrap;
   box-sizing: border-box;
   flex-shrink: 0;
+  width: fit-content;
+  align-self: flex-start;
 
   ${({ $size }) => sizeStyles[$size]}
   ${({ $variant }) => variantStyles[$variant]}

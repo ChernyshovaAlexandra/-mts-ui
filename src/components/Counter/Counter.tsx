@@ -35,7 +35,7 @@ export const Counter: FC<CounterProps> = ({
     ? String(value).padStart(2, "0")
     : String(value);
 
-  const isCircular = value !== undefined && value <= 9;
+  const isCircular = !pad && value !== undefined && value <= 9;
 
   return (
     <StyledCounter

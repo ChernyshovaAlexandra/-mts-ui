@@ -207,6 +207,7 @@ export { Cell, type CellProps, type CellEdit } from "./components/Cell/Cell";
 export { IconAddCircle } from "./icons/IconAddCircle/IconAddCircle";
 export { IconRemoveCircle } from "./icons/IconRemoveCircle/IconRemoveCircle";
 export { Counter, type CounterProps, type CounterSize, type CounterVariant } from "./components/Counter/Counter";
+export { ProgressLinear, type ProgressLinearProps, type ProgressLinearType, type ProgressLinearSize } from "./components/ProgressLinear/ProgressLinear";
 
 export {
   AccessibilityProvider,
