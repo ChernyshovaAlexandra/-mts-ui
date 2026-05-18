@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Carousel as AntdCarousel } from "antd";
 import { IconArrowCircle } from "../../icons";
 import { CarouselContainer, ArrowButton, DotContainer, Dot } from "./style";
-import { mts_bg_secondary_elevated } from "../../consts";
+import { mts_bg_lower } from "../../consts";
 
 type GalleryCarouselProps = {
   items: React.ReactNode[];
@@ -31,7 +31,7 @@ export const GalleryCarousel: React.FC<GalleryCarouselProps> = ({ items }) => {
       >
         <IconArrowCircle
           style={{
-            fill: mts_bg_secondary_elevated,
+            fill: mts_bg_lower,
           }}
           outlined={false}
           direction={dir}

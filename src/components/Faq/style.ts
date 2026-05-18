@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Text, { TextVariant } from "../Text/Text";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { mts_bg_secondary_elevated, mts_text_primary } from "../../consts";
+import { mts_bg_lower, mts_text_primary } from "../../consts";
 import { textStyles } from "../Text/style";
 
 export const FaqItemWrapper = styled.div`
-  background-color: ${mts_bg_secondary_elevated};
+  background-color: ${mts_bg_lower};
   border-radius: 16px;
   overflow: hidden;
   margin-bottom: 8px;

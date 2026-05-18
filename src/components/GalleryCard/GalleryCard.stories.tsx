@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { GalleryCard } from "./GalleryCard";
 
 const meta: Meta<typeof GalleryCard> = {
-  title: "МТС/Content/GalleryCard",
+  title: "МТС/GalleryCard",
   component: GalleryCard,
 };
 

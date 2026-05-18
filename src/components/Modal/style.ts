@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
-  mts_bg_modal,
   mts_bg_overlay,
   mts_bg_secondary,
   mts_bg_hover,
   mts_text_primary,
   mts_control_stroke,
 } from "../../consts";
+import { Card } from "../Card/Card";
 
 export const Overlay = styled.div`
   position: fixed;
@@ -30,10 +30,10 @@ export const Overlay = styled.div`
   }
 `;
 
-export const ModalContainer = styled.div`
+export const ModalContainer = styled(Card).attrs({
+  variant: "default",
+})`
   position: relative;
-  background: ${mts_bg_modal};
-  border-radius: 24px;
   width: 440px;
   max-width: 100%;
   padding: 32px 20px 20px;

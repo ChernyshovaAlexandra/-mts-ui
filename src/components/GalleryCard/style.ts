@@ -1,20 +1,6 @@
 import styled from "styled-components";
-import { mts_bg_secondary_elevated } from "../../consts";
+import { mts_bg_lower } from "../../consts";
 
-export const CardWrapper = styled.div`
-  background: ${mts_bg_secondary_elevated};
-  border-radius: 24px;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 288px;
-  box-sizing: border-box;
-
-  * {
-    box-sizing: border-box;
-  }
-`;
 
 export const TagWrapper = styled.div`
   position: absolute;

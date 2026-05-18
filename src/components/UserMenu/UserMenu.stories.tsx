@@ -3,7 +3,7 @@ import { UserMenu, UserMenuProps } from "./UserMenu";
 import { Button } from "../Button/Button";
 
 export default {
-  title: "МТС/Content/UserMenu",
+  title: "МТС/UserMenu",
   component: UserMenu,
   tags: ["autodocs"],
   argTypes: {

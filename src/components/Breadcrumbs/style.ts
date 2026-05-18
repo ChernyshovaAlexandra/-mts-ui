@@ -21,14 +21,14 @@ export const CrumbItem = styled.li`
   gap: 4px;
 `;
 
-export const CrumbLink = styled(StyledLink)`
+export const CrumbLink = styled(StyledLink)<{ $size?: "s" | "m" }>`
   display: inline-flex;
   align-items: center;
   text-decoration: none;
   color: ${mts_text_secondary};
   font-family: "MTS Compact", "Arial", sans-serif;
-  font-size: 17px;
-  line-height: 24px;
+  font-size: ${({ $size }) => ($size === "s" ? "14px" : "17px")};
+  line-height: ${({ $size }) => ($size === "s" ? "20px" : "24px")};
   font-weight: 400;
   &::after {
     display: none;
@@ -36,12 +36,12 @@ export const CrumbLink = styled(StyledLink)`
   ${visuallyImpairedMixin};
 `;
 
-export const CrumbText = styled.span`
+export const CrumbText = styled.span<{ $size?: "s" | "m" }>`
   color: ${mts_text_primary};
   cursor: default;
   font-family: "MTS Compact", "Arial", sans-serif;
-  font-size: 17px;
-  line-height: 24px;
+  font-size: ${({ $size }) => ($size === "s" ? "14px" : "17px")};
+  line-height: ${({ $size }) => ($size === "s" ? "20px" : "24px")};
   font-weight: 400;
   ${visuallyImpairedMixin};
 `;

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import FsLightbox from "fslightbox-react";
 import { GalleryCarousel } from "./GalleryCarousel";
 import Text from "../Text/Text";
-import Tag from "../Tag/Tag";
-import { IconCamera } from "../../icons";
+import { Card } from "../Card/Card";
+import { Badge } from "../Badge/Badge";
+import { IconPicture } from "../../icons/IconPicture/IconPicture";
 import {
-  CardWrapper,
   CarouselContainer,
   ContentInner,
   DescriptionWrapper,
@@ -37,20 +37,20 @@ export const GalleryCard: React.FC<GalleryCardProps> = ({
     <ContentInner key={index} onClick={handleClick}>
       {image.title && (
         <TagWrapper>
-          <Tag title={image.title} />
+          <Badge size="s" variant="default">{image.title}</Badge>
         </TagWrapper>
       )}
       {image.src ? (
         <img src={image.src} alt={`gallery-${index}`} />
       ) : (
-        <IconCamera aria-label="Нет изображения" />
+        <IconPicture aria-label="Нет изображения" />
       )}
     </ContentInner>
   );
 
   return (
     <>
-      <CardWrapper>
+      <Card variant="grey" style={{ padding: 8, maxWidth: 288, boxSizing: "border-box" }}>
         <ImageWrapper>
           {images.length > 1 ? (
             <CarouselContainer>
@@ -67,7 +67,7 @@ export const GalleryCard: React.FC<GalleryCardProps> = ({
             <Text variant="P4-Regular-Text">{description}</Text>
           </DescriptionWrapper>
         )}
-      </CardWrapper>
+      </Card>
 
       {lightbox && (
         <FsLightbox

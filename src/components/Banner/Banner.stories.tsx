@@ -5,7 +5,7 @@ import IconAttention from "../../icons/IconAttention/IconAttention";
 import { mts_accent_light_warning } from "../../consts";
 
 export default {
-  title: "МТС/Feedback/Banner",
+  title: "МТС/Banner",
   component: Banner,
   tags: ["autodocs"],
 } as Meta<BannerProps>;

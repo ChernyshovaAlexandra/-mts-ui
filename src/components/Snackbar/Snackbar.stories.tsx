@@ -4,7 +4,7 @@ import { Snackbar, SnackBarProps } from "./Snackbar";
 import { Button } from "../Button/Button";
 
 export default {
-  title: "МТС/Feedback/Snackbar",
+  title: "МТС/Snackbar",
   component: Snackbar,
   tags: ["autodocs"],
   argTypes: {

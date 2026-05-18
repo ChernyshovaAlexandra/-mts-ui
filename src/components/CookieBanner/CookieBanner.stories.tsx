@@ -4,7 +4,7 @@ import { CookieBanner, CookieBannerProps } from "./CookieBanner";
 import { Button } from "../Button/Button";
 
 export default {
-  title: "МТС/Feedback/CookieBanner",
+  title: "МТС/CookieBanner",
   component: CookieBanner,
   tags: ["autodocs"],
 } as Meta<CookieBannerProps>;

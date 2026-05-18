@@ -1,6 +1,6 @@
-// Breadcrumbs.tsx
 import { FC, memo } from "react";
 import { IconChevronRight } from "../../icons/IconChevronRight/IconChevronRight";
+import { IconLeft } from "../../icons/IconLeft/IconLeft";
 import {
   Wrapper,
   CrumbLink,
@@ -14,23 +14,32 @@ export interface BreadcrumbsProps {
     name: string;
     path: string;
   }>;
+  size?: "s" | "m";
+  iconLeft?: boolean;
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs }) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft }) => {
+  const iconSize = size === "s" ? 16 : 24;
+
   return (
     <nav aria-label="Хлебные крошки">
       <Wrapper>
         <CrumbItem>
-          <CrumbLink href="/">Главная</CrumbLink>
+          {iconLeft && (
+            <Separator>
+              <IconLeft width={iconSize} height={iconSize} />
+            </Separator>
+          )}
+          <CrumbLink href="/" $size={size}>Главная</CrumbLink>
         </CrumbItem>
 
         {crumbs.map((crumb, idx) => (
           <CrumbItem key={idx}>
-            <Separator><IconChevronRight width={24} height={24} /></Separator>
+            <Separator><IconChevronRight width={iconSize} height={iconSize} /></Separator>
             {idx === crumbs.length - 1 ? (
-              <CrumbText aria-current="page">{crumb.name}</CrumbText>
+              <CrumbText $size={size} aria-current="page">{crumb.name}</CrumbText>
             ) : (
-              <CrumbLink href={crumb.path}>{crumb.name}</CrumbLink>
+              <CrumbLink href={crumb.path} $size={size}>{crumb.name}</CrumbLink>
             )}
           </CrumbItem>
         ))}

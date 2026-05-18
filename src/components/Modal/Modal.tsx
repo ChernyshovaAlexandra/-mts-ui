@@ -74,13 +74,18 @@ export const Modal: FC<ModalProps> = memo(
     const hasFooter = Boolean(cancelText || submitText);
 
     return createPortal(
-      <Overlay onClick={disableClosing ? undefined : handleClose}>
+      <Overlay
+        onClick={
+          disableClosing
+            ? undefined
+            : (e) => { if (e.target === e.currentTarget) handleClose(); }
+        }
+      >
         <ModalContainer
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
           aria-describedby={subtitleId}
-          onClick={(e) => e.stopPropagation()}
           style={modalStyle}
           {...rest}
         >

@@ -17,7 +17,7 @@ import {
 import Separator from "../components/Separator/Separator";
 
 export default {
-  title: "МТС/Foundations/Colors",
+  title: "МТС/Icons and Colors/Colors",
 } as Meta;
 
 const groupNames: Record<string, string> = {

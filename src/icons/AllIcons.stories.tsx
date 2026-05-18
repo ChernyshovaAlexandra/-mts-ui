@@ -5,11 +5,12 @@ import { useState } from "react";
 import Text from "../components/Text/Text";
 
 export default {
-  title: "МТС/Foundations/Icons",
+  title: "МТС/Icons and Colors/Icons",
 };
 
 export const AllIcons = () => {
   const [copied, setCopied] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   const handleCopy = (iconName: string) => {
     navigator.clipboard.writeText(`<${iconName} />`);
@@ -17,9 +18,36 @@ export const AllIcons = () => {
     setTimeout(() => setCopied(null), 1500);
   };
 
+  const filtered = Object.entries(Icons).filter(([name]) =>
+    name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+      <input
+        type="search"
+        placeholder="Поиск иконки..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          width: 280,
+          height: 36,
+          padding: "0 12px",
+          border: "1px solid #BCC3D0",
+          borderRadius: 8,
+          fontFamily: "MTS Compact, Arial, sans-serif",
+          fontSize: 14,
+          outline: "none",
+          boxSizing: "border-box",
+        }}
+      />
+      {filtered.length === 0 && (
+        <span style={{ color: "#969FA8", fontFamily: "sans-serif", fontSize: 14 }}>
+          Иконки не найдены
+        </span>
+      )}
     <div style={{ display: "flex", flexWrap: "wrap", gap: 24 }}>
-      {Object.entries(Icons).map(([name, IconComponent]) => (
+      {filtered.map(([name, IconComponent]) => (
         <div
           key={name}
           style={{
@@ -34,7 +62,20 @@ export const AllIcons = () => {
           }}
         >
           <IconComponent width={32} height={32} />
-          <Text style={{ marginTop: 8, fontSize: 12 }}>{name}</Text>
+          <Text
+            style={{
+              marginTop: 8,
+              fontSize: 12,
+              width: "100%",
+              textAlign: "center",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+            title={name}
+          >
+            {name}
+          </Text>
           <button
             style={{
               background: "transparent",
@@ -56,6 +97,7 @@ export const AllIcons = () => {
           )}
         </div>
       ))}
+    </div>
     </div>
   );
 };

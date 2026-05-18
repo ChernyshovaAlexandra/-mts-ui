@@ -11,11 +11,11 @@ const tabsLayoutByCount = (count: number) => {
 
 export const TabBarWrapper = styled.div`
   position: relative;
-  height: 52px;
   width: 100%;
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  padding-bottom: env(safe-area-inset-bottom);
   ${visuallyImpairedMixin};
 `;
 
@@ -32,7 +32,6 @@ export const TabsContainer = styled.div<{ $count: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   ${({ $count }) => tabsLayoutByCount($count)};
 `;
 

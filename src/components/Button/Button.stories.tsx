@@ -46,7 +46,7 @@ const Label = ({ text, dark }: { text: string; dark?: boolean }) => (
 );
 
 export default {
-  title: "МТС/Actions/Button",
+  title: "МТС/Button",
   component: Button,
   tags: ["autodocs"],
   argTypes: {

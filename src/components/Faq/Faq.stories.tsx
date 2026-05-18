@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import { Faq, FaqProps } from "./Faq";
 
 export default {
-  title: "МТС/Content/Faq",
+  title: "МТС/Faq",
   component: Faq,
   tags: ["autodocs"],
 } as Meta<FaqProps>;
