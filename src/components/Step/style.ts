@@ -4,34 +4,37 @@ import {
   mts_accent_light_positive,
   mts_accent_light_negative,
   mts_bg_secondary,
+  mts_bg_lower,
   mts_text_primary,
   mts_text_secondary,
   mts_text_inverted,
   mts_text_tertiary,
 } from "../../consts";
 import "../../assets/fonts.css";
+import type { StepSize, StepColor, StepOrientation } from "./Step";
 import { Text } from "../Text/Text";
 import { Caption } from "../Caption/Caption";
-import type { StepSize, StepColor, StepOrientation } from "./Step";
 
 // ─── Sizes ────────────────────────────────────────────────────────────────────
 
 export const CIRCLE_SIZE: Record<StepSize, number> = { s: 24, m: 48 };
-export const ICON_SIZE:   Record<StepSize, number> = { s: 24, m: 48 };
-export const FONT_SIZE:   Record<StepSize, string> = { s: "14px", m: "24px" };
-export const FONT_LH:     Record<StepSize, string> = { s: "20px", m: "28px" };
-export const BADGE_SIZE:  Record<StepSize, number> = { s: 12, m: 18 };
+export const ICON_SIZE: Record<StepSize, number> = { s: 24, m: 48 };
+export const FONT_SIZE: Record<StepSize, string> = { s: "14px", m: "24px" };
+export const FONT_LH: Record<StepSize, string> = { s: "20px", m: "28px" };
+export const BADGE_SIZE: Record<StepSize, number> = { s: 12, m: 18 };
 
 // ─── Color tokens ─────────────────────────────────────────────────────────────
 
 export const COLOR_BG: Record<StepColor, string> = {
-  primary:   "#FF0032",
+  primary: "#FF0032",
   secondary: mts_text_primary,
 };
 
-export const DONE_BG      = mts_accent_light_positive;
-export const FAILED_BG    = mts_accent_light_negative;
-export const DISABLED_BG  = mts_bg_secondary;
+export const DONE_BG = mts_accent_light_positive;
+export const FAILED_BG = mts_accent_light_negative;
+export const DISABLED_BG = mts_bg_secondary;
+export const BADGE_CIRCLE_BG = mts_bg_lower; // #F2F3F7 — круг number-badge при done/failed
+export const BADGE_CIRCLE_COLOR = mts_text_primary; // #1D2023
 export const ACTIVE_COLOR = mts_text_inverted;
 export const DISABLED_COLOR = mts_text_tertiary;
 
@@ -39,9 +42,11 @@ export const DISABLED_COLOR = mts_text_tertiary;
 
 export const StepWrapper = styled.div<{ $orientation: StepOrientation }>`
   display: inline-flex;
-  flex-direction: ${({ $orientation }) => $orientation === "horizontal" ? "column" : "row"};
+  flex-direction: ${({ $orientation }) =>
+    $orientation === "horizontal" ? "column" : "row"};
   align-items: flex-start;
-  gap: ${({ $orientation }) => $orientation === "horizontal" ? "12px" : "16px"};
+  gap: ${({ $orientation }) =>
+    $orientation === "horizontal" ? "12px" : "16px"};
 `;
 
 // ─── Root circle ─────────────────────────────────────────────────────────────
@@ -59,7 +64,11 @@ export const StepCircleRoot = styled.div<{ $size: StepSize }>`
 
 // ─── Circle surface ───────────────────────────────────────────────────────────
 
-export const StepCircle = styled.div<{ $bg: string; $color: string; $size: StepSize }>`
+export const StepCircle = styled.div<{
+  $bg: string;
+  $color: string;
+  $size: StepSize;
+}>`
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -77,7 +86,11 @@ export const StepCircle = styled.div<{ $bg: string; $color: string; $size: StepS
 
 // ─── Badge ────────────────────────────────────────────────────────────────────
 
-export const StepBadge = styled.div<{ $bg: string; $color: string; $size: StepSize }>`
+export const StepBadge = styled.div<{
+  $bg: string;
+  $color: string;
+  $size: StepSize;
+}>`
   position: absolute;
   bottom: -2px;
   right: -2px;
@@ -92,6 +105,28 @@ export const StepBadge = styled.div<{ $bg: string; $color: string; $size: StepSi
   box-shadow: 0 0 0 2px white;
 `;
 
+// ─── Horizontal with-divider layout ──────────────────────────────────────────
+
+export const StepWithDividerWrap = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const StepTopRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const StepBottomRow = styled.div`
+  width: 100%;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+`;
+
 // ─── Text block ───────────────────────────────────────────────────────────────
 
 export const StepTextBlock = styled.div<{ $orientation: StepOrientation }>`
@@ -101,17 +136,29 @@ export const StepTextBlock = styled.div<{ $orientation: StepOrientation }>`
   min-width: 0;
 
   ${({ $orientation }) =>
+    $orientation === "horizontal" &&
+    css`min-width: 204px;`}
+
+  ${({ $orientation }) =>
     $orientation === "vertical" &&
     css`padding: 2px 0;`}
 `;
 
-export const StepLabelText = styled(Text).attrs({ as: "span", variant: "P4-Medium-Comp" as const })`
+export const StepLabelText = styled(Text).attrs({ as: "span" })`
+  font-family: "MTS Compact", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
-export const StepDescText = styled(Caption).attrs({ variant: "C1-Regular-Comp" as const })`
+export const StepDescText = styled(Caption).attrs({ as: "span" })`
+  font-family: "MTS Compact", sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 400;
   color: ${mts_text_secondary};
   white-space: nowrap;
   overflow: hidden;

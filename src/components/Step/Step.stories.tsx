@@ -144,6 +144,36 @@ export const NumberBadgeVariant: Story = {
   ),
 };
 
+// ── С текстом ─────────────────────────────────────────────────────────────────
+
+export const WithText: Story = {
+  name: "С текстом",
+  parameters: {
+    controls: { disable: true },
+    docs: { description: { story: "Горизонтальная и вертикальная ориентация — лейбл и описание под/справа от круга." } },
+  },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <Caption variant="C1-Medium-Comp" as="span">Horizontal</Caption>
+        <div style={{ display: "flex", gap: 32 }}>
+          <Step variant="number" value={1} color="primary"   size="m" orientation="horizontal" label="Заголовок" description="Описание шага" />
+          <Step variant="number" value={2} color="secondary" size="m" orientation="horizontal" label="Заголовок" description="Описание шага" />
+          <Step variant="number" value={3} status="disabled" size="m" orientation="horizontal" label="Заголовок" description="Описание шага" />
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <Caption variant="C1-Medium-Comp" as="span">Vertical</Caption>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <Step variant="number" value={1} color="primary"   size="m" orientation="vertical" label="Заголовок" description="Описание шага" />
+          <Step variant="number" value={2} color="secondary" size="m" orientation="vertical" label="Заголовок" description="Описание шага" />
+          <Step variant="number" value={3} status="disabled" size="m" orientation="vertical" label="Заголовок" description="Описание шага" />
+        </div>
+      </div>
+    </div>
+  ),
+};
+
 // ── Все варианты ──────────────────────────────────────────────────────────────
 
 export const AllVariants: Story = {
@@ -154,9 +184,8 @@ export const AllVariants: Story = {
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <Caption variant="C1-Medium-Comp" as="span">Icon</Caption>
         <div style={{ display: "flex", gap: 12 }}>
-          <Step variant="icon" status="done"     size="m" />
-          <Step variant="icon" status="failed"   size="m" />
-          <Step variant="icon" status="disabled" size="m" />
+          <Step variant="icon" status="done"   size="m" />
+          <Step variant="icon" status="failed" size="m" />
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
