@@ -98,8 +98,10 @@ export { Carousel, type CarouselProps } from "./components/Carousel/Carousel";
 export { Divider, type DividerProps, type DividerOrientation } from "./components/Divider/Divider";
 export { IconDoneS } from "./icons/IconDoneS/IconDoneS";
 export { IconFailedS } from "./icons/IconFailedS/IconFailedS";
-export { Steps, type StepsProps, type StepItem, type StepStatus, type StepsSize, type StepsOrientation, type StepsVariant, type StepsColor } from "./components/Steps/Steps";
+export { Steps, StepsContext, useStepsContext, type StepsProps, type StepsContextValue, type StepsSize, type StepsOrientation, type StepsColor } from "./components/Steps/Steps";
 export { StepLine, type StepLineProps, type StepLineSize } from "./components/StepLine/StepLine";
+export { Step, type StepProps, type StepVariant, type StepStatus, type StepColor, type StepSize, type StepOrientation } from "./components/Step/Step";
+export type { StepStatus as StepIndicatorStatus } from "./components/Step/Step";
 
 export {
   mts_text_primary,

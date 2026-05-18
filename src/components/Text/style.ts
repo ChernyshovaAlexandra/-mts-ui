@@ -60,8 +60,8 @@ export const textStyles = {
     font-family: "MTS Compact", sans-serif;
   `,
   "P4-Medium-Comp": css`
-    font-size: 16px;
-    line-height: 140%;
+    font-size: 14px;
+    line-height: 20px;
     font-weight: 500;
     font-family: "MTS Compact", sans-serif;
   `,

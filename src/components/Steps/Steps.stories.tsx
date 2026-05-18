@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { Steps } from "./Steps";
-import type { StepItem } from "./Steps";
+import { Step } from "../Step/Step";
+import { Divider } from "../Divider/Divider";
 import { Button } from "../Button/Button";
 import { Caption } from "../Caption/Caption";
+import type { StepStatus } from "../Step/Step";
 
 const meta: Meta<typeof Steps> = {
   title: "МТС/Steps",
@@ -15,32 +17,43 @@ const meta: Meta<typeof Steps> = {
         component: `
 **Steps** — индикатор прогресса по шагам. Используется в многошаговых формах, онбординге, процессах оформления.
 
+Композиционный компонент — принимает \`<Step>\` и \`<Divider>\` как дочерние элементы.
+
+\`\`\`tsx
+<Steps orientation="horizontal" size="m" color="primary">
+  <Step variant="number" value={1} status="success" label="Шаг 1" />
+  <Divider orientation="horizontal" padding={12} />
+  <Step variant="number" value={2} status="active" label="Шаг 2" />
+  <Divider orientation="horizontal" padding={12} />
+  <Step variant="number" value={3} status="default" label="Шаг 3" />
+</Steps>
+\`\`\`
+
 ### Ориентация
 | Prop | Описание |
 |---|---|
-| \`horizontal\` | Шаги в ряд, соединены линией |
-| \`vertical\` | Шаги сверху вниз с текстом справа |
+| \`horizontal\` | Шаги в ряд, Divider горизонтальный |
+| \`vertical\` | Шаги сверху вниз, Divider вертикальный |
 
-### Размеры
+### Размеры (передаются через контекст Steps → Step)
 | Размер | Кружок |
 |---|---|
-| \`s\` | 32px |
+| \`s\` | 24px |
 | \`m\` | 48px |
 
-### Цвет (\`color\`)
+### Цвет (\`color\`) — передаётся через контекст
 | Значение | Активный шаг |
 |---|---|
 | \`primary\` | Красный МТС |
 | \`secondary\` | Тёмный |
 
-### Статусы шага
+### Статусы Step
 | Статус | Описание |
 |---|---|
-| \`default\` | Ещё не дошли |
 | \`active\` | Текущий шаг |
-| \`success\` | Завершён успешно |
-| \`error\` | Завершён с ошибкой |
-| \`disabled\` | Недоступен |
+| \`success\` / \`done\` | Завершён успешно |
+| \`error\` / \`failed\` | Завершён с ошибкой |
+| \`default\` / \`disabled\` | Недоступен / ещё не дошли |
         `,
       },
     },
@@ -48,9 +61,8 @@ const meta: Meta<typeof Steps> = {
   argTypes: {
     orientation: { control: "radio", options: ["horizontal", "vertical"] },
     size:        { control: "radio", options: ["s", "m"] },
-    variant:     { control: "radio", options: ["circle", "counter"] },
     color:       { control: "radio", options: ["primary", "secondary"] },
-    steps:       { control: false },
+    children:    { control: false },
     style:       { control: false },
     className:   { control: false },
   },
@@ -59,24 +71,39 @@ const meta: Meta<typeof Steps> = {
 export default meta;
 type Story = StoryObj<typeof Steps>;
 
-const STEPS_SAMPLE: StepItem[] = [
-  { status: "success", label: "Личные данные", description: "Имя и контакты" },
-  { status: "success", label: "Адрес доставки", description: "Куда привезти" },
-  { status: "active",  label: "Оплата",         description: "Выберите способ" },
-  { status: "default", label: "Подтверждение",   description: "Проверьте заказ" },
-];
+// ── Helpers ────────────────────────────────────────────────────────────────────
 
-const STEPS_SIMPLE: StepItem[] = [
-  { status: "active",  label: "Header", description: "Description" },
-  { status: "default", label: "Header", description: "Description" },
-  { status: "default", label: "Header", description: "Description" },
-];
+const SAMPLE_STATUSES: StepStatus[] = ["success", "success", "active", "default"];
+const SAMPLE_LABELS = ["Личные данные", "Адрес доставки", "Оплата", "Подтверждение"];
+const SAMPLE_DESCS  = ["Имя и контакты", "Куда привезти", "Выберите способ", "Проверьте заказ"];
+
+const HorizSteps = ({ size = "m", color = "primary" }: { size?: "s" | "m"; color?: "primary" | "secondary" }) => (
+  <Steps orientation="horizontal" size={size} color={color}>
+    {SAMPLE_STATUSES.map((status, i) => (
+      <React.Fragment key={i}>
+        <Step variant="number" value={i + 1} status={status} label={SAMPLE_LABELS[i]} description={SAMPLE_DESCS[i]} />
+        {i < SAMPLE_STATUSES.length - 1 && <Divider orientation="horizontal" padding={12} />}
+      </React.Fragment>
+    ))}
+  </Steps>
+);
 
 // ── Default ────────────────────────────────────────────────────────────────────
 
 export const Default: Story = {
   name: "Default",
-  args: { steps: STEPS_SAMPLE, size: "m", orientation: "horizontal", variant: "counter", color: "primary" },
+  render: (args) => (
+    <Steps {...args}>
+      <Step variant="number" value={1} status="success" label="Личные данные" description="Имя и контакты" />
+      <Divider orientation="horizontal" padding={12} />
+      <Step variant="number" value={2} status="success" label="Адрес доставки" description="Куда привезти" />
+      <Divider orientation="horizontal" padding={12} />
+      <Step variant="number" value={3} status="active"  label="Оплата"         description="Выберите способ" />
+      <Divider orientation="horizontal" padding={12} />
+      <Step variant="number" value={4} status="default" label="Подтверждение"   description="Проверьте заказ" />
+    </Steps>
+  ),
+  args: { orientation: "horizontal", size: "m", color: "primary" },
 };
 
 // ── Primary vs Secondary ───────────────────────────────────────────────────────
@@ -95,11 +122,11 @@ export const PrimarySecondary: Story = {
           <div style={{ display: "flex", gap: 64 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
               <Caption variant="C1-Medium-Comp" as="span">Primary</Caption>
-              <Steps variant="counter" size={size} orientation="horizontal" color="primary" steps={STEPS_SIMPLE} />
+              <HorizSteps size={size} color="primary" />
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
               <Caption variant="C1-Medium-Comp" as="span">Secondary</Caption>
-              <Steps variant="counter" size={size} orientation="horizontal" color="secondary" steps={STEPS_SIMPLE} />
+              <HorizSteps size={size} color="secondary" />
             </div>
           </div>
         </div>
@@ -116,13 +143,14 @@ export const AllStatuses: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
       {(["m", "s"] as const).map((size) => (
-        <Steps key={size} size={size} orientation="horizontal" variant="circle" steps={[
-          { status: "success" },
-          { status: "error" },
-          { status: "active" },
-          { status: "default" },
-          { status: "disabled" },
-        ]} />
+        <Steps key={size} orientation="horizontal" size={size}>
+          {(["success", "error", "active", "default", "disabled"] as StepStatus[]).map((status, i) => (
+            <React.Fragment key={i}>
+              <Step variant="icon" status={status} />
+              {i < 4 && <Divider orientation="horizontal" padding={8} />}
+            </React.Fragment>
+          ))}
+        </Steps>
       ))}
     </div>
   ),
@@ -135,8 +163,8 @@ export const HorizontalWithLabels: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
-      <Steps size="m" orientation="horizontal" variant="counter" color="primary" steps={STEPS_SAMPLE} />
-      <Steps size="s" orientation="horizontal" variant="counter" color="primary" steps={STEPS_SAMPLE} />
+      <HorizSteps size="m" color="primary" />
+      <HorizSteps size="s" color="primary" />
     </div>
   ),
 };
@@ -148,8 +176,16 @@ export const Vertical: Story = {
   parameters: { controls: { disable: true } },
   render: () => (
     <div style={{ display: "flex", gap: 48 }}>
-      <Steps size="m" orientation="vertical" steps={STEPS_SAMPLE} />
-      <Steps size="s" orientation="vertical" steps={STEPS_SAMPLE} />
+      {(["m", "s"] as const).map((size) => (
+        <Steps key={size} orientation="vertical" size={size}>
+          {SAMPLE_STATUSES.map((status, i) => (
+            <React.Fragment key={i}>
+              <Step variant="number" value={i + 1} status={status} label={SAMPLE_LABELS[i]} description={SAMPLE_DESCS[i]} />
+              {i < SAMPLE_STATUSES.length - 1 && <Divider orientation="vertical" style={{ height: 60 }} />}
+            </React.Fragment>
+          ))}
+        </Steps>
+      ))}
     </div>
   ),
 };
@@ -163,14 +199,20 @@ export const Interactive: Story = {
     const labels = ["Личные данные", "Адрес", "Оплата", "Подтверждение"];
     const [current, setCurrent] = useState(2);
 
-    const steps: StepItem[] = labels.map((label, i) => ({
-      label,
-      status: i < current ? "success" : i === current ? "active" : "default",
-    }));
+    const statuses: StepStatus[] = labels.map((_, i) =>
+      i < current ? "success" : i === current ? "active" : "default"
+    );
 
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 600 }}>
-        <Steps size="m" orientation="horizontal" variant="counter" color="primary" steps={steps} />
+        <Steps orientation="horizontal" size="m" color="primary">
+          {labels.map((label, i) => (
+            <React.Fragment key={i}>
+              <Step variant="number" value={i + 1} status={statuses[i]} label={label} />
+              {i < labels.length - 1 && <Divider orientation="horizontal" padding={12} />}
+            </React.Fragment>
+          ))}
+        </Steps>
         <div style={{ display: "flex", gap: 8 }}>
           <Button
             variant="secondary"
