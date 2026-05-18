@@ -9,6 +9,7 @@ export interface CounterProps {
   size?: CounterSize;
   variant?: CounterVariant;
   max?: number;
+  pad?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -18,6 +19,7 @@ export const Counter: FC<CounterProps> = ({
   size = "m",
   variant = "red",
   max = 99,
+  pad = false,
   className,
   style,
 }) => {
@@ -29,6 +31,8 @@ export const Counter: FC<CounterProps> = ({
     ? null
     : value > max
     ? `${max}+`
+    : pad
+    ? String(value).padStart(2, "0")
     : String(value);
 
   const isCircular = value !== undefined && value <= 9;
