@@ -95,12 +95,11 @@ export { GalleryCarousel } from "./components/GalleryCard/GalleryCarousel";
 
 export { Carousel, type CarouselProps } from "./components/Carousel/Carousel";
 
-export {
-  Stepper,
-  type StepperProps,
-  type Step,
-  type StepStatus,
-} from "./components/Stepper/Stepper";
+export { Divider, type DividerProps, type DividerOrientation } from "./components/Divider/Divider";
+export { IconDoneS } from "./icons/IconDoneS/IconDoneS";
+export { IconFailedS } from "./icons/IconFailedS/IconFailedS";
+export { Steps, type StepsProps, type StepItem, type StepStatus, type StepsSize, type StepsOrientation, type StepsVariant, type StepsColor } from "./components/Steps/Steps";
+export { StepLine, type StepLineProps, type StepLineSize } from "./components/StepLine/StepLine";
 
 export {
   mts_text_primary,
@@ -208,6 +207,9 @@ export { IconAddCircle } from "./icons/IconAddCircle/IconAddCircle";
 export { IconRemoveCircle } from "./icons/IconRemoveCircle/IconRemoveCircle";
 export { Counter, type CounterProps, type CounterSize, type CounterVariant } from "./components/Counter/Counter";
 export { ProgressLinear, type ProgressLinearProps, type ProgressLinearType, type ProgressLinearSize } from "./components/ProgressLinear/ProgressLinear";
+export { Table, type TableProps, type TableColumn, type SortDirection, type TableSize, type TableVariant } from "./components/Table/Table";
+export { Switch, type SwitchProps, type SwitchSize } from "./components/Switch/Switch";
+export { TableCellText, TableCellStatus, TableCellLink, TableCellAvatar, TableCellIconText, TableCellActions, type TableCellTextProps, type TableCellStatusProps, type TableCellLinkProps, type TableCellAvatarProps, type TableCellIconTextProps, type TableCellActionsProps } from "./components/Table/TableCells";
 
 export {
   AccessibilityProvider,
@@ -421,6 +423,7 @@ export { IconThunderbolt } from "./icons/IconThunderbolt/IconThunderbolt";
 export { IconTiktok } from "./icons/IconTiktok/IconTiktok";
 export { IconTimer } from "./icons/IconTimer/IconTimer";
 export { IconTool } from "./icons/IconTool/IconTool";
+export { IconTrophy } from "./icons/IconTrophy/IconTrophy";
 export { IconUngroup } from "./icons/IconUngroup/IconUngroup";
 export { IconUnlock } from "./icons/IconUnlock/IconUnlock";
 export { IconUpdate } from "./icons/IconUpdate/IconUpdate";

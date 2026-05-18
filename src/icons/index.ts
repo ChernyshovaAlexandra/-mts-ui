@@ -137,6 +137,7 @@ export { IconStarIcon } from "./IconStarIcon/IconStarIcon";
 export { IconThunderbolt } from "./IconThunderbolt/IconThunderbolt";
 export { IconTimer } from "./IconTimer/IconTimer";
 export { IconTool } from "./IconTool/IconTool";
+export { IconTrophy } from "./IconTrophy/IconTrophy";
 export { IconVentilation } from "./IconVentilation/IconVentilation";
 export { IconWaiting } from "./IconWaiting/IconWaiting";
 
