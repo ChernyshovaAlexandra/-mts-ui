@@ -219,11 +219,11 @@ export const Step: FC<StepProps> = ({
     return React.cloneElement(bubble, { className, style } as React.HTMLAttributes<HTMLElement>);
   }
 
-  // С текстом (horizontal без дивайдера — min-width 204px; vertical — текст справа)
+  // С текстом (horizontal с дивайдером — min-width 204px; vertical — текст справа)
   return (
     <StepWrapper $orientation={orientation} className={className} style={style}>
       {bubble}
-      <StepTextBlock $orientation={orientation}>
+      <StepTextBlock $orientation={orientation} $withDivider={withDivider}>
         {label       && <StepLabelText>{label}</StepLabelText>}
         {description && <StepDescText>{description}</StepDescText>}
       </StepTextBlock>

@@ -129,14 +129,14 @@ export const StepBottomRow = styled.div`
 
 // ─── Text block ───────────────────────────────────────────────────────────────
 
-export const StepTextBlock = styled.div<{ $orientation: StepOrientation }>`
+export const StepTextBlock = styled.div<{ $orientation: StepOrientation; $withDivider?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 2px;
   min-width: 0;
 
-  ${({ $orientation }) =>
-    $orientation === "horizontal" &&
+  ${({ $orientation, $withDivider }) =>
+    $orientation === "horizontal" && $withDivider &&
     css`min-width: 204px;`}
 
   ${({ $orientation }) =>
