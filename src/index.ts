@@ -21,6 +21,7 @@ export {
 } from "./components/UserMenu/UserMenu";
 export { Burger, type BurgerProps } from "./components/Burger/Burger";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
+export { Scrollbar, type ScrollbarProps, type ScrollbarSize, type ScrollbarOrientation } from "./components/Scrollbar/Scrollbar";
 export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
 export {
