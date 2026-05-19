@@ -23,7 +23,7 @@ import IconLock from "../../../icons/IconLock/IconLock";
 import IconEye from "../../../icons/IconEye";
 import IconEyeOff from "../../../icons/IconEyeOff/IconEyeOff";
 import { mts_accent_light_negative, mts_text_secondary } from "../../../consts";
-import { isEmailAllowed } from "../../../utils/emailValidation";
+import { isEmailAllowed, isValidEmail } from "../../../utils/emailValidation";
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string | null;
@@ -77,7 +77,9 @@ export const Input = memo(
       const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         const val = e.target.value;
         if (val) {
-          if (corporative && !isEmailAllowed(val)) {
+          if (type === "email" && !isValidEmail(val)) {
+            setError("Введите корректный email");
+          } else if (corporative && !isEmailAllowed(val)) {
             setError("Введите корпоративный email");
           } else if (validate) {
             setError(validate(val));

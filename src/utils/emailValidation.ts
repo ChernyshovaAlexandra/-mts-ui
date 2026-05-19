@@ -74,9 +74,13 @@ export const allowedDomains = new Set([
   "entrustment.ru",
 ]);
 
+export const isValidEmail = (email: string): boolean => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+};
+
 export const isEmailAllowed = (email: string): boolean => {
+  if (!isValidEmail(email)) return false;
   const parts = email.toLowerCase().trim().split("@");
-  if (parts.length !== 2) return false;
   return allowedDomains.has(parts[1]);
 };
 

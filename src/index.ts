@@ -22,6 +22,7 @@ export {
 export { Burger, type BurgerProps } from "./components/Burger/Burger";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
 export { Scrollbar, type ScrollbarProps, type ScrollbarSize, type ScrollbarOrientation } from "./components/Scrollbar/Scrollbar";
+export { Calendar, type CalendarProps } from "./components/Calendar/Calendar";
 export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
 export { Input, type InputProps } from "./components/FormItems/Input/Input";
 export {
