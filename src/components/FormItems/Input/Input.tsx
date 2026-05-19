@@ -66,21 +66,40 @@ export const Input = memo(
 
       /* ――― helpers ――― */
       const isPwdField = (type ?? "").toLowerCase() === "password";
+      const isEmailField = type === "email" || corporative;
       const effectiveType = isPwdField && showPw ? "text" : type || "text";
       const hasValue = typeof value === "string" && value.length > 0;
+
+      const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+      useEffect(() => () => { if (debounceRef.current) clearTimeout(debounceRef.current); }, []);
+
+      const validateEmail = (val: string) => {
+        if (type === "email" && !isValidEmail(val)) return "Введите корректный email";
+        if (corporative && !isEmailAllowed(val)) return "Введите корпоративный email";
+        return null;
+      };
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (error) setError(null);
         onChange?.(e);
+
+        if (isEmailField) {
+          if (debounceRef.current) clearTimeout(debounceRef.current);
+          const val = e.target.value;
+          if (val) {
+            debounceRef.current = setTimeout(() => setError(validateEmail(val)), 1500);
+          }
+        }
       };
 
       const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        if (debounceRef.current) clearTimeout(debounceRef.current);
         const val = e.target.value;
         if (val) {
-          if (type === "email" && !isValidEmail(val)) {
-            setError("Введите корректный email");
-          } else if (corporative && !isEmailAllowed(val)) {
-            setError("Введите корпоративный email");
+          const emailError = validateEmail(val);
+          if (emailError) {
+            setError(emailError);
           } else if (validate) {
             setError(validate(val));
           }
