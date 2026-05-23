@@ -1,6 +1,13 @@
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { mts_brand_red, mts_text_primary, mts_text_inverted } from "../../consts";
+import {
+  mts_brand_red,
+  mts_radius_10,
+  mts_radius_12,
+  mts_radius_8,
+  mts_text_inverted,
+  mts_text_primary,
+} from "../../consts";
 import "../../assets/fonts.css";
 import type { CounterSize, CounterVariant } from "./Counter";
 
@@ -19,7 +26,7 @@ const sizeStyles: Record<Exclude<CounterSize, "notification">, ReturnType<typeof
     height: 16px;
     font-size: 10px;
     line-height: 12px;
-    border-radius: 8px;
+    border-radius: ${mts_radius_8};
     padding: 0 4px;
   `,
   m: css`
@@ -27,7 +34,7 @@ const sizeStyles: Record<Exclude<CounterSize, "notification">, ReturnType<typeof
     height: 20px;
     font-size: 12px;
     line-height: 15px;
-    border-radius: 10px;
+    border-radius: ${mts_radius_10};
     padding: 0 6px;
   `,
   l: css`
@@ -35,7 +42,7 @@ const sizeStyles: Record<Exclude<CounterSize, "notification">, ReturnType<typeof
     height: 24px;
     font-size: 14px;
     line-height: 18px;
-    border-radius: 12px;
+    border-radius: ${mts_radius_12};
     padding: 0 7px;
   `,
 };

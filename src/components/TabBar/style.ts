@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { mts_control_active_tabbar, mts_control_inactive_tabbar } from "../../consts";
+import {
+  mts_control_active_tabbar,
+  mts_control_inactive_tabbar,
+  mts_radius_4,
+} from "../../consts";
 import "../../assets/fonts.css";
 
 const tabsLayoutByCount = (count: number) => {
@@ -54,7 +58,7 @@ export const TabButton = styled.button<{ $active: boolean }>`
   &:focus-visible {
     outline: 2px solid ${mts_control_active_tabbar};
     outline-offset: -2px;
-    border-radius: 4px;
+    border-radius: ${mts_radius_4};
   }
 `;
 

@@ -1,10 +1,11 @@
 import styled, { keyframes, css } from "styled-components";
 import {
-  mts_accent_light_positive,
   mts_accent_light_negative,
-  mts_input_stroke,
-  mts_text_secondary,
+  mts_accent_light_positive,
   mts_greyscale_800,
+  mts_input_stroke,
+  mts_radius_12,
+  mts_text_secondary,
 } from "../../consts";
 import { visuallyImpairedMixin } from "../../accessibility";
 import type { ProgressLinearSize, ProgressLinearType } from "./ProgressLinear";
@@ -45,7 +46,7 @@ export const Root = styled.div`
 export const Track = styled.div<{ $size: ProgressLinearSize }>`
   position: relative;
   height: ${({ $size }) => TRACK_HEIGHT[$size]};
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   background: ${mts_input_stroke};
   overflow: hidden;
   width: 100%;
@@ -57,7 +58,7 @@ export const Fill = styled.div<{ $type: ProgressLinearType; $progress: number }>
   bottom: 0;
   left: 0;
   right: ${({ $progress }) => 100 - $progress}%;
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   background: ${({ $type }) => FILL_COLOR[$type]};
   transition: ${({ $type }) => $type === "indeterminate" ? "none" : "right 0.3s ease"};
 

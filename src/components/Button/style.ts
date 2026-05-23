@@ -1,17 +1,22 @@
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
-  mts_text_primary,
-  mts_text_inverted,
-  mts_bg_lower,
+  mts_bg_disabled,
   mts_bg_hover,
+  mts_bg_inverted,
+  mts_bg_lower,
   mts_bg_primary,
   mts_brand_red,
-  mts_bg_inverted,
-  mts_bg_disabled,
   mts_control_blur,
   mts_greyscale_400,
   mts_greyscale_700,
+  mts_radius_12,
+  mts_radius_16,
+  mts_radius_20,
+  mts_radius_32,
+  mts_radius_8,
+  mts_text_inverted,
+  mts_text_primary,
 } from "../../consts";
 import "../../assets/fonts.css";
 
@@ -21,7 +26,7 @@ const sizeStyles = css<{ $size?: string }>`
       case "xs":
         return css`
           padding: 4px;
-          border-radius: 8px;
+          border-radius: ${mts_radius_8};
           font-size: 0.625rem;
           line-height: 0.75rem;
           gap: 4px;
@@ -33,7 +38,7 @@ const sizeStyles = css<{ $size?: string }>`
       case "s":
         return css`
           padding: 8px;
-          border-radius: 12px;
+          border-radius: ${mts_radius_12};
           font-size: 0.625rem;
           line-height: 0.75rem;
           gap: 4px;
@@ -45,7 +50,7 @@ const sizeStyles = css<{ $size?: string }>`
       case "m":
         return css`
           padding: 10px;
-          border-radius: 16px;
+          border-radius: ${mts_radius_16};
           font-size: 0.75rem;
           line-height: 1rem;
           .btn-icon svg {
@@ -56,7 +61,7 @@ const sizeStyles = css<{ $size?: string }>`
       case "xl":
         return css`
           padding: 24px;
-          border-radius: 20px;
+          border-radius: ${mts_radius_20};
           font-size: 0.875rem;
           line-height: 1.25rem;
           .btn-icon svg {
@@ -68,7 +73,7 @@ const sizeStyles = css<{ $size?: string }>`
       default:
         return css`
           padding: 14px;
-          border-radius: 16px;
+          border-radius: ${mts_radius_16};
           font-size: 0.75rem;
           line-height: 1rem;
           .btn-icon svg {
@@ -153,7 +158,7 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
           background: ${mts_control_blur};
           color: ${mts_text_inverted};
           padding: 6px;
-          border-radius: 32px;
+          border-radius: ${mts_radius_32};
           &:not(:disabled):hover {
             background: rgba(255, 255, 255, 0.16);
           }

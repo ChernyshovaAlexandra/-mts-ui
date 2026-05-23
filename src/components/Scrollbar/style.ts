@@ -1,5 +1,8 @@
 import styled, { css } from "styled-components";
-import { mts_greyscale_300 } from "../../consts";
+import {
+  mts_greyscale_300,
+  mts_radius_pill,
+} from "../../consts";
 import { ScrollbarOrientation, ScrollbarSize } from "./Scrollbar";
 
 const thumbSize: Record<ScrollbarSize, string> = {
@@ -47,7 +50,7 @@ export const StyledScrollContainer = styled.div<{
 
   &::-webkit-scrollbar-thumb {
     background: ${mts_greyscale_300};
-    border-radius: 100px;
+    border-radius: ${mts_radius_pill};
   }
 
   &::-webkit-scrollbar-corner {

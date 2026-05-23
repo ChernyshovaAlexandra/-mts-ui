@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { mts_bg_lower } from "../../consts";
+import {
+  mts_bg_lower,
+  mts_radius_16,
+  mts_radius_20,
+} from "../../consts";
 
 
 export const TagWrapper = styled.div`
@@ -10,7 +14,7 @@ export const TagWrapper = styled.div`
 `;
 
 export const ImageWrapper = styled.div`
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   background: #fff;
   cursor: pointer;
   width: 100%;
@@ -22,7 +26,7 @@ export const ImageWrapper = styled.div`
   img {
     max-width: 100%;
     height: auto;
-    border-radius: 16px;
+    border-radius: ${mts_radius_16};
   }
 `;
 
@@ -36,7 +40,7 @@ export const ContentInner = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 16px;
+    border-radius: ${mts_radius_16};
   }
 `;
 
@@ -59,7 +63,7 @@ export const CarouselContainer = styled.div`
   position: relative;
 
   img {
-    border-radius: 20px;
+    border-radius: ${mts_radius_20};
     aspect-ratio: 1/1;
   }
 

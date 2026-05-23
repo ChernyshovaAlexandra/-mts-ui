@@ -5,7 +5,13 @@ import "../../../assets/fonts.css";
 
 import { inputBaseStyles } from "../Input/style";
 
-import { mts_text_secondary, mts_input_background } from "../../../consts";
+import {
+  mts_input_background,
+  mts_radius_12,
+  mts_radius_24,
+  mts_radius_32,
+  mts_text_secondary,
+} from "../../../consts";
 
 export const StyledDatePicker = styled(DatePicker)`
   ${inputBaseStyles}
@@ -63,7 +69,7 @@ export const DatePickerPopupStyles = createGlobalStyle` .mts-datepicker-popup {
             line-height: 20px;
             font-feature-settings: 'liga' off, 'clig' off;
             background: #F2F3F7;
-            border-radius: 12px;
+            border-radius: ${mts_radius_12};
             padding: 6px 12px;
             order: 1;
         }
@@ -82,12 +88,12 @@ export const DatePickerPopupStyles = createGlobalStyle` .mts-datepicker-popup {
     }
 
     .ant-picker-panel {
-        border-radius: 24px;
+        border-radius: ${mts_radius_24};
         font-family: "MTS Compact", sans-serif;
         font-size: 16px;
         display: block;
         padding: 8px 12px !important;
-        border-radius: 32px !important;
+        border-radius: ${mts_radius_32} !important;
         box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.12), 0px 12px 20px 0px rgba(0, 0, 0, 0.14);
     }
 

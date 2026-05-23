@@ -61,6 +61,14 @@ const headerStyles = {
       line-height: 1.2;
     }
   `,
+  "H4-Comp": css`
+    font-family: "MTS Compact", sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    letter-spacing: 0;
+    leading-trim: none;
+  `,
 };
 
 export const StyledHeader = styled.h1<{ $variant?: HeaderVariant }>`

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { mts_text_primary } from "../../consts";
+import {
+  mts_radius_24,
+  mts_text_primary,
+} from "../../consts";
 import "../../assets/fonts.css";
 
 export const SnackbarWrapper = styled.div`
@@ -13,7 +16,7 @@ export const SnackbarWrapper = styled.div`
   padding: 24px 32px;
   color: ${mts_text_primary};
   background-color: #fff;
-  border-radius: 24px;
+  border-radius: ${mts_radius_24};
   font:
     17px "MTS Compact",
     "Arial",

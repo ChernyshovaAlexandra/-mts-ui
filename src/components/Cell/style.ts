@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
+  mts_bg_lower,
+  mts_radius_16,
   mts_text_primary,
   mts_text_secondary,
-  mts_bg_lower,
 } from "../../consts";
 import "../../assets/fonts.css";
 
@@ -25,7 +26,7 @@ export const IconBackground = styled.div`
   justify-content: center;
   width: 52px;
   height: 52px;
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   background: ${mts_bg_lower};
   flex-shrink: 0;
   color: ${mts_text_secondary};

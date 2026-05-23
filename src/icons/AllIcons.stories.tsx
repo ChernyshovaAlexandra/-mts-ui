@@ -5,7 +5,12 @@ import { useState } from "react";
 import Text from "../components/Text/Text";
 
 export default {
-  title: "МТС/Icons and Colors/Icons",
+  title: "Reference/Icons",
+  parameters: {
+    options: { showPanel: false },
+    controls: { disable: true },
+    a11y: { disable: true },
+  },
 };
 
 export const AllIcons = () => {

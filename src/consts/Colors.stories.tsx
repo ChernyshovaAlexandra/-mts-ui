@@ -17,7 +17,12 @@ import {
 import Separator from "../components/Separator/Separator";
 
 export default {
-  title: "МТС/Icons and Colors/Colors",
+  title: "Reference/Colors",
+  parameters: {
+    options: { showPanel: false },
+    controls: { disable: true },
+    a11y: { disable: true },
+  },
 } as Meta;
 
 const groupNames: Record<string, string> = {

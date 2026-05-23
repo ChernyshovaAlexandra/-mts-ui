@@ -1,9 +1,10 @@
 import styled, { css } from "styled-components";
 import {
-  mts_bg_primary_elevated,
-  mts_bg_lower,
-  mts_bg_disabled,
   mts_accent_light_active,
+  mts_bg_disabled,
+  mts_bg_lower,
+  mts_bg_primary_elevated,
+  mts_radius_24,
 } from "../../consts";
 import { visuallyImpairedMixin } from "../../accessibility";
 
@@ -46,7 +47,7 @@ export const StyledCard = styled.div<{
   $variant: CardVariant;
   $interactive: boolean;
 }>`
-  border-radius: 24px;
+  border-radius: ${mts_radius_24};
   padding: 16px;
   overflow: hidden;
   box-sizing: border-box;

@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
+  mts_bg_hover,
   mts_bg_overlay,
   mts_bg_secondary,
-  mts_bg_hover,
-  mts_text_primary,
   mts_control_stroke,
+  mts_radius_10,
+  mts_radius_2,
+  mts_radius_24,
+  mts_text_primary,
 } from "../../consts";
 import { Card } from "../Card/Card";
 
@@ -44,7 +47,7 @@ export const ModalContainer = styled(Card).attrs({
 
   @media (max-width: 480px) {
     width: calc(100% - 16px);
-    border-radius: 24px 24px 0 0;
+    border-radius: ${mts_radius_24} ${mts_radius_24} 0 0;
     margin: 0 8px;
   }
   ${visuallyImpairedMixin};
@@ -61,7 +64,7 @@ export const MobileIndicator = styled.span`
     transform: translateX(-50%);
     width: 32px;
     height: 4px;
-    border-radius: 2px;
+    border-radius: ${mts_radius_2};
     background: ${mts_control_stroke};
   }
 `;
@@ -102,7 +105,7 @@ export const CloseButton = styled.button`
   height: 32px;
   background-color: ${mts_bg_secondary};
   border: none;
-  border-radius: 10px;
+  border-radius: ${mts_radius_10};
   display: flex;
   align-items: center;
   justify-content: center;

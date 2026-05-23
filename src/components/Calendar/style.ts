@@ -1,16 +1,20 @@
 import styled, { css } from "styled-components";
 import {
-  mts_bg_modal,
-  mts_bg_lower,
   mts_bg_inverted,
+  mts_bg_lower,
+  mts_bg_modal,
+  mts_radius_12,
+  mts_radius_16,
+  mts_radius_32,
+  mts_radius_8,
+  mts_text_inverted,
   mts_text_primary,
   mts_text_secondary,
-  mts_text_inverted,
 } from "../../consts";
 
 export const StyledCalendar = styled.div`
   background: ${mts_bg_modal};
-  border-radius: 32px;
+  border-radius: ${mts_radius_32};
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.12), 0 12px 20px 0 rgba(0, 0, 0, 0.14);
   padding: 20px 12px;
   display: flex;
@@ -36,7 +40,7 @@ export const StyledChipsRow = styled.div`
 export const StyledChip = styled.button`
   background: ${mts_bg_lower};
   border: none;
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   padding: 6px 12px;
   height: 32px;
   font-family: "MTS Compact", Arial, sans-serif;
@@ -55,7 +59,7 @@ export const StyledChip = styled.button`
 export const StyledArrowBtn = styled.button`
   background: ${mts_bg_lower};
   border: none;
-  border-radius: 32px;
+  border-radius: ${mts_radius_32};
   width: 32px;
   height: 32px;
   padding: 4px;
@@ -109,7 +113,7 @@ export const StyledDayCellInner = styled.span<{
   position: relative;
   width: 36px;
   height: 36px;
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,7 +168,7 @@ export const StyledSegmentedControl = styled.div`
   display: flex;
   align-items: center;
   background: ${mts_bg_lower};
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   padding: 4px;
   width: 100%;
 `;
@@ -173,7 +177,7 @@ export const StyledSegment = styled.button<{ $active: boolean }>`
   flex: 1;
   height: 24px;
   border: none;
-  border-radius: 8px;
+  border-radius: ${mts_radius_8};
   font-family: "MTS Wide", Arial, sans-serif;
   font-size: 10px;
   font-weight: 700;
@@ -204,7 +208,7 @@ export const StyledGridCell = styled.button<{ $active: boolean }>`
   position: relative;
   height: 44px;
   border: none;
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   font-family: "MTS Compact", Arial, sans-serif;
   font-size: 20px;
   font-weight: 400;

@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { mts_brand_red } from "../../consts";
+import {
+  mts_brand_red,
+  mts_radius_16,
+} from "../../consts";
 
 export interface BurgerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -55,7 +58,7 @@ export const Burger: React.FC<BurgerProps> = ({
 const StyledButton = styled.button<{ size: number | string }>`
   width: ${({ size }) => (typeof size === "number" ? `${size}px` : size)};
   height: ${({ size }) => (typeof size === "number" ? `${size}px` : size)};
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   background: ${mts_brand_red};
   display: grid;
   place-items: center;

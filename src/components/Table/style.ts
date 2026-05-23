@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 import {
+  mts_bg_primary,
+  mts_bg_secondary,
   mts_input_stroke,
+  mts_radius_16,
   mts_text_primary,
   mts_text_secondary,
-  mts_bg_secondary,
-  mts_bg_primary,
 } from "../../consts";
 import { visuallyImpairedMixin } from "../../accessibility";
 import { Text } from "../Text/Text";
@@ -26,7 +27,7 @@ export const TableContainer = styled.div<{ $variant: TableVariant }>`
   min-width: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   overflow: hidden;
   background: ${({ $variant }) => ($variant === "grey" ? mts_bg_secondary : mts_bg_primary)};
   border: ${({ $variant }) => ($variant === "grey" ? "none" : `1px solid ${mts_input_stroke}`)};

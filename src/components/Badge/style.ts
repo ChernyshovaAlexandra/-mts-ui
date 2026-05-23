@@ -1,6 +1,12 @@
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
-import { mts_bg_lower, mts_text_primary, mts_text_inverted } from "../../consts";
+import {
+  mts_bg_lower,
+  mts_radius_6,
+  mts_radius_8,
+  mts_text_inverted,
+  mts_text_primary,
+} from "../../consts";
 import "../../assets/fonts.css";
 import type { BadgeSize, BadgeVariant } from "./Badge";
 
@@ -12,28 +18,28 @@ const sizeStyles: Record<BadgeSize, ReturnType<typeof css>> = {
     padding: 1px 4px;
     font-size: 10px;
     line-height: 14px;
-    border-radius: 6px;
+    border-radius: ${mts_radius_6};
   `,
   s: css`
     height: 20px;
     padding: 2px 6px;
     font-size: 12px;
     line-height: 16px;
-    border-radius: 6px;
+    border-radius: ${mts_radius_6};
   `,
   m: css`
     height: 24px;
     padding: 2px 8px;
     font-size: 14px;
     line-height: 20px;
-    border-radius: 6px;
+    border-radius: ${mts_radius_6};
   `,
   l: css`
     height: 32px;
     padding: 4px 10px;
     font-size: 16px;
     line-height: 24px;
-    border-radius: 8px;
+    border-radius: ${mts_radius_8};
   `,
 };
 

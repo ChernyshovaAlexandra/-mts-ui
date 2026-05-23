@@ -6,6 +6,7 @@ const preview: Preview = {
       storySort: {
         method: "alphabetical",
         locales: "ru-RU",
+        order: ["МТС", "*", "Reference"],
       },
     },
     controls: {

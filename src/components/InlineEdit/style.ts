@@ -1,13 +1,14 @@
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
-  mts_text_primary,
-  mts_text_secondary,
+  mts_accent_light_active,
   mts_bg_secondary,
   mts_bg_secondary_elevated,
-  mts_control_tertiary_active,
   mts_control_alternative,
-  mts_accent_light_active,
+  mts_control_tertiary_active,
+  mts_radius_4,
+  mts_text_primary,
+  mts_text_secondary,
 } from "../../consts";
 import "../../assets/fonts.css";
 import type { InlineEditSize, InlineEditBg } from "./InlineEdit";
@@ -37,7 +38,7 @@ export const Wrapper = styled.span<{
   align-items: center;
   gap: 4px;
   cursor: ${({ $editing }) => ($editing ? "text" : "pointer")};
-  border-radius: 4px;
+  border-radius: ${mts_radius_4};
   padding: 0 2px;
   min-width: 0;
   font-family: "MTS Compact", "Arial", sans-serif;
@@ -49,7 +50,7 @@ export const Wrapper = styled.span<{
     $editing
       ? css`
           outline: 1px solid ${mts_accent_light_active};
-          border-radius: 4px;
+          border-radius: ${mts_radius_4};
         `
       : css`
           &:hover {

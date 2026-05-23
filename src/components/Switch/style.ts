@@ -1,5 +1,8 @@
 import styled, { css } from "styled-components";
-import { mts_accent_light_positive } from "../../consts";
+import {
+  mts_accent_light_positive,
+  mts_radius_pill,
+} from "../../consts";
 import { visuallyImpairedMixin } from "../../accessibility";
 import type { SwitchSize } from "./Switch";
 
@@ -27,7 +30,7 @@ export const Track = styled.div<{
   position: relative;
   width: ${({ $size }) => TRACK_W[$size]}px;
   height: ${({ $size }) => TRACK_H[$size]}px;
-  border-radius: 100px;
+  border-radius: ${mts_radius_pill};
   background: ${({ $checked }) => ($checked ? mts_accent_light_positive : INACTIVE)};
   transition: background 0.2s ease;
   cursor: ${({ $disabled, $loading }) => ($disabled || $loading ? "not-allowed" : "pointer")};
@@ -47,7 +50,7 @@ export const Track = styled.div<{
         content: "";
         position: absolute;
         inset: 0;
-        border-radius: 100px;
+        border-radius: ${mts_radius_pill};
         background: rgba(188, 195, 208, 0.4);
       }
     `}
@@ -86,7 +89,7 @@ export const Knob = styled.div<{ $checked: boolean; $size: SwitchSize }>`
   transform: translateY(-50%);
   width: ${({ $size }) => KNOB_S[$size]}px;
   height: ${({ $size }) => KNOB_S[$size]}px;
-  border-radius: 100px;
+  border-radius: ${mts_radius_pill};
   background: white;
   box-shadow: ${({ $size }) => ($size === "l" ? KNOB_SHADOW_L : KNOB_SHADOW_SM)};
   transition: left 0.2s ease, width 0.15s ease;

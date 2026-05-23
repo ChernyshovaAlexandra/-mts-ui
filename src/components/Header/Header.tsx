@@ -1,7 +1,12 @@
 import React from "react";
 import { StyledHeader } from "./style";
 
-export type HeaderVariant = "H1-Wide" | "H2-Wide" | "H3-Wide" | "H4-Wide";
+export type HeaderVariant =
+  | "H1-Wide"
+  | "H2-Wide"
+  | "H3-Wide"
+  | "H4-Wide"
+  | "H4-Comp";
 
 export interface HeaderProps
   extends Omit<React.HTMLAttributes<HTMLHeadingElement>, "children"> {
@@ -24,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
       ? "h2"
       : variant === "H3-Wide"
         ? "h3"
-        : variant === "H4-Wide"
+        : variant === "H4-Wide" || variant === "H4-Comp"
           ? "h4"
           : "h1";
 

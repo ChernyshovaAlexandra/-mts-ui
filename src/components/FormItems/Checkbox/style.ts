@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../../accessibility";
 import {
+  mts_bg_hover,
   mts_bg_secondary,
   mts_brand_red,
-  mts_bg_hover,
+  mts_radius_6,
 } from "../../../consts";
 import "../../../assets/fonts.css";
 
@@ -34,7 +35,7 @@ export const InputWrapper = styled.div`
     box-sizing: border-box;
     border: 1px solid ${mts_bg_hover};
     background-color: ${mts_bg_secondary};
-    border-radius: 6px;
+    border-radius: ${mts_radius_6};
     transition:
       background-color 0.2s,
       border-color 0.2s;

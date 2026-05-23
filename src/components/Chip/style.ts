@@ -1,10 +1,13 @@
 import styled, { css } from "styled-components";
 import {
-  mts_bg_lower,
-  mts_bg_inverted,
   mts_bg_disabled,
-  mts_text_primary,
+  mts_bg_inverted,
+  mts_bg_lower,
   mts_greyscale_0,
+  mts_radius_12,
+  mts_radius_16,
+  mts_radius_6,
+  mts_text_primary,
 } from "../../consts";
 import { visuallyImpairedMixin } from "../../accessibility";
 import { textStyles } from "../Text/style";
@@ -14,14 +17,14 @@ export type ChipSelectedVariant = "filled" | "outline";
 
 const sizeStyles: Record<ChipSize, ReturnType<typeof css>> = {
   medium: css`
-    border-radius: 16px;
+    border-radius: ${mts_radius_16};
     padding: 12px 10px;
     gap: 4px;
     ${textStyles["P4-Regular-Comp"]}
     line-height: 1;
   `,
   small: css`
-    border-radius: 12px;
+    border-radius: ${mts_radius_12};
     padding: 12px 10px;
     gap: 4px;
     ${textStyles["P4-Regular-Comp"]}
@@ -118,7 +121,7 @@ export const ChipCloseButton = styled.button<{ $onDark: boolean }>`
   color: inherit;
   flex-shrink: 0;
   line-height: 1;
-  border-radius: 6px;
+  border-radius: ${mts_radius_6};
   background: ${({ $onDark }) =>
     $onDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.08)"};
 

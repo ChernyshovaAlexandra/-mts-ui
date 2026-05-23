@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { mts_bg_modal } from "../../consts";
+import {
+  mts_bg_modal,
+  mts_radius_16,
+} from "../../consts";
 
 export const StyledUserMenu = styled.div`
   display: flex;
@@ -8,7 +11,7 @@ export const StyledUserMenu = styled.div`
   width: 280px;
   padding: 6px;
   background-color: ${mts_bg_modal};
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   box-shadow:
     0 4px 24px 0 rgba(0, 0, 0, 0.12),
     0 12px 20px 0 rgba(0, 0, 0, 0.14);

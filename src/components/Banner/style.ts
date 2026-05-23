@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
-  mts_bg_primary_elevated,
-  mts_bg_lower,
-  mts_bg_secondary,
   mts_bg_inverted,
+  mts_bg_lower,
+  mts_bg_primary_elevated,
+  mts_bg_secondary,
+  mts_radius_12,
+  mts_radius_16,
+  mts_radius_20,
+  mts_radius_24,
   mts_text_primary,
 } from "../../consts";
 
@@ -13,7 +17,7 @@ export type SecondaryColor = "white" | "grey" | "inverted";
 // Primary
 export const PrimaryWrapper = styled.div`
   background: ${mts_bg_primary_elevated};
-  border-radius: 24px;
+  border-radius: ${mts_radius_24};
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -38,7 +42,7 @@ export const CloseIconButton = styled.button`
   height: 44px;
   background: ${mts_bg_lower};
   border: none;
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +69,7 @@ export const SecondaryWrapper = styled.div<{ $color: SecondaryColor }>`
     if ($color === "inverted") return mts_bg_inverted;
     return mts_bg_lower;
   }};
-  border-radius: 20px;
+  border-radius: ${mts_radius_20};
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
@@ -96,7 +100,7 @@ export const SecondaryCloseButton = styled.button<{ $inverted?: boolean }>`
   background: none;
   border: none;
   padding: 4px;
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -124,7 +128,7 @@ export const LinkText = styled.span`
 // Tertiary
 export const TertiaryWrapper = styled.div`
   background: ${mts_bg_lower};
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   padding: 8px 12px;
   display: flex;
   gap: 8px;

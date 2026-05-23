@@ -67,6 +67,19 @@ const mts_brand_red_dark = `#FF0032`;
 const mts_brand_premium = `linear-gradient(90deg, #9BD5FF 6.25%, #9B93FF 44.27%, #9A8DFF 58.33%, #7C86FE 84.9%)`;
 const mts_brand_premium_dark = `linear-gradient(90deg, #9BD5FF 6.25%, #9B93FF 44.27%, #9A8DFF 58.33%, #7C86FE 84.9%)`;
 
+// Border radius (по шкале дизайн-системы MTS)
+const mts_radius_2 = "2px";
+const mts_radius_4 = "4px";
+const mts_radius_6 = "6px";
+const mts_radius_8 = "8px";
+const mts_radius_10 = "10px";
+const mts_radius_12 = "12px";
+const mts_radius_16 = "16px";
+const mts_radius_20 = "20px";
+const mts_radius_24 = "24px";
+const mts_radius_32 = "32px";
+const mts_radius_pill = "100px";
+
 // Greyscale
 export const mts_greyscale_900 = "#000000";
 export const mts_greyscale_800 = "#1D2023";
@@ -141,4 +154,16 @@ export {
   mts_brand_red_dark,
   mts_brand_premium,
   mts_brand_premium_dark,
+  // Radius
+  mts_radius_2,
+  mts_radius_4,
+  mts_radius_6,
+  mts_radius_8,
+  mts_radius_10,
+  mts_radius_12,
+  mts_radius_16,
+  mts_radius_20,
+  mts_radius_24,
+  mts_radius_32,
+  mts_radius_pill,
 };

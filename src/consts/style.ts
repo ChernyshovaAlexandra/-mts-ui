@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import Text from "../components/Text/Text";
 
+import {
+  mts_radius_12,
+} from "../consts";
+
 export const ColorGroup = styled.div`
   padding: 1rem;
   margin: 2rem;
@@ -22,7 +26,7 @@ export const ColorName = styled(Text)`
 export const Color = styled.div<{ value: string }>`
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   flex-shrink: 0;
   background: ${({ value }) => (value ? value : "#fff")};
 `;
@@ -35,7 +39,7 @@ export const ColorBox = styled.div`
   width: 280px;
   background: #e5e5e5;
   padding: 10px;
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
 `;
 
 export const ColorValue = styled(Text)``;

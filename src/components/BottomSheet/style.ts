@@ -3,12 +3,16 @@ import { motion } from "framer-motion";
 import { visuallyImpairedMixin } from "../../accessibility";
 import "../../assets/fonts.css";
 import {
-  mts_bg_primary_elevated,
   mts_bg_lower,
+  mts_bg_primary_elevated,
   mts_bg_secondary,
   mts_control_stroke,
   mts_input_background,
   mts_input_stroke,
+  mts_radius_12,
+  mts_radius_16,
+  mts_radius_2,
+  mts_radius_32,
   mts_text_primary,
   mts_text_secondary,
 } from "../../consts";
@@ -27,7 +31,7 @@ export const Sheet = styled(motion.div)<{ $fixedHeight?: boolean }>`
   right: 0;
   z-index: 10001;
   background: ${mts_bg_primary_elevated};
-  border-radius: 32px 32px 0 0;
+  border-radius: ${mts_radius_32} ${mts_radius_32} 0 0;
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08), 0 -8px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -39,7 +43,7 @@ export const DragIndicator = styled.span<{ $collapsable?: boolean }>`
   margin: 12px auto 0;
   width: 32px;
   height: 4px;
-  border-radius: 2px;
+  border-radius: ${mts_radius_2};
   background: ${mts_control_stroke};
   flex-shrink: 0;
   ${({ $collapsable }) => $collapsable && "cursor: grab; touch-action: none;"}
@@ -70,7 +74,7 @@ export const CloseButton = styled.button`
   height: 32px;
   background: ${mts_bg_lower};
   border: none;
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +160,7 @@ export const SearchInput = styled.input`
   height: 44px;
   background: ${mts_input_background};
   border: 1px solid ${mts_input_stroke};
-  border-radius: 12px;
+  border-radius: ${mts_radius_12};
   padding: 0 44px 0 16px;
   font-family: "MTS Compact", sans-serif;
   font-size: 17px;
@@ -192,7 +196,7 @@ export const MobileField = styled.div<{ $hasValue?: boolean; $isError?: boolean;
   align-items: center;
   background: rgba(188, 195, 208, 0.3);
   border: 1px solid ${({ $isError }) => ($isError ? "#F95721" : "rgba(188, 195, 208, 0.5)")};
-  border-radius: 16px;
+  border-radius: ${mts_radius_16};
   padding: 0 8px 0 16px;
   cursor: ${({ $disabled }) => ($disabled ? "not-allowed" : "pointer")};
   opacity: ${({ $disabled }) => ($disabled ? 0.6 : 1)};
