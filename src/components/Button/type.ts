@@ -14,7 +14,7 @@ export type ButtonVariant =
 export type ButtonSize = "xs" | "s" | "m" | "l" | "xl";
 
 export interface BaseButtonProps {
-  content?: string;
+  content?: React.ReactNode;
   variant: ButtonVariant;
   size?: ButtonSize;
   tooltip?: string;
