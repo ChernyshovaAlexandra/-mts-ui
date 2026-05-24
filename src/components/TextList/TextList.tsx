@@ -11,7 +11,7 @@ import {
   TitleTextBox,
 } from "./style";
 
-export type TextListType = "title" | "subtitle" | "child";
+export type TextListType = "title" | "subtitle" | "child" | "paragraph";
 export type TextListView = "desktop" | "mobile";
 export type TextListMarker = "number" | "bullet";
 export type TextListNumberColor = "default" | "red" | "dark";
@@ -48,7 +48,7 @@ export const TextList: FC<TextListProps> = ({
   className,
   style,
 }) => {
-  if (type === "title") {
+  if (type === "title" || type === "paragraph") {
     const defaultMarker =
       marker === "bullet" ? (
         <TitleBulletWrap $view={view}>
@@ -64,12 +64,21 @@ export const TextList: FC<TextListProps> = ({
       <Root $type={type} $view={view} className={className} style={style}>
         {leftSlot ?? defaultMarker}
         <TitleTextBox $view={view}>
-          {view === "desktop" ? (
-            <Header variant="H4-Comp" as="p" style={bodyStyle}>
-              {text}
-            </Header>
+          {type === "title" ? (
+            view === "desktop" ? (
+              <Header variant="H4-Comp" as="p" style={bodyStyle}>
+                {text}
+              </Header>
+            ) : (
+              <Text variant="P3-Medium-Comp" style={bodyStyle}>
+                {text}
+              </Text>
+            )
           ) : (
-            <Text variant="P3-Medium-Comp" style={bodyStyle}>
+            <Text
+              variant={view === "desktop" ? "P3-Regular-Comp" : "P4-Regular-Comp"}
+              style={bodyStyle}
+            >
               {text}
             </Text>
           )}

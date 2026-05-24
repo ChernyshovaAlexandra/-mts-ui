@@ -29,6 +29,7 @@ export const Root = styled.div<{ $type: TextListType; $view: TextListView }>`
   gap: ${({ $type }) => ($type === "subtitle" ? 0 : 12)}px;
   ${({ $type, $view }) =>
     $type !== "title" &&
+    $type !== "paragraph" &&
     css`
       padding-left: ${indent[$view]}px;
     `}
