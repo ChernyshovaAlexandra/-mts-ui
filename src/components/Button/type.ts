@@ -22,6 +22,8 @@ export interface BaseButtonProps {
   disabled?: boolean;
   children?: React.ReactNode;
   icon?: React.ReactNode;
+  iconPosition?: "left" | "right";
+  iconRight?: React.ReactNode;
   width?: "max" | "auto" | string;
   loading?: boolean;
 }

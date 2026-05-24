@@ -18,13 +18,19 @@ export const Button: React.FC<ButtonProps> = ({
       variant,
       size,
       icon,
+      iconPosition,
+      iconRight,
       children,
       onClick,
       ...rest
     } = props as LinkElementProps;
 
     const isDisabled = disabled || loading;
-    const iconOnly = !!icon && !children && !content;
+    const hasLeftIcon = !!icon && iconPosition !== "right";
+    const hasRightIcon = !!iconRight || (!!icon && iconPosition === "right");
+    const rightIconNode = iconRight ?? (iconPosition === "right" ? icon : null);
+    const iconOnly =
+      (!!icon || !!iconRight) && !children && !content;
 
     return (
       <StyledBtnLink
@@ -46,12 +52,15 @@ export const Button: React.FC<ButtonProps> = ({
         }}
         {...rest}
       >
-        {icon && <span className="btn-icon">{icon}</span>}
+        {hasLeftIcon && <span className="btn-icon">{icon}</span>}
         {loading ? (
           <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
         ) : (children || content) ? (
           <span className="btn-label">{children || content}</span>
         ) : null}
+        {hasRightIcon && !loading && (
+          <span className="btn-icon">{rightIconNode}</span>
+        )}
       </StyledBtnLink>
     );
   } else {
@@ -66,10 +75,16 @@ export const Button: React.FC<ButtonProps> = ({
       variant,
       size,
       icon,
+      iconPosition,
+      iconRight,
       ...rest
     } = props as ButtonElementProps;
 
-    const iconOnly = !!icon && !children && !content;
+    const hasLeftIcon = !!icon && iconPosition !== "right";
+    const hasRightIcon = !!iconRight || (!!icon && iconPosition === "right");
+    const rightIconNode = iconRight ?? (iconPosition === "right" ? icon : null);
+    const iconOnly =
+      (!!icon || !!iconRight) && !children && !content;
 
     return (
       <StyledBtn
@@ -84,12 +99,15 @@ export const Button: React.FC<ButtonProps> = ({
         aria-busy={loading}
         {...rest}
       >
-        {icon && <span className="btn-icon">{icon}</span>}
+        {hasLeftIcon && <span className="btn-icon">{icon}</span>}
         {loading ? (
           <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
         ) : (children || content) ? (
           <span className="btn-label">{children || content}</span>
         ) : null}
+        {hasRightIcon && !loading && (
+          <span className="btn-icon">{rightIconNode}</span>
+        )}
       </StyledBtn>
     );
   }
