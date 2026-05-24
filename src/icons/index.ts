@@ -192,6 +192,7 @@ export { IconObjectsGroup } from "./IconObjectsGroup/IconObjectsGroup";
 export { IconOk } from "./IconOk/IconOk";
 export { IconOpenInNew } from "./IconOpenInNew/IconOpenInNew";
 export { IconPause } from "./IconPause/IconPause";
+export { IconPeople } from "./IconPeople/IconPeople";
 export { IconPin } from "./IconPin/IconPin";
 export { IconPlay } from "./IconPlay/IconPlay";
 export { IconPlusAction } from "./IconPlusAction/IconPlusAction";
