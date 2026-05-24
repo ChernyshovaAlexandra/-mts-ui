@@ -413,6 +413,7 @@ export { IconOpenBook } from "./icons/IconOpenBook/IconOpenBook";
 export { IconOpenInNew } from "./icons/IconOpenInNew/IconOpenInNew";
 export { IconParameters } from "./icons/IconParameters/IconParameters";
 export { IconPause } from "./icons/IconPause/IconPause";
+export { IconPeople } from "./icons/IconPeople/IconPeople";
 export { IconPicture } from "./icons/IconPicture/IconPicture";
 export { IconPin } from "./icons/IconPin/IconPin";
 export { IconPlay } from "./icons/IconPlay/IconPlay";
