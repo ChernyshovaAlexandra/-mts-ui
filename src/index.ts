@@ -21,6 +21,13 @@ export {
 } from "./components/UserMenu/UserMenu";
 export { Burger, type BurgerProps } from "./components/Burger/Burger";
 export { Snackbar, type SnackBarProps } from "./components/Snackbar/Snackbar";
+export {
+  Toast,
+  type ToastProps,
+  type ToastIcon,
+  type ToastPosition,
+  type ToastVariant,
+} from "./components/Toast/Toast";
 export { Scrollbar, type ScrollbarProps, type ScrollbarSize, type ScrollbarOrientation } from "./components/Scrollbar/Scrollbar";
 export { Calendar, type CalendarProps } from "./components/Calendar/Calendar";
 export { Spinner, type SpinnerProps } from "./components/Spinner/Spinner";
