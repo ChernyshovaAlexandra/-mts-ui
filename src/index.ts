@@ -337,6 +337,7 @@ export { IconBeta } from "./icons/IconBeta/IconBeta";
 export { IconBook } from "./icons/IconBook/IconBook";
 export { IconBookmarkAdd } from "./icons/IconBookmarkAdd/IconBookmarkAdd";
 export { IconBookmarkRemove } from "./icons/IconBookmarkRemove/IconBookmarkRemove";
+export { IconBox } from "./icons/IconBox/IconBox";
 export { IconBusiness } from "./icons/IconBusiness/IconBusiness";
 export { IconCalendar } from "./icons/IconCalendar/IconCalendar";
 export { IconCar } from "./icons/IconCar/IconCar";
