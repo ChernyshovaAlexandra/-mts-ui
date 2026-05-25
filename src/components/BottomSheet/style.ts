@@ -21,6 +21,8 @@ export const Overlay = styled(motion.div)`
   position: fixed;
   inset: 0;
   background: rgba(29, 32, 35, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 10000;
 `;
 
