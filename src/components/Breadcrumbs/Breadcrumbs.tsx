@@ -22,9 +22,10 @@ export interface BreadcrumbsProps {
   crumbs: BreadcrumbItem[];
   size?: "s" | "m";
   iconLeft?: boolean;
+  textColor?: string;
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft }) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft, textColor }) => {
   const iconSize = size === "s" ? 16 : 24;
   const allCrumbs: BreadcrumbItem[] = [{ name: "Главная", path: "/" }, ...crumbs];
   const shouldCollapse = allCrumbs.length > 3;
@@ -38,19 +39,20 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
       <Wrapper>
         <CrumbItem>
           {iconLeft && (
-            <Separator>
+            <Separator $textColor={textColor}>
               <IconLeft width={iconSize} height={iconSize} />
             </Separator>
           )}
-          <CrumbLink href={allCrumbs[0].path} $size={size}>{allCrumbs[0].name}</CrumbLink>
+          <CrumbLink href={allCrumbs[0].path} $size={size} $textColor={textColor}>{allCrumbs[0].name}</CrumbLink>
         </CrumbItem>
 
         {shouldCollapse && (
           <CrumbItem>
-            <Separator><IconChevronRight width={iconSize} height={iconSize} /></Separator>
+            <Separator $textColor={textColor}><IconChevronRight width={iconSize} height={iconSize} /></Separator>
             <HiddenCrumbsTrigger
               type="button"
               $size={size}
+              $textColor={textColor}
               aria-haspopup="menu"
               aria-label="Показать скрытые страницы"
             >
@@ -59,7 +61,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
             <HiddenCrumbsDropdown role="menu">
               {hiddenCrumbs.map((hiddenCrumb) => (
                 <HiddenCrumbsItem key={hiddenCrumb.path} role="none">
-                  <HiddenCrumbsLink href={hiddenCrumb.path} role="menuitem" $size={size}>
+                  <HiddenCrumbsLink href={hiddenCrumb.path} role="menuitem" $size={size} $textColor={textColor}>
                     {hiddenCrumb.name}
                   </HiddenCrumbsLink>
                 </HiddenCrumbsItem>
@@ -73,11 +75,11 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
 
           return (
             <CrumbItem key={`${crumb.path}-${idx}`}>
-              <Separator><IconChevronRight width={iconSize} height={iconSize} /></Separator>
+              <Separator $textColor={textColor}><IconChevronRight width={iconSize} height={iconSize} /></Separator>
               {isCurrent ? (
-                <CrumbText $size={size} aria-current="page">{crumb.name}</CrumbText>
+                <CrumbText $size={size} $textColor={textColor} aria-current="page">{crumb.name}</CrumbText>
               ) : (
-                <CrumbLink href={crumb.path} $size={size}>{crumb.name}</CrumbLink>
+                <CrumbLink href={crumb.path} $size={size} $textColor={textColor}>{crumb.name}</CrumbLink>
               )}
             </CrumbItem>
           );

@@ -44,12 +44,12 @@ export const CrumbItem = styled.li`
   }
 `;
 
-export const CrumbLink = styled(StyledLink)<{ $size?: "s" | "m" }>`
+export const CrumbLink = styled(StyledLink)<{ $size?: "s" | "m"; $textColor?: string }>`
   display: inline-block;
   min-width: 0;
   max-width: 36ch;
   text-decoration: none;
-  color: ${mts_text_secondary};
+  color: ${({ $textColor }) => $textColor || mts_text_secondary};
   font-family: "MTS Compact", "Arial", sans-serif;
   font-size: ${({ $size }) => ($size === "s" ? "14px" : "17px")};
   line-height: ${({ $size }) => ($size === "s" ? "20px" : "24px")};
@@ -65,11 +65,11 @@ export const CrumbLink = styled(StyledLink)<{ $size?: "s" | "m" }>`
   ${visuallyImpairedMixin};
 `;
 
-export const CrumbText = styled.span<{ $size?: "s" | "m" }>`
+export const CrumbText = styled.span<{ $size?: "s" | "m"; $textColor?: string }>`
   display: inline-block;
   min-width: 0;
   max-width: 36ch;
-  color: ${mts_text_primary};
+  color: ${({ $textColor }) => $textColor || mts_text_primary};
   cursor: default;
   font-family: "MTS Compact", "Arial", sans-serif;
   font-size: ${({ $size }) => ($size === "s" ? "14px" : "17px")};
@@ -81,14 +81,14 @@ export const CrumbText = styled.span<{ $size?: "s" | "m" }>`
   ${visuallyImpairedMixin};
 `;
 
-export const Separator = styled.span`
+export const Separator = styled.span<{ $textColor?: string }>`
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  color: ${mts_text_secondary};
+  color: ${({ $textColor }) => $textColor || mts_text_secondary};
 `;
 
-export const HiddenCrumbsTrigger = styled.button<{ $size?: "s" | "m" }>`
+export const HiddenCrumbsTrigger = styled.button<{ $size?: "s" | "m"; $textColor?: string }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +98,7 @@ export const HiddenCrumbsTrigger = styled.button<{ $size?: "s" | "m" }>`
   border: none;
   border-radius: 4px;
   background: transparent;
-  color: ${mts_text_secondary};
+  color: ${({ $textColor }) => $textColor || mts_text_secondary};
   cursor: pointer;
   font-family: "MTS Compact", "Arial", sans-serif;
   font-size: ${({ $size }) => ($size === "s" ? "14px" : "17px")};

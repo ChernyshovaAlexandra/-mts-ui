@@ -34,6 +34,7 @@ const meta: Meta<typeof Breadcrumbs> = {
 
 \`\`\`tsx
 <Breadcrumbs
+  textColor="#FF0032"
   crumbs={[
     { name: "Категория", path: "/category" },
     { name: "Подкатегория", path: "/category/sub" },
@@ -58,6 +59,10 @@ const meta: Meta<typeof Breadcrumbs> = {
     iconLeft: {
       description: "Иконка стрелки влево перед первым элементом. Используется для навигации «Назад».",
       control: "boolean",
+    },
+    textColor: {
+      description: "Цвет текста, ссылок, разделителей и скрытых крошек. Принимает любое CSS-значение цвета.",
+      control: "color",
     },
   },
 };
@@ -111,6 +116,20 @@ export const WithIconLeft: Story = {
   parameters: {
     docs: {
       description: { story: "Иконка `←` слева от первого элемента. Используется как визуальная подсказка для навигации назад, особенно на мобильных устройствах." },
+    },
+  },
+};
+
+export const CustomTextColor: Story = {
+  name: "Кастомный цвет текста",
+  args: {
+    crumbs: sampleCrumbs,
+    size: "m",
+    textColor: "#FF0032",
+  },
+  parameters: {
+    docs: {
+      description: { story: "Проп `textColor` перекрывает цвет всех текстовых элементов хлебных крошек." },
     },
   },
 };
