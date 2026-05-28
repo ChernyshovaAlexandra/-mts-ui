@@ -6,7 +6,6 @@ export { default as IconError } from "./IconError/IconError";
 export { default as IconInfo } from "./IconInfo/IconInfo";
 export { default as IconLock } from "./IconLock/IconLock";
 export { default as IconSuccess } from "./IconSuccess/IconSuccess";
-export { default as IconUser } from "./IconUser/IconUser";
 export { default as IconX } from "./IconX/IconX";
 export { default as IconPlus } from "./IconPlus/IconPlus";
 export { default as IconOut } from "./IconOut/IconOut";
@@ -26,6 +25,8 @@ export { default as IconAttention } from "./IconAttention/IconAttention";
 export { default as IconPlusInverted } from "./IconPlusInverted/IconPlusInverted";
 
 // New icons (createIcon pattern)
+export { IconUser } from "./IconUser/IconUser";
+
 // Arrows
 export { IconArrowLeft } from "./IconArrowLeft/IconArrowLeft";
 export { IconArrowRight } from "./IconArrowRight/IconArrowRight";
