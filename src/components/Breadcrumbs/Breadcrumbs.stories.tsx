@@ -26,6 +26,7 @@ const meta: Meta<typeof Breadcrumbs> = {
 - **Default** — ссылки серые, текущая страница тёмная
 - **Hover** — ссылка подчёркивается при наведении
 - **Icon Left** — иконка стрелки слева от первого элемента, используется как кнопка «Назад»
+- **Collapsed** — длинная цепочка сокращается до первой и последних двух крошек, скрытые страницы доступны в выпадающем списке по наведению на \`...\`
 
 ### Структура
 
@@ -151,4 +152,30 @@ export const SingleLevel: Story = {
       description: { story: "Минимальный вариант — только «Главная» и текущая страница." },
     },
   },
+};
+
+export const MobileLongLabels: Story = {
+  name: "Сокращение длинной цепочки",
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: "Если цепочка не помещается, отображаются первая и последние две крошки. Скрытые страницы открываются в выпадающем списке при наведении на `...`.",
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: 320 }}>
+      <Breadcrumbs
+        size="s"
+        crumbs={[
+          { name: "Очень длинная категория товаров", path: "/category" },
+          { name: "Раздел с длинным названием", path: "/category/section" },
+          { name: "Подраздел каталога", path: "/category/section/subsection" },
+          { name: "Карточки товаров", path: "/category/section/subsection/products" },
+          { name: "Текущая страница с длинным названием", path: "/category/section/subsection/products/page" },
+        ]}
+      />
+    </div>
+  ),
 };
