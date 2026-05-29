@@ -76,7 +76,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
     const selectId = id || `select-${generatedId}`;
     const errorId = `${selectId}-error`;
 
-    const [filteredRegions, setFilteredRegions] = useState(regions);
+    const [filteredRegions, setFilteredRegions] = useState<typeof regions>([]);
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [mobileSearch, setMobileSearch] = useState("");
@@ -88,13 +88,20 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
       return () => window.removeEventListener("resize", check);
     }, []);
 
+    const getVisibleRegions = (input: string) =>
+      input.trim() ? filterRegions(input) : [];
+
     const activeOptions = withRegions ? filteredRegions : options;
+    const selectedOptions = withRegions ? regions : activeOptions;
 
     // flat list for finding selected label
-    const flatOptions: SelectLeaf[] = (activeOptions as any[]).flatMap((o) =>
+    const flatOptions: SelectLeaf[] = (selectedOptions as any[]).flatMap((o) =>
       "options" in o ? o.options : [o]
     );
     const selectedOption = flatOptions.find((o) => o.value === value) || null;
+    const mobileOptions = withRegions
+      ? getVisibleRegions(mobileSearch)
+      : (activeOptions as any[]);
 
     const handleMobileSelect = (optValue: string) => {
       onChange(name, optValue);
@@ -178,48 +185,54 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
                 </SearchIconWrapper>
               </SearchWrapper>
             )}
-            {(withRegions ? filterRegions(mobileSearch) : (activeOptions as any[])).map((o, i) =>
-              "options" in o ? (
-                <div key={i} role="group" aria-label={o.label}>
-                  <GroupLabel>{o.label}</GroupLabel>
-                  {o.options.map((opt: SelectLeaf) => (
-                    <OptionRow
-                      key={opt.value}
-                      type="button"
-                      $selected={opt.value === value}
-                      onClick={() => handleMobileSelect(opt.value)}
-                      role="option"
-                      aria-selected={opt.value === value}
-                    >
-                      <OptionLabel>{opt.label}</OptionLabel>
-                      {opt.value === value && (
-                        <IconCheck
-                          width={24}
-                          height={24}
-                          style={{ color: mts_text_primary, flexShrink: 0 }}
-                        />
-                      )}
-                    </OptionRow>
-                  ))}
-                </div>
-              ) : (
-                <OptionRow
-                  key={(o as SelectLeaf).value}
-                  type="button"
-                  $selected={(o as SelectLeaf).value === value}
-                  onClick={() => handleMobileSelect((o as SelectLeaf).value)}
-                  role="option"
-                  aria-selected={(o as SelectLeaf).value === value}
-                >
-                  <OptionLabel>{(o as SelectLeaf).label}</OptionLabel>
-                  {(o as SelectLeaf).value === value && (
-                    <IconCheck
-                      width={24}
-                      height={24}
-                      style={{ color: mts_text_primary, flexShrink: 0 }}
-                    />
-                  )}
-                </OptionRow>
+            {withRegions && !mobileSearch.trim() ? (
+              <GroupLabel>Начните вводить город</GroupLabel>
+            ) : withRegions && mobileOptions.length === 0 ? (
+              <GroupLabel>Город не найден</GroupLabel>
+            ) : (
+              mobileOptions.map((o, i) =>
+                "options" in o ? (
+                  <div key={i} role="group" aria-label={o.label}>
+                    <GroupLabel>{o.label}</GroupLabel>
+                    {o.options.map((opt: SelectLeaf) => (
+                      <OptionRow
+                        key={opt.value}
+                        type="button"
+                        $selected={opt.value === value}
+                        onClick={() => handleMobileSelect(opt.value)}
+                        role="option"
+                        aria-selected={opt.value === value}
+                      >
+                        <OptionLabel>{opt.label}</OptionLabel>
+                        {opt.value === value && (
+                          <IconCheck
+                            width={24}
+                            height={24}
+                            style={{ color: mts_text_primary, flexShrink: 0 }}
+                          />
+                        )}
+                      </OptionRow>
+                    ))}
+                  </div>
+                ) : (
+                  <OptionRow
+                    key={(o as SelectLeaf).value}
+                    type="button"
+                    $selected={(o as SelectLeaf).value === value}
+                    onClick={() => handleMobileSelect((o as SelectLeaf).value)}
+                    role="option"
+                    aria-selected={(o as SelectLeaf).value === value}
+                  >
+                    <OptionLabel>{(o as SelectLeaf).label}</OptionLabel>
+                    {(o as SelectLeaf).value === value && (
+                      <IconCheck
+                        width={24}
+                        height={24}
+                        style={{ color: mts_text_primary, flexShrink: 0 }}
+                      />
+                    )}
+                  </OptionRow>
+                )
               )
             )}
           </BottomSheet>
@@ -233,10 +246,6 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
         ? { label: o.label, options: o.options }
         : { label: o.label, value: o.value }
     );
-    const rsSelected = (rsOptions as any[])
-      .flatMap((o: any) => ("options" in o ? o.options : [o]))
-      .find((o: any) => o.value === value) || null;
-
     const colourStyles: StylesConfig = {
       control: (styles, state) => ({
         ...styles,
@@ -313,7 +322,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           aria-describedby={error ? errorId : undefined}
           placeholder={placeholder || "— выберите —"}
           options={rsOptions as any}
-          value={rsSelected as any}
+          value={selectedOption as any}
           styles={{
             ...colourStyles,
             menuPortal: (base) => ({ ...base, zIndex: 1000000000 }),
@@ -342,7 +351,13 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           isSearchable={withRegions || undefined}
           onInputChange={
             withRegions
-              ? (input) => setFilteredRegions(filterRegions(input))
+              ? (input) => setFilteredRegions(getVisibleRegions(input))
+              : undefined
+          }
+          noOptionsMessage={
+            withRegions
+              ? ({ inputValue }) =>
+                  inputValue.trim() ? "Город не найден" : "Начните вводить город"
               : undefined
           }
           {...rsProps}
