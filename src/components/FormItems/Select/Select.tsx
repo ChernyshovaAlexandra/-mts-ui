@@ -1,5 +1,6 @@
 import React, { useId, forwardRef, useState, useEffect } from "react";
 import ReactSelect, { StylesConfig, type SelectInstance } from "react-select";
+import "../../../assets/fonts.css";
 import { Wrapper } from "./style";
 import IconLock from "../../../icons/IconLock/IconLock";
 import {
@@ -25,6 +26,8 @@ import {
   SearchIconWrapper,
 } from "../../BottomSheet/style";
 import { IconSearch } from "../../../icons";
+
+const selectFontFamily = `"MTS Compact", Arial, sans-serif`;
 
 export interface SelectLeaf {
   label: string;
@@ -266,7 +269,8 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           borderColor: error ? mts_accent_light_negative : "#626C77",
         },
         borderRadius: formBase.borderRadius,
-        fontFamily: `"MTS Compact", Arial, sans-serif`,
+        fontFamily: selectFontFamily,
+        fontSize: formBase.fontSize,
         textOverflow: "ellipsis",
         lineHeight: formBase.lineHeight,
         fontWeight: formBase.fontWeight,
@@ -277,23 +281,71 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
       valueContainer: (base) => ({
         ...base,
         padding: "10px 16px",
-        fontFamily: `"MTS Compact", Arial, sans-serif`,
+        fontFamily: selectFontFamily,
+      }),
+      singleValue: (styles) => ({
+        ...styles,
+        fontFamily: selectFontFamily,
+        color: mts_text_primary,
+        lineHeight: formBase.lineHeight,
+        fontWeight: formBase.fontWeight,
+        fontSize: formBase.fontSize,
       }),
       placeholder: (styles) => ({
         ...styles,
-        fontFamily: `"MTS Compact", Arial, sans-serif`,
+        fontFamily: selectFontFamily,
         color: mts_text_secondary,
         lineHeight: formBase.lineHeight,
         fontWeight: formBase.fontWeight,
         fontSize: formBase.fontSize,
       }),
+      menu: (styles) => ({
+        ...styles,
+        fontFamily: selectFontFamily,
+      }),
+      menuList: (styles) => ({
+        ...styles,
+        fontFamily: selectFontFamily,
+      }),
+      groupHeading: (styles) => ({
+        ...styles,
+        fontFamily: selectFontFamily,
+      }),
       option: (styles, { isFocused, isSelected }) => ({
         ...styles,
-        fontFamily: `"MTS Compact", Arial, sans-serif`,
+        fontFamily: selectFontFamily,
+        color: mts_text_primary,
+        lineHeight: formBase.lineHeight,
+        fontWeight: formBase.fontWeight,
+        fontSize: formBase.fontSize,
         backgroundColor: isSelected ? "#F0F0F0" : isFocused ? "#F5F7F9" : "transparent",
         ":hover": { cursor: "pointer" },
       }),
-      input: (styles) => ({ ...styles, margin: 0 }),
+      noOptionsMessage: (styles) => ({
+        ...styles,
+        fontFamily: selectFontFamily,
+        color: mts_text_secondary,
+        lineHeight: formBase.lineHeight,
+        fontWeight: formBase.fontWeight,
+        fontSize: formBase.fontSize,
+      }),
+      loadingMessage: (styles) => ({
+        ...styles,
+        fontFamily: selectFontFamily,
+        color: mts_text_secondary,
+        lineHeight: formBase.lineHeight,
+        fontWeight: formBase.fontWeight,
+        fontSize: formBase.fontSize,
+      }),
+      input: (styles) => ({
+        ...styles,
+        margin: 0,
+        fontFamily: selectFontFamily,
+        color: mts_text_primary,
+        lineHeight: formBase.lineHeight,
+        fontWeight: formBase.fontWeight,
+        fontSize: formBase.fontSize,
+      }),
     };
 
     return (
