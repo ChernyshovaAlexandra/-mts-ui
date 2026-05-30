@@ -1,6 +1,10 @@
 import React, { FC, memo } from "react";
 import { Text } from "../Text/Text";
-import { mts_text_secondary } from "../../consts";
+import {
+  mts_accent_light_negative,
+  mts_accent_light_positive,
+  mts_text_secondary,
+} from "../../consts";
 import { IconChevronRight } from "../../icons/IconChevronRight/IconChevronRight";
 import { IconAddCircle } from "../../icons/IconAddCircle/IconAddCircle";
 import { IconRemoveCircle } from "../../icons/IconRemoveCircle/IconRemoveCircle";
@@ -52,7 +56,15 @@ export const Cell: FC<CellProps> = memo(({
           onClick={onEditAction}
           type="button"
           aria-label={edit === "add" ? "Добавить" : "Удалить"}
-          style={{ display: "flex", background: "none", border: "none", padding: 0, cursor: "pointer", flexShrink: 0 }}
+          style={{
+            display: "flex",
+            background: "none",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+            flexShrink: 0,
+            color: edit === "add" ? mts_accent_light_positive : mts_accent_light_negative,
+          }}
         >
           {edit === "add"
             ? <IconAddCircle width={24} height={24} aria-hidden />

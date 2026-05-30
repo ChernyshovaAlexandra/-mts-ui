@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {
   mts_brand_red,
   mts_radius_16,
+  mts_text_inverted,
 } from "../../consts";
 
 export interface BurgerProps
@@ -34,19 +35,19 @@ export const Burger: React.FC<BurgerProps> = ({
       >
         <path
           d="M1 1H17"
-          stroke="white"
+          stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
         />
         <path
           d="M1 9H17"
-          stroke="white"
+          stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
         />
         <path
           d="M1 17H17"
-          stroke="white"
+          stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
         />
@@ -62,6 +63,7 @@ const StyledButton = styled.button<{ size: number | string }>`
   background: ${mts_brand_red};
   display: grid;
   place-items: center;
+  color: ${mts_text_inverted};
   cursor: pointer;
   border: none;
   padding: 0;
@@ -71,7 +73,7 @@ const StyledButton = styled.button<{ size: number | string }>`
   }
 
   &:focus-visible {
-    outline: 2px solid white;
+    outline: 2px solid currentColor;
     outline-offset: 2px;
   }
 `;
