@@ -2,7 +2,7 @@ export { Breadcrumbs, type BreadcrumbsProps } from "./components/Breadcrumbs/Bre
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";
-export { Modal, type ModalProps } from "./components/Modal/Modal";
+export { Modal, type ModalProps, type ModalTitleVariant } from "./components/Modal/Modal";
 export { Banner, type BannerProps, type BannerVariant } from "./components/Banner/Banner";
 export { CookieBanner, type CookieBannerProps } from "./components/CookieBanner/CookieBanner";
 export { BottomSheet, type BottomSheetProps } from "./components/BottomSheet/BottomSheet";

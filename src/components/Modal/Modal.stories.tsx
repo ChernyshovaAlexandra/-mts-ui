@@ -22,6 +22,7 @@ const meta: Meta<typeof Modal> = {
 - Закрывается по клику на оверлей или клавише \`Escape\`
 - \`disableClosing={true}\` — полностью отключает оба способа закрытия
 - На мобильных устройствах (< 480px) прижимается к нижнему краю экрана как Bottom Sheet
+- \`animateMobileSheet={true}\` — включает мобильную анимацию выезда снизу
 
 ### Структура
 
@@ -49,9 +50,30 @@ Modal
       description: "Заголовок модального окна.",
       control: "text",
     },
+    titleVariant: {
+      description: "Типографика заголовка. Поддерживает варианты Text и Header, например `H3-Wide`.",
+      control: "select",
+      options: [
+        "P3-Medium-Comp",
+        "P3-Bold-Comp",
+        "P3-Regular-Comp",
+        "P4-Bold-Comp",
+        "P4-Medium-Comp",
+        "P4-Regular-Comp",
+        "H1-Wide",
+        "H2-Wide",
+        "H3-Wide",
+        "H4-Wide",
+        "H4-Comp",
+      ],
+    },
     subtitle: {
       description: "Подзаголовок или описание под заголовком.",
       control: "text",
+    },
+    animateMobileSheet: {
+      description: "Включает анимацию выезда модалки снизу на мобильных экранах.",
+      control: "boolean",
     },
     showCloseButton: {
       description: "Показывает кнопку закрытия (×) в правом верхнем углу.",
@@ -165,6 +187,43 @@ export const WithCloseButton: Story = {
   parameters: {
     docs: {
       description: { story: "Кнопка × в правом верхнем углу — альтернативный способ закрытия помимо оверлея и Escape." },
+    },
+  },
+};
+
+export const WideTitle: Story = {
+  name: "С заголовком H3-Wide",
+  render: (args) => <ModalDemo {...args} />,
+  args: {
+    title: "Заголовок по центру",
+    titleVariant: "H3-Wide",
+    subtitle: "Сопутствующее сообщение",
+    cancelText: "Отменить",
+    submitText: "Выполнить",
+    children: <Input id="modal-input-wide-title" placeholder="Placeholder" />,
+  },
+  parameters: {
+    docs: {
+      description: { story: "Заголовок модального окна можно отрисовать в заголовочной типографике, например `H3-Wide`." },
+    },
+  },
+};
+
+export const AnimatedMobileSheet: Story = {
+  name: "С мобильной sheet-анимацией",
+  render: (args) => <ModalDemo {...args} />,
+  args: {
+    title: "Заголовок по центру",
+    titleVariant: "H3-Wide",
+    subtitle: "На мобильном экране модалка выезжает снизу",
+    animateMobileSheet: true,
+    cancelText: "Отменить",
+    submitText: "Выполнить",
+    children: <Input id="modal-input-animated-mobile" placeholder="Placeholder" />,
+  },
+  parameters: {
+    docs: {
+      description: { story: "Opt-in анимация для мобильного представления модалки. На desktop поведение остаётся обычным." },
     },
   },
 };

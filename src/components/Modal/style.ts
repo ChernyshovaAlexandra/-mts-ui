@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
+  mts_bg_primary_elevated,
   mts_bg_hover,
   mts_bg_overlay,
   mts_bg_secondary,
@@ -10,9 +12,8 @@ import {
   mts_radius_24,
   mts_text_primary,
 } from "../../consts";
-import { Card } from "../Card/Card";
 
-export const Overlay = styled.div`
+export const Overlay = styled(motion.div)`
   position: fixed;
   inset: 0;
   background: ${mts_bg_overlay};
@@ -33,13 +34,15 @@ export const Overlay = styled.div`
   }
 `;
 
-export const ModalContainer = styled(Card).attrs({
-  variant: "default",
-})`
+export const ModalContainer = styled(motion.div)`
   position: relative;
   width: 440px;
   max-width: 100%;
   padding: 32px 20px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: ${mts_bg_primary_elevated};
+  border-radius: ${mts_radius_24};
   display: flex;
   flex-direction: column;
   gap: 32px;
