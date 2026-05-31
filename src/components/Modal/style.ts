@@ -23,9 +23,8 @@ export const Overlay = styled(motion.div)`
   justify-content: center;
   align-items: safe center;
   z-index: 999999999;
-  overflow-y: auto;
+  overflow: hidden;
   overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
   padding: 16px;
 
   @media (max-width: 480px) {
@@ -38,6 +37,7 @@ export const ModalContainer = styled(motion.div)`
   position: relative;
   width: 440px;
   max-width: 100%;
+  max-height: calc(100dvh - 32px);
   padding: 32px 20px 20px;
   box-sizing: border-box;
   overflow: hidden;
@@ -50,6 +50,7 @@ export const ModalContainer = styled(motion.div)`
 
   @media (max-width: 480px) {
     width: calc(100% - 16px);
+    max-height: calc(100dvh - 8px);
     border-radius: ${mts_radius_24} ${mts_radius_24} 0 0;
     margin: 0 8px;
   }
@@ -78,17 +79,23 @@ export const Header = styled.div`
   gap: 8px;
   text-align: center;
   padding: 0 16px;
+  flex-shrink: 0;
 `;
 
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 `;
 
 export const Footer = styled.div`
   display: flex;
   gap: 12px;
+  flex-shrink: 0;
 
   & > * {
     flex: 1;
