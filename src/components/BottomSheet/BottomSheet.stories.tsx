@@ -42,6 +42,7 @@ BottomSheet
 
 - По умолчанию — \`max-height: 85vh\`, панель растягивается по контенту
 - \`fixedHeight\` — фиксированная высота \`85vh\` независимо от контента
+- \`bottomOffset\` — отступ панели и оверлея от нижнего края экрана, например для размещения над фиксированным таббаром
 
 ### Свайп для закрытия
 
@@ -83,6 +84,10 @@ BottomSheet
     collapsable: {
       description: "Включает жест свайпа вниз для закрытия. Рекомендуется включать на мобильных устройствах.",
       control: "boolean",
+    },
+    bottomOffset: {
+      description: "Отступ от нижнего края экрана. Число трактуется как px, строка передаётся как CSS length.",
+      control: "text",
     },
     children: { control: false },
   },
@@ -202,6 +207,46 @@ const CollapsableDemo = () => {
   );
 };
 
+const WithBottomOffsetDemo = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div style={{ padding: 24 }}>
+      <Button btn_type="button" variant="primary" width="auto" onClick={() => setIsOpen(true)}>
+        Открыть над таббаром
+      </Button>
+      <div
+        style={{
+          position: "fixed",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 88,
+          zIndex: 10002,
+          display: "grid",
+          placeItems: "center",
+          background: "#fff",
+          boxShadow: "0 -4px 16px rgba(0,0,0,0.08)",
+          fontFamily: "MTS Compact, sans-serif",
+        }}
+      >
+        Фиксированный таббар
+      </div>
+      <BottomSheet
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title="Панель над таббаром"
+        bottomOffset={88}
+      >
+        {cities.map((o) => (
+          <OptionRow key={o} type="button" $selected={false} onClick={() => setIsOpen(false)}>
+            <OptionLabel>{o}</OptionLabel>
+          </OptionRow>
+        ))}
+      </BottomSheet>
+    </div>
+  );
+};
+
 export const Default: Story = {
   name: "Базовый список",
   render: () => <DefaultDemo />,
@@ -248,6 +293,16 @@ export const Collapsable: Story = {
   parameters: {
     docs: {
       description: { story: "`collapsable` включает закрытие свайпом вниз. Потяните панель вниз чтобы закрыть." },
+    },
+  },
+};
+
+export const WithBottomOffset: Story = {
+  name: "С отступом снизу",
+  render: () => <WithBottomOffsetDemo />,
+  parameters: {
+    docs: {
+      description: { story: "`bottomOffset` поднимает панель и оверлей над фиксированным нижним UI, например таббаром." },
     },
   },
 };

@@ -25,7 +25,13 @@ export interface BottomSheetProps {
   applyText?: string;
   fixedHeight?: boolean;
   collapsable?: boolean;
+  bottomOffset?: number | string;
 }
+
+const toCssLength = (value: number | string | undefined): string => {
+  if (value === undefined) return "0px";
+  return typeof value === "number" ? `${value}px` : value;
+};
 
 export const BottomSheet: FC<BottomSheetProps> = memo(
   ({
@@ -39,8 +45,11 @@ export const BottomSheet: FC<BottomSheetProps> = memo(
     applyText = "Применить",
     fixedHeight,
     collapsable,
+    bottomOffset,
   }) => {
     const hasFooter = Boolean(onReset || onApply);
+    const bottomOffsetValue = toCssLength(bottomOffset);
+    const hiddenY = bottomOffsetValue === "0px" ? "100%" : `calc(100% + ${bottomOffsetValue})`;
 
     const swipeProps = collapsable
       ? {
@@ -65,13 +74,15 @@ export const BottomSheet: FC<BottomSheetProps> = memo(
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={onClose}
+              $bottomOffset={bottomOffsetValue}
             />
             <Sheet
-              initial={{ y: "100%" }}
+              initial={{ y: hiddenY }}
               animate={{ y: 0 }}
-              exit={{ y: "100%" }}
+              exit={{ y: hiddenY }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               $fixedHeight={fixedHeight}
+              $bottomOffset={bottomOffsetValue}
               {...swipeProps}
             >
               <DragIndicator aria-hidden="true" $collapsable={collapsable} />

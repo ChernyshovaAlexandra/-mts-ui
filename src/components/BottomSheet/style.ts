@@ -17,18 +17,18 @@ import {
   mts_text_secondary,
 } from "../../consts";
 
-export const Overlay = styled(motion.div)`
+export const Overlay = styled(motion.div)<{ $bottomOffset: string }>`
   position: fixed;
-  inset: 0;
+  inset: 0 0 ${({ $bottomOffset }) => $bottomOffset} 0;
   background: rgba(29, 32, 35, 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 10000;
 `;
 
-export const Sheet = styled(motion.div)<{ $fixedHeight?: boolean }>`
+export const Sheet = styled(motion.div)<{ $fixedHeight?: boolean; $bottomOffset: string }>`
   position: fixed;
-  bottom: 0;
+  bottom: ${({ $bottomOffset }) => $bottomOffset};
   left: 0;
   right: 0;
   z-index: 10001;
