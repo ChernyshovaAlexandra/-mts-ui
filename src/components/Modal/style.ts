@@ -94,16 +94,25 @@ export const Body = styled.div`
 
 export const Footer = styled.div`
   display: flex;
+  justify-content: center;
   gap: 12px;
   flex-shrink: 0;
 
   & > * {
-    flex: 1;
-    max-width: none !important;
+    flex: 0 1 auto;
+    min-width: 180px;
+    width: fit-content;
   }
 
   @media (max-width: 480px) {
     flex-direction: column;
+
+    & > * {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+      max-width: none !important;
+    }
   }
 `;
 
