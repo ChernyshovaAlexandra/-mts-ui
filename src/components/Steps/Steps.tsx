@@ -50,6 +50,7 @@ type CompactToken =
   | { type: "ellipsis"; key: string };
 
 const COMPACT_THRESHOLD = 5;
+const COMPACT_ELLIPSIS_WIDTH = 18;
 
 // ─── Styled ───────────────────────────────────────────────────────────────────
 
@@ -94,17 +95,27 @@ const StepsMobileCompactRoot = styled.div<{ $isVisible: boolean }>`
 `;
 
 const StepsMobileCompactConnector = styled.div`
-  height: 1px;
-  min-width: 4px;
-  max-width: 24px;
-  flex: 1 1 8px;
-  background: ${mts_input_stroke};
+  height: ${CIRCLE_SIZE.s}px;
+  min-width: 0;
+  flex: 1 1 0;
+  box-sizing: border-box;
+  padding: 0 ${DIVIDER_SIDE_PADDING}px;
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: "";
+    width: 100%;
+    min-width: 0;
+    height: 1px;
+    background: ${mts_input_stroke};
+  }
 `;
 
 const StepsMobileCompactEllipsis = styled.span`
-  width: 18px;
+  width: ${COMPACT_ELLIPSIS_WIDTH}px;
   height: ${CIRCLE_SIZE.s}px;
-  flex: 0 0 18px;
+  flex: 0 0 ${COMPACT_ELLIPSIS_WIDTH}px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -146,26 +157,29 @@ const getCurrentStepIndex = (steps: StepItem[]): number => {
 
 const buildCompactTokens = (
   total: number,
-  currentIndex: number
+  currentIndex: number,
+  withNeighbors = true
 ): CompactToken[] => {
   if (total <= 0) return [];
 
   const visibleIndexes = new Set<number>([0, total - 1, currentIndex]);
 
-  [currentIndex - 1, currentIndex + 1].forEach((index) => {
-    if (index > 0 && index < total - 1) visibleIndexes.add(index);
-  });
-
-  if (currentIndex <= 2) {
-    [1, 2, 3].forEach((index) => {
+  if (withNeighbors) {
+    [currentIndex - 1, currentIndex + 1].forEach((index) => {
       if (index > 0 && index < total - 1) visibleIndexes.add(index);
     });
-  }
 
-  if (currentIndex >= total - 3) {
-    [total - 4, total - 3, total - 2].forEach((index) => {
-      if (index > 0 && index < total - 1) visibleIndexes.add(index);
-    });
+    if (currentIndex <= 2) {
+      [1, 2, 3].forEach((index) => {
+        if (index > 0 && index < total - 1) visibleIndexes.add(index);
+      });
+    }
+
+    if (currentIndex >= total - 3) {
+      [total - 4, total - 3, total - 2].forEach((index) => {
+        if (index > 0 && index < total - 1) visibleIndexes.add(index);
+      });
+    }
   }
 
   const sortedIndexes = Array.from(visibleIndexes).sort((a, b) => a - b);
@@ -233,6 +247,16 @@ const getHorizontalMinWidth = (
     (dividerMinLength + DIVIDER_SIDE_PADDING * 2);
 
   return circlesWidth + dividersWidth;
+};
+
+const getCompactMinWidth = (tokens: CompactToken[]): number => {
+  const tokensWidth = tokens.reduce((width, token) => {
+    return width + (token.type === "step" ? CIRCLE_SIZE.s : COMPACT_ELLIPSIS_WIDTH);
+  }, 0);
+  const connectorsWidth =
+    Math.max(tokens.length - 1, 0) * (DIVIDER_SIDE_PADDING * 2);
+
+  return tokensWidth + connectorsWidth;
 };
 
 const useElementWidth = <T extends HTMLElement>() => {
@@ -345,9 +369,24 @@ export const Steps: FC<StepsProps> = ({
   // ── Horizontal: каждый Step несёт свой дивайдер через withDivider ───────────
   const currentStepIndex = getCurrentStepIndex(steps);
   const hasExplicitActiveStep = steps.some((step) => step.status === "active");
-  const compactTokens = shouldUseCompact
-    ? buildCompactTokens(steps.length, currentStepIndex)
-    : [];
+  const compactTokens = (() => {
+    if (!shouldUseCompact) return [];
+
+    const tokensWithNeighbors = buildCompactTokens(
+      steps.length,
+      currentStepIndex,
+      true
+    );
+
+    if (
+      containerWidth === undefined ||
+      getCompactMinWidth(tokensWithNeighbors) <= containerWidth
+    ) {
+      return tokensWithNeighbors;
+    }
+
+    return buildCompactTokens(steps.length, currentStepIndex, false);
+  })();
 
   return (
     <StepsHorizRoot
