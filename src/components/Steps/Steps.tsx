@@ -1,9 +1,14 @@
-import React, { FC } from "react";
-import styled, { css } from "styled-components";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import styled from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import { Step } from "../Step/Step";
 import { Divider } from "../Divider/Divider";
-import { CIRCLE_SIZE } from "../Step/style";
+import {
+  CIRCLE_SIZE,
+  DEFAULT_DIVIDER_MAX_LENGTH,
+  DEFAULT_DIVIDER_MIN_LENGTH,
+  DIVIDER_SIDE_PADDING,
+} from "../Step/style";
 import { mts_input_stroke, mts_text_tertiary } from "../../consts";
 import type {
   StepVariant,
@@ -34,6 +39,8 @@ export interface StepsProps {
   size?: StepsSize;
   color?: StepsColor;
   dividerLength?: number;
+  dividerMinLength?: number;
+  dividerMaxLength?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -42,8 +49,7 @@ type CompactToken =
   | { type: "step"; index: number }
   | { type: "ellipsis"; key: string };
 
-const MOBILE_COMPACT_BREAKPOINT = 480;
-const MOBILE_COMPACT_THRESHOLD = 5;
+const COMPACT_THRESHOLD = 5;
 
 // ─── Styled ───────────────────────────────────────────────────────────────────
 
@@ -64,45 +70,27 @@ const StepVertBlock = styled.div`
   flex: 1 0 0;
 `;
 
-const StepsHorizRoot = styled.div<{ $hasMobileCompact: boolean }>`
-  display: inline-flex;
-  align-items: flex-start;
+const StepsHorizRoot = styled.div`
+  position: relative;
+  display: block;
+  width: 100%;
   max-width: 100%;
-
-  ${({ $hasMobileCompact }) =>
-    $hasMobileCompact &&
-    css`
-      @media (max-width: ${MOBILE_COMPACT_BREAKPOINT}px) {
-        display: block;
-        width: 100%;
-      }
-    `}
 `;
 
-const StepsHorizFullRow = styled.div<{ $hideOnMobile: boolean }>`
-  display: inline-flex;
+const StepsHorizFullRow = styled.div<{ $isHidden: boolean }>`
+  display: ${({ $isHidden }) => ($isHidden ? "none" : "flex")};
   align-items: flex-start;
-
-  ${({ $hideOnMobile }) =>
-    $hideOnMobile &&
-    css`
-      @media (max-width: ${MOBILE_COMPACT_BREAKPOINT}px) {
-        display: none;
-      }
-    `}
+  width: 100%;
+  min-width: 0;
 `;
 
-const StepsMobileCompactRoot = styled.div`
-  display: none;
+const StepsMobileCompactRoot = styled.div<{ $isVisible: boolean }>`
+  display: ${({ $isVisible }) => ($isVisible ? "flex" : "none")};
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   ${visuallyImpairedMixin};
-
-  @media (max-width: ${MOBILE_COMPACT_BREAKPOINT}px) {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-  }
 `;
 
 const StepsMobileCompactConnector = styled.div`
@@ -129,8 +117,13 @@ const StepsMobileCompactEllipsis = styled.span`
 
 const StepsMobileCompactStep = styled.div`
   width: ${CIRCLE_SIZE.s}px;
+  min-width: ${CIRCLE_SIZE.s}px;
+  max-width: ${CIRCLE_SIZE.s}px;
   height: ${CIRCLE_SIZE.s}px;
+  min-height: ${CIRCLE_SIZE.s}px;
+  max-height: ${CIRCLE_SIZE.s}px;
   flex: 0 0 ${CIRCLE_SIZE.s}px;
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -184,9 +177,7 @@ const buildCompactTokens = (
     if (position > 0) {
       const gap = index - previousIndex;
 
-      if (gap === 2) {
-        tokens.push({ type: "step", index: previousIndex + 1 });
-      } else if (gap > 2) {
+      if (gap > 1) {
         tokens.push({ type: "ellipsis", key: `${previousIndex}-${index}` });
       }
     }
@@ -215,6 +206,67 @@ const getMobileCompactStatus = (
   return step.status;
 };
 
+const clampDividerLengths = (
+  minLength: number | undefined,
+  maxLength: number | undefined,
+  length: number | undefined
+) => {
+  const max = Math.max(0, maxLength ?? length ?? DEFAULT_DIVIDER_MAX_LENGTH);
+  const min = Math.min(
+    Math.max(0, minLength ?? DEFAULT_DIVIDER_MIN_LENGTH),
+    max
+  );
+
+  return { min, max };
+};
+
+const getHorizontalMinWidth = (
+  stepsCount: number,
+  size: StepSize,
+  dividerMinLength: number
+): number => {
+  if (stepsCount <= 0) return 0;
+
+  const circlesWidth = stepsCount * CIRCLE_SIZE[size];
+  const dividersWidth =
+    Math.max(stepsCount - 1, 0) *
+    (dividerMinLength + DIVIDER_SIDE_PADDING * 2);
+
+  return circlesWidth + dividersWidth;
+};
+
+const useElementWidth = <T extends HTMLElement>() => {
+  const ref = useRef<T | null>(null);
+  const [width, setWidth] = useState<number | undefined>(undefined);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const updateWidth = () => {
+      setWidth(element.getBoundingClientRect().width);
+    };
+
+    updateWidth();
+
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateWidth);
+      return () => {
+        window.removeEventListener("resize", updateWidth);
+      };
+    }
+
+    const resizeObserver = new ResizeObserver(updateWidth);
+    resizeObserver.observe(element);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  return [ref, width] as const;
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export const Steps: FC<StepsProps> = ({
@@ -223,9 +275,31 @@ export const Steps: FC<StepsProps> = ({
   size = "m",
   color = "primary",
   dividerLength,
+  dividerMinLength,
+  dividerMaxLength,
   className,
   style,
 }) => {
+  const [rootRef, containerWidth] = useElementWidth<HTMLDivElement>();
+  const dividerLengths = useMemo(
+    () =>
+      clampDividerLengths(
+        dividerMinLength,
+        dividerMaxLength,
+        dividerLength
+      ),
+    [dividerLength, dividerMaxLength, dividerMinLength]
+  );
+  const fullMinWidth = useMemo(
+    () => getHorizontalMinWidth(steps.length, size, dividerLengths.min),
+    [dividerLengths.min, size, steps.length]
+  );
+  const shouldUseCompact =
+    orientation === "horizontal" &&
+    steps.length > COMPACT_THRESHOLD &&
+    containerWidth !== undefined &&
+    fullMinWidth > containerWidth;
+
   // ── Vertical ────────────────────────────────────────────────────────────────
   if (orientation === "vertical") {
     const circleRadius = CIRCLE_SIZE[size] / 2;
@@ -269,20 +343,19 @@ export const Steps: FC<StepsProps> = ({
   }
 
   // ── Horizontal: каждый Step несёт свой дивайдер через withDivider ───────────
-  const hasMobileCompact = steps.length > MOBILE_COMPACT_THRESHOLD;
   const currentStepIndex = getCurrentStepIndex(steps);
   const hasExplicitActiveStep = steps.some((step) => step.status === "active");
-  const compactTokens = hasMobileCompact
+  const compactTokens = shouldUseCompact
     ? buildCompactTokens(steps.length, currentStepIndex)
     : [];
 
   return (
     <StepsHorizRoot
+      ref={rootRef}
       className={className}
       style={style}
-      $hasMobileCompact={hasMobileCompact}
     >
-      <StepsHorizFullRow $hideOnMobile={hasMobileCompact}>
+      <StepsHorizFullRow $isHidden={shouldUseCompact}>
         {steps.map((step, i) => (
           <Step
             key={i}
@@ -294,14 +367,17 @@ export const Steps: FC<StepsProps> = ({
             orientation="horizontal"
             withDivider={i < steps.length - 1}
             dividerLength={dividerLength}
+            dividerMinLength={dividerMinLength}
+            dividerMaxLength={dividerMaxLength}
             label={step.label}
             description={step.description}
           />
         ))}
       </StepsHorizFullRow>
 
-      {hasMobileCompact && (
+      {steps.length > COMPACT_THRESHOLD && (
         <StepsMobileCompactRoot
+          $isVisible={shouldUseCompact}
           role="group"
           aria-label={`Шаг ${currentStepIndex + 1} из ${steps.length}`}
         >

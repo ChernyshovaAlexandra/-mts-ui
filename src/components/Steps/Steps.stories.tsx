@@ -69,7 +69,7 @@ const meta: Meta<StepsStoryArgs> = {
 
 Шаги и разделитель всегда выровнены по центру круга. Паддинг дивайдера — 12px.
 
-В горизонтальной ориентации при количестве шагов больше 5 на экранах до 480px включается компактный вид: первый/последний шаг, текущий шаг, соседние шаги и скрытые диапазоны через \`...\`.
+В горизонтальной ориентации при количестве шагов больше 5 компонент измеряет ширину своего контейнера. Если полная строка не помещается даже с минимальной шириной дивайдеров, включается компактный вид: первый/последний шаг, текущий шаг, соседние шаги и скрытые диапазоны через \`...\`.
 
 ### Props
 
@@ -79,6 +79,9 @@ const meta: Meta<StepsStoryArgs> = {
 | \`orientation\` | \`"horizontal" \\| "vertical"\` | Направление |
 | \`size\` | \`"s" \\| "m"\` | Размер кружков |
 | \`color\` | \`"primary" \\| "secondary"\` | Цвет по умолчанию |
+| \`dividerLength\` | \`number\` | Максимальная ширина дивайдера для обратной совместимости |
+| \`dividerMinLength\` | \`number\` | Минимальная ширина линии дивайдера |
+| \`dividerMaxLength\` | \`number\` | Максимальная ширина линии дивайдера |
 
 ### StepItem
 
@@ -98,6 +101,15 @@ const meta: Meta<StepsStoryArgs> = {
     orientation: { control: "radio", options: ["horizontal", "vertical"] },
     size:        { control: "radio", options: ["s", "m"] },
     color:       { control: "radio", options: ["primary", "secondary"] },
+    dividerLength: {
+      control: { type: "number", min: 0, max: 240 },
+    },
+    dividerMinLength: {
+      control: { type: "number", min: 0, max: 120 },
+    },
+    dividerMaxLength: {
+      control: { type: "number", min: 0, max: 240 },
+    },
     mobileView: {
       name: "Мобильный вид",
       description: "Показывает пример внутри имитации экрана iPhone.",
@@ -375,10 +387,38 @@ export const MobileMoreThanFive: Story = {
     docs: {
       description: {
         story:
-          "15 шагов в мобильном compact-виде: полный горизонтальный Stepper заменяется на первый/последний шаг, текущий шаг, соседей и `...`.",
+          "15 шагов в узком контейнере: полный горизонтальный Stepper заменяется на первый/последний шаг, текущий шаг, соседей и `...`.",
       },
     },
   },
+};
+
+export const ContainerAdaptive: Story = {
+  name: "Container adaptive",
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Один и тот же набор шагов в контейнерах разной ширины. Compact включается от ширины контейнера, а не от viewport.",
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+      {[
+        { label: "Узкий контейнер", width: 260 },
+        { label: "Широкий контейнер", width: 620 },
+      ].map(({ label, width }) => (
+        <div key={label} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <Caption variant="C1-Medium-Comp" as="span">{label}</Caption>
+          <div style={{ width, maxWidth: "100%", padding: 16, border: "1px solid #E6E9F0", borderRadius: 16 }}>
+            <Steps steps={STEPS_LONG} orientation="horizontal" size="s" color="primary" />
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
 };
 
 // ── Горизонтальный ────────────────────────────────────────────────────────────

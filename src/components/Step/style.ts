@@ -13,15 +13,17 @@ import {
 import "../../assets/fonts.css";
 import type { StepSize, StepColor, StepOrientation } from "./Step";
 import { Text } from "../Text/Text";
+import { textStyles } from "../Text/style";
 import { Caption } from "../Caption/Caption";
 
 // ─── Sizes ────────────────────────────────────────────────────────────────────
 
 export const CIRCLE_SIZE: Record<StepSize, number> = { s: 24, m: 48 };
 export const ICON_SIZE: Record<StepSize, number> = { s: 24, m: 48 };
-export const FONT_SIZE: Record<StepSize, string> = { s: "14px", m: "24px" };
-export const FONT_LH: Record<StepSize, string> = { s: "20px", m: "28px" };
 export const BADGE_SIZE: Record<StepSize, number> = { s: 12, m: 18 };
+export const DIVIDER_SIDE_PADDING = 12;
+export const DEFAULT_DIVIDER_MIN_LENGTH = 8;
+export const DEFAULT_DIVIDER_MAX_LENGTH = 100;
 
 // ─── Color tokens ─────────────────────────────────────────────────────────────
 
@@ -54,8 +56,14 @@ export const StepWrapper = styled.div<{ $orientation: StepOrientation }>`
 export const StepCircleRoot = styled.div<{ $size: StepSize }>`
   position: relative;
   width: ${({ $size }) => CIRCLE_SIZE[$size]}px;
+  min-width: ${({ $size }) => CIRCLE_SIZE[$size]}px;
+  max-width: ${({ $size }) => CIRCLE_SIZE[$size]}px;
   height: ${({ $size }) => CIRCLE_SIZE[$size]}px;
-  flex-shrink: 0;
+  min-height: ${({ $size }) => CIRCLE_SIZE[$size]}px;
+  max-height: ${({ $size }) => CIRCLE_SIZE[$size]}px;
+  flex: 0 0 ${({ $size }) => CIRCLE_SIZE[$size]}px;
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,18 +78,31 @@ export const StepCircle = styled.div<{
   $size: StepSize;
 }>`
   width: 100%;
+  min-width: 100%;
   height: 100%;
+  min-height: 100%;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   background: ${({ $bg }) => $bg};
   color: ${({ $color }) => $color};
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "MTS Wide", sans-serif;
-  font-weight: 500;
-  font-size: ${({ $size }) => FONT_SIZE[$size]};
-  line-height: ${({ $size }) => FONT_LH[$size]};
+  overflow: hidden;
   transition: background 0.2s ease;
+`;
+
+export const StepCircleText = styled.span`
+  ${textStyles["P4-Medium-Comp"]};
+  color: inherit;
+  max-width: calc(100% - 4px);
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 `;
 
 // ─── Badge ────────────────────────────────────────────────────────────────────
@@ -111,20 +132,25 @@ export const StepWithDividerWrap = styled.div`
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
+  flex: 0 1 auto;
 `;
 
 export const StepTopRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
+  min-width: 0;
 `;
 
 export const StepBottomRow = styled.div`
   width: 100%;
+  min-width: 0;
   padding-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  overflow: hidden;
 `;
 
 // ─── Text block ───────────────────────────────────────────────────────────────

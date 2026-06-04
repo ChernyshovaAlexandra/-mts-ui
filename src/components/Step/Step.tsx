@@ -9,6 +9,7 @@ import {
   StepBottomRow,
   StepCircleRoot,
   StepCircle,
+  StepCircleText,
   StepBadge,
   StepTextBlock,
   StepLabelText,
@@ -23,6 +24,9 @@ import {
   DISABLED_COLOR,
   ICON_SIZE,
   BADGE_SIZE,
+  DIVIDER_SIDE_PADDING,
+  DEFAULT_DIVIDER_MIN_LENGTH,
+  DEFAULT_DIVIDER_MAX_LENGTH,
 } from "./style";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -55,6 +59,8 @@ export interface StepProps {
   description?: string;
   withDivider?: boolean;
   dividerLength?: number;
+  dividerMinLength?: number;
+  dividerMaxLength?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -74,6 +80,20 @@ const isDisabledStatus = (status?: StepStatus) =>
   status === "disabled-done" ||
   status === "disabled-failed" ||
   status === "default";
+
+const clampDividerLengths = (
+  minLength: number | undefined,
+  maxLength: number | undefined,
+  length: number | undefined
+) => {
+  const max = Math.max(0, maxLength ?? length ?? DEFAULT_DIVIDER_MAX_LENGTH);
+  const min = Math.min(
+    Math.max(0, minLength ?? DEFAULT_DIVIDER_MIN_LENGTH),
+    max
+  );
+
+  return { min, max };
+};
 
 function getCircleBg(
   variant: StepVariant,
@@ -151,8 +171,7 @@ const StepBubble: FC<{
           <IconFailedS width={iconSize} height={iconSize} />
         )}
         {(variant === "number" || variant === "number-badge") &&
-          value !== undefined &&
-          value}
+          value !== undefined && <StepCircleText>{value}</StepCircleText>}
       </StepCircle>
 
       {showBadge(variant, status) && (
@@ -181,6 +200,8 @@ export const Step: FC<StepProps> = ({
   description,
   withDivider = false,
   dividerLength = 100,
+  dividerMinLength,
+  dividerMaxLength,
   className,
   style,
 }) => {
@@ -191,6 +212,11 @@ export const Step: FC<StepProps> = ({
   const bubble = (
     <StepBubble variant={variant} status={status} color={color} size={size} value={value} />
   );
+  const dividerLengths = clampDividerLengths(
+    dividerMinLength,
+    dividerMaxLength,
+    dividerLength
+  );
 
   // Горизонтальный с дивайдером
   if (orientation === "horizontal" && withDivider) {
@@ -200,8 +226,13 @@ export const Step: FC<StepProps> = ({
           {bubble}
           <Divider
             orientation="horizontal"
-            padding={12}
-            style={{ width: dividerLength, flexShrink: 0 }}
+            padding={DIVIDER_SIDE_PADDING}
+            style={{
+              width: dividerLengths.max,
+              minWidth: dividerLengths.min,
+              maxWidth: dividerLengths.max,
+              flex: `1 1 ${dividerLengths.max}px`,
+            }}
           />
         </StepTopRow>
         {(label || description) && (
