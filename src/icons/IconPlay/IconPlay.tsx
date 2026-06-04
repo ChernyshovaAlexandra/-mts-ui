@@ -1,7 +1,7 @@
 import React from "react";
 import { createIcon } from "../createIcon";
 
-const path = (
+const outlinePath = (
   <path
     fillRule="evenodd"
     clipRule="evenodd"
@@ -10,12 +10,19 @@ const path = (
   />
 );
 
+const fillPath = (
+  <path
+    d="M21 12C21 10.1882 18.9376 8.96279 14.8529 6.51203L13.0865 5.45215C9.0577 3.03489 7.0438 1.82626 5.5219 2.68795C4 3.54963 4 5.89879 4 10.5971V13.4029C4 18.1012 4 20.4503 5.5219 21.312C7.0438 22.1737 9.0577 20.9651 13.0865 18.5478L14.8529 17.4879C18.9376 15.0372 21 13.8118 21 12Z"
+    fill="currentColor"
+  />
+);
+
 export const IconPlay = createIcon(
   {
-    "24-outline": path,
-    "24-fill": path,
-    "16-outline": path,
-    "16-fill": path,
+    "24-outline": outlinePath,
+    "24-fill": fillPath,
+    "16-outline": <g transform="scale(0.6666666667)">{outlinePath}</g>,
+    "16-fill": <g transform="scale(0.6666666667)">{fillPath}</g>,
   },
   "IconPlay"
 );
