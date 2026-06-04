@@ -1,20 +1,75 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
+import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { Steps } from "./Steps";
 import { Caption } from "../Caption/Caption";
-import type { StepItem } from "./Steps";
+import type { StepItem, StepsProps } from "./Steps";
 
-const meta: Meta<typeof Steps> = {
+type MobileDevice = "iphone14Pro" | "iphone14ProMax";
+
+type StepsStoryArgs = StepsProps & {
+  mobileView?: boolean;
+  mobileDevice?: MobileDevice;
+};
+
+const MOBILE_DEVICE_PRESETS: Record<
+  MobileDevice,
+  { label: string; width: number; height: number; radius: number }
+> = {
+  iphone14Pro: {
+    label: "iPhone 14 Pro",
+    width: 393,
+    height: 852,
+    radius: 48,
+  },
+  iphone14ProMax: {
+    label: "iPhone 14 Pro Max",
+    width: 430,
+    height: 932,
+    radius: 54,
+  },
+};
+
+const MOBILE_DEVICE_OPTIONS = Object.keys(MOBILE_DEVICE_PRESETS) as MobileDevice[];
+const DEFAULT_MOBILE_DEVICE: MobileDevice = "iphone14Pro";
+
+const STEP_VIEWPORTS = {
+  ...INITIAL_VIEWPORTS,
+  iphone14Pro: {
+    name: "iPhone 14 Pro",
+    styles: {
+      width: "393px",
+      height: "852px",
+    },
+    type: "mobile",
+  },
+  iphone14ProMax: {
+    name: "iPhone 14 Pro Max",
+    styles: {
+      width: "430px",
+      height: "932px",
+    },
+    type: "mobile",
+  },
+};
+
+const meta: Meta<StepsStoryArgs> = {
   title: "МТС/Steps",
   component: Steps,
   tags: ["autodocs"],
   parameters: {
+    viewport: {
+      viewports: STEP_VIEWPORTS,
+      defaultViewport: "responsive",
+    },
     docs: {
       description: {
         component: `
 **Steps** — индикатор прогресса по шагам на основе \`Step\` и \`Divider\`.
 
 Шаги и разделитель всегда выровнены по центру круга. Паддинг дивайдера — 12px.
+
+В горизонтальной ориентации при количестве шагов больше 5 на экранах до 480px включается компактный вид: первый/последний шаг, текущий шаг, соседние шаги и скрытые диапазоны через \`...\`.
 
 ### Props
 
@@ -43,6 +98,25 @@ const meta: Meta<typeof Steps> = {
     orientation: { control: "radio", options: ["horizontal", "vertical"] },
     size:        { control: "radio", options: ["s", "m"] },
     color:       { control: "radio", options: ["primary", "secondary"] },
+    mobileView: {
+      name: "Мобильный вид",
+      description: "Показывает пример внутри имитации экрана iPhone.",
+      control: "boolean",
+      table: { category: "Story controls" },
+    },
+    mobileDevice: {
+      name: "Устройство",
+      description: "Пресет экрана для мобильного вида.",
+      control: {
+        type: "radio",
+        labels: {
+          iphone14Pro: "iPhone 14 Pro",
+          iphone14ProMax: "iPhone 14 Pro Max",
+        },
+      },
+      options: MOBILE_DEVICE_OPTIONS,
+      table: { category: "Story controls" },
+    },
     steps:       { control: false },
     style:       { control: false },
     className:   { control: false },
@@ -50,7 +124,152 @@ const meta: Meta<typeof Steps> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Steps>;
+type Story = StoryObj<StepsStoryArgs>;
+
+const StepsPreviewFrame = ({
+  mobileView = false,
+  mobileDevice = DEFAULT_MOBILE_DEVICE,
+  children,
+}: {
+  mobileView?: boolean;
+  mobileDevice?: MobileDevice;
+  children: React.ReactNode;
+}) => {
+  if (!mobileView) {
+    return (
+      <div style={{ width: "fit-content", maxWidth: "100%" }}>
+        {children}
+      </div>
+    );
+  }
+
+  const device = MOBILE_DEVICE_PRESETS[mobileDevice];
+
+  return (
+    <div
+      style={{
+        maxWidth: "100%",
+        overflowX: "auto",
+        padding: "20px 0",
+      }}
+    >
+      <div
+        aria-label={`${device.label}, ${device.width} by ${device.height}`}
+        style={{
+          position: "relative",
+          width: device.width,
+          height: device.height,
+          boxSizing: "border-box",
+          padding: 10,
+          borderRadius: device.radius,
+          background: "#1D2023",
+          boxShadow:
+            "0 24px 70px rgba(29, 32, 35, 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.12)",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 152,
+            width: 3,
+            height: 74,
+            borderRadius: "3px 0 0 3px",
+            background: "#2C3136",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 180,
+            width: 3,
+            height: 96,
+            borderRadius: "0 3px 3px 0",
+            background: "#2C3136",
+          }}
+        />
+        <div
+          style={{
+            position: "relative",
+            height: "100%",
+            overflow: "hidden",
+            borderRadius: device.radius - 10,
+            background: "#FFFFFF",
+          }}
+        >
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              zIndex: 2,
+              left: "50%",
+              top: 18,
+              width: 126,
+              height: 36,
+              transform: "translateX(-50%)",
+              borderRadius: 999,
+              background: "#050505",
+            }}
+          />
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              zIndex: 2,
+              left: 28,
+              right: 28,
+              top: 18,
+              height: 24,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              color: "#1D2023",
+              fontFamily: '"MTS Compact", sans-serif',
+              fontSize: 14,
+              fontWeight: 500,
+              lineHeight: "20px",
+            }}
+          >
+            <span>9:41</span>
+            <span style={{ fontSize: 12 }}>5G</span>
+          </div>
+          <div
+            style={{
+              height: "100%",
+              overflow: "auto",
+              padding: "76px 16px 34px",
+              boxSizing: "border-box",
+            }}
+          >
+            {children}
+          </div>
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "50%",
+              bottom: 10,
+              width: 134,
+              height: 5,
+              transform: "translateX(-50%)",
+              borderRadius: 999,
+              background: "#1D2023",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const renderSteps = ({ mobileView, mobileDevice, ...args }: StepsStoryArgs) => (
+  <StepsPreviewFrame mobileView={mobileView} mobileDevice={mobileDevice}>
+    <Steps {...args} />
+  </StepsPreviewFrame>
+);
 
 // ── Данные ────────────────────────────────────────────────────────────────────
 
@@ -68,22 +287,15 @@ const STEPS_NO_TEXT: StepItem[] = [
   { value: 4, status: "default" },
 ];
 
-// ── Default ────────────────────────────────────────────────────────────────────
+const STEPS_LONG: StepItem[] = Array.from({ length: 15 }, (_, index) => ({
+  value: index + 1,
+  status: index < 6 ? "done" : index === 6 ? "active" : "default",
+  label: `Шаг ${index + 1}`,
+  description: index === 6 ? "Текущий вопрос" : "Описание шага",
+}));
 
-export const Default: Story = {
-  name: "Default",
-  args: { steps: STEPS_WITH_TEXT, orientation: "horizontal", size: "m", color: "primary" },
-};
-
-// ── Горизонтальный ────────────────────────────────────────────────────────────
-
-export const Horizontal: Story = {
-  name: "Horizontal",
-  parameters: {
-    controls: { disable: true },
-    docs: { description: { story: "С текстом и без текста, размеры S и M." } },
-  },
-  render: () => (
+const renderHorizontalExamples = ({ mobileView, mobileDevice }: StepsStoryArgs) => (
+  <StepsPreviewFrame mobileView={mobileView} mobileDevice={mobileDevice}>
     <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
       {(["m", "s"] as const).map((size) => (
         <div key={size} style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -94,7 +306,109 @@ export const Horizontal: Story = {
         </div>
       ))}
     </div>
-  ),
+  </StepsPreviewFrame>
+);
+
+// ── Default ────────────────────────────────────────────────────────────────────
+
+export const Default: Story = {
+  name: "Default",
+  render: renderSteps,
+  args: {
+    steps: STEPS_WITH_TEXT,
+    orientation: "horizontal",
+    size: "m",
+    color: "primary",
+    mobileView: false,
+    mobileDevice: DEFAULT_MOBILE_DEVICE,
+  },
+};
+
+export const Mobile: Story = {
+  name: "Mobile",
+  render: renderSteps,
+  args: {
+    steps: STEPS_WITH_TEXT,
+    orientation: "horizontal",
+    size: "m",
+    color: "primary",
+    mobileView: true,
+    mobileDevice: DEFAULT_MOBILE_DEVICE,
+  },
+  parameters: {
+    layout: "fullscreen",
+    viewport: { defaultViewport: "iphone14Pro" },
+  },
+};
+
+export const MobileProMax: Story = {
+  name: "Mobile / iPhone 14 Pro Max",
+  render: renderSteps,
+  args: {
+    steps: STEPS_WITH_TEXT,
+    orientation: "horizontal",
+    size: "m",
+    color: "primary",
+    mobileView: true,
+    mobileDevice: "iphone14ProMax",
+  },
+  parameters: {
+    layout: "fullscreen",
+    viewport: { defaultViewport: "iphone14ProMax" },
+  },
+};
+
+export const MobileMoreThanFive: Story = {
+  name: "Mobile / More than 5",
+  render: renderSteps,
+  args: {
+    steps: STEPS_LONG,
+    orientation: "horizontal",
+    size: "m",
+    color: "primary",
+    mobileView: true,
+    mobileDevice: DEFAULT_MOBILE_DEVICE,
+  },
+  parameters: {
+    layout: "fullscreen",
+    viewport: { defaultViewport: "iphone14Pro" },
+    docs: {
+      description: {
+        story:
+          "15 шагов в мобильном compact-виде: полный горизонтальный Stepper заменяется на первый/последний шаг, текущий шаг, соседей и `...`.",
+      },
+    },
+  },
+};
+
+// ── Горизонтальный ────────────────────────────────────────────────────────────
+
+export const Horizontal: Story = {
+  name: "Horizontal",
+  args: {
+    mobileView: false,
+    mobileDevice: DEFAULT_MOBILE_DEVICE,
+  },
+  parameters: {
+    controls: { include: ["mobileView", "mobileDevice"] },
+    docs: { description: { story: "С текстом и без текста, размеры S и M." } },
+  },
+  render: renderHorizontalExamples,
+};
+
+export const HorizontalMobile: Story = {
+  name: "Horizontal / Mobile",
+  args: {
+    mobileView: true,
+    mobileDevice: DEFAULT_MOBILE_DEVICE,
+  },
+  parameters: {
+    controls: { include: ["mobileView", "mobileDevice"] },
+    layout: "fullscreen",
+    viewport: { defaultViewport: "iphone14Pro" },
+    docs: { description: { story: "Горизонтальные состояния в мобильной области просмотра." } },
+  },
+  render: renderHorizontalExamples,
 };
 
 // ── Вертикальный ──────────────────────────────────────────────────────────────
