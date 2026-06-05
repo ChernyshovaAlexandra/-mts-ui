@@ -21,8 +21,8 @@ import { Caption } from "../Caption/Caption";
 export const CIRCLE_SIZE: Record<StepSize, number> = { s: 24, m: 48 };
 export const ICON_SIZE: Record<StepSize, number> = { s: 24, m: 48 };
 export const BADGE_SIZE: Record<StepSize, number> = { s: 12, m: 18 };
-export const DIVIDER_SIDE_PADDING = 12;
-export const DEFAULT_DIVIDER_MIN_LENGTH = 8;
+export const DIVIDER_SIDE_PADDING = 6;
+export const DEFAULT_DIVIDER_MIN_LENGTH = 30;
 export const DEFAULT_DIVIDER_MAX_LENGTH = 100;
 
 // ─── Color tokens ─────────────────────────────────────────────────────────────
@@ -96,6 +96,8 @@ export const StepCircle = styled.div<{
 
 export const StepCircleText = styled.span`
   ${textStyles["P4-Medium-Comp"]};
+  font-size: 12px;
+  letter-spacing: -1px;
   color: inherit;
   max-width: calc(100% - 4px);
   margin: 0;
@@ -171,10 +173,7 @@ export const StepTextBlock = styled.div<{ $orientation: StepOrientation; $withDi
 `;
 
 export const StepLabelText = styled(Text).attrs({ as: "span" })`
-  font-family: "MTS Compact", sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
+  ${textStyles["P4-Medium-Comp"]};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

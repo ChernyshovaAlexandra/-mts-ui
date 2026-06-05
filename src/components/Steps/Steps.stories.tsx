@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
+import { Controls, Description, Primary, Title } from "@storybook/blocks";
 import { Steps } from "./Steps";
 import { Caption } from "../Caption/Caption";
 import type { StepItem, StepsProps } from "./Steps";
@@ -63,6 +64,14 @@ const meta: Meta<StepsStoryArgs> = {
       defaultViewport: "responsive",
     },
     docs: {
+      page: () => (
+        <>
+          <Title />
+          <Description />
+          <Primary />
+          <Controls />
+        </>
+      ),
       description: {
         component: `
 **Steps** — индикатор прогресса по шагам на основе \`Step\` и \`Divider\`.
@@ -149,7 +158,16 @@ const StepsPreviewFrame = ({
 }) => {
   if (!mobileView) {
     return (
-      <div style={{ width: "fit-content", maxWidth: "100%" }}>
+      <div
+        style={{
+          width: 345,
+          minWidth: 240,
+          maxWidth: "100%",
+          resize: "horizontal",
+          overflow: "hidden",
+          boxSizing: "border-box",
+        }}
+      >
         {children}
       </div>
     );
@@ -279,7 +297,7 @@ const StepsPreviewFrame = ({
 
 const renderSteps = ({ mobileView, mobileDevice, ...args }: StepsStoryArgs) => (
   <StepsPreviewFrame mobileView={mobileView} mobileDevice={mobileDevice}>
-    <Steps {...args} />
+    <Steps {...args} size={mobileView ? args.size : "s"} />
   </StepsPreviewFrame>
 );
 
@@ -301,9 +319,7 @@ const STEPS_NO_TEXT: StepItem[] = [
 
 const STEPS_LONG: StepItem[] = Array.from({ length: 15 }, (_, index) => ({
   value: index + 1,
-  status: index < 6 ? "done" : index === 6 ? "active" : "default",
-  label: `Шаг ${index + 1}`,
-  description: index === 6 ? "Текущий вопрос" : "Описание шага",
+  status: index < 7 ? "done" : index === 7 ? "active" : "default",
 }));
 
 const renderHorizontalExamples = ({ mobileView, mobileDevice }: StepsStoryArgs) => (
@@ -327,9 +343,9 @@ export const Default: Story = {
   name: "Default",
   render: renderSteps,
   args: {
-    steps: STEPS_WITH_TEXT,
+    steps: STEPS_LONG,
     orientation: "horizontal",
-    size: "m",
+    size: "s",
     color: "primary",
     mobileView: false,
     mobileDevice: DEFAULT_MOBILE_DEVICE,
