@@ -27,7 +27,9 @@ export const StepsHorizRoot = styled.div`
   position: relative;
   display: block;
   width: 100%;
+  min-width: 0;
   max-width: 100%;
+  overflow: hidden;
 `;
 
 export const StepsHorizFullRow = styled.div<{ $isHidden: boolean }>`
