@@ -47,6 +47,16 @@ WithValidation.args = {
   validatePattern: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
 };
 
+export const CorporativeWithAdditionalAllowedEmails = Template.bind({});
+CorporativeWithAdditionalAllowedEmails.args = {
+  label: "Корпоративный email",
+  placeholder: "email@example.com",
+  type: "email",
+  corporative: true,
+  additionalAllowedDomains: ["partner.example"],
+  additionalAllowedEmails: ["external.user@gmail.com"],
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,

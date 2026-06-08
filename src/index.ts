@@ -261,6 +261,7 @@ export {
 
 export {
   allowedDomains,
+  type AdditionalEmailAllowList,
   isEmailAllowed,
   russianLettersPattern,
 } from "./utils/emailValidation";

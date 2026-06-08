@@ -23,13 +23,19 @@ import IconLock from "../../../icons/IconLock/IconLock";
 import IconEye from "../../../icons/IconEye";
 import IconEyeOff from "../../../icons/IconEyeOff/IconEyeOff";
 import { mts_accent_light_negative, mts_text_secondary } from "../../../consts";
-import { isEmailAllowed, isValidEmail } from "../../../utils/emailValidation";
+import {
+  type AdditionalEmailAllowList,
+  isEmailAllowed,
+  isValidEmail,
+} from "../../../utils/emailValidation";
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string | null;
   validatePattern?: RegExp;
   validate?: (value: string) => string | null;
   corporative?: boolean;
+  additionalAllowedEmails?: AdditionalEmailAllowList["emails"];
+  additionalAllowedDomains?: AdditionalEmailAllowList["domains"];
   label?: string;
 };
 
@@ -41,6 +47,8 @@ export const Input = memo(
         validatePattern,
         validate,
         corporative,
+        additionalAllowedEmails,
+        additionalAllowedDomains,
         onBlur,
         onChange,
         label,
@@ -76,7 +84,15 @@ export const Input = memo(
 
       const validateEmail = (val: string) => {
         if (type === "email" && !isValidEmail(val)) return "Введите корректный email";
-        if (corporative && !isEmailAllowed(val)) return "Введите корпоративный email";
+        if (
+          corporative &&
+          !isEmailAllowed(val, {
+            emails: additionalAllowedEmails,
+            domains: additionalAllowedDomains,
+          })
+        ) {
+          return "Введите корпоративный email";
+        }
         return null;
       };
 

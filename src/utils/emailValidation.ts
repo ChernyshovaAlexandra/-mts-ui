@@ -78,10 +78,36 @@ export const isValidEmail = (email: string): boolean => {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
 };
 
-export const isEmailAllowed = (email: string): boolean => {
+export type AdditionalEmailAllowList = {
+  domains?: string[];
+  emails?: string[];
+};
+
+const normalizeEmail = (email: string): string => email.toLowerCase().trim();
+
+const normalizeDomain = (domain: string): string =>
+  domain.toLowerCase().trim().replace(/^@/, "");
+
+export const isEmailAllowed = (
+  email: string,
+  additionalAllowList: AdditionalEmailAllowList = {}
+): boolean => {
   if (!isValidEmail(email)) return false;
-  const parts = email.toLowerCase().trim().split("@");
-  return allowedDomains.has(parts[1]);
+
+  const normalizedEmail = normalizeEmail(email);
+  const domain = normalizedEmail.split("@")[1];
+
+  if (allowedDomains.has(domain)) return true;
+
+  const additionalEmails = new Set(
+    additionalAllowList.emails?.map(normalizeEmail)
+  );
+  if (additionalEmails.has(normalizedEmail)) return true;
+
+  const additionalDomains = new Set(
+    additionalAllowList.domains?.map(normalizeDomain)
+  );
+  return additionalDomains.has(domain);
 };
 
 export const russianLettersPattern = /^[а-яА-ЯёЁ\s\-']+$/;
