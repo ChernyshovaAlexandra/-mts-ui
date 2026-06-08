@@ -5,6 +5,10 @@ export interface RegionGroup {
 
 export const regions: RegionGroup[] = [
   {
+    label: "Беларусь",
+    options: [{ label: "Минск", value: "Минск" }],
+  },
+  {
     label: "Дальний Восток",
     options: [
       { label: "Айхал п", value: "Айхал п" },
@@ -340,13 +344,18 @@ export const regions: RegionGroup[] = [
   },
 ];
 
+const normalizeRegionSearch = (value: string) =>
+  value.toLocaleLowerCase("ru-RU").replace(/ё/g, "е").trim();
+
 export const filterRegions = (input: string): RegionGroup[] => {
-  const q = input.toLowerCase().trim();
+  const q = normalizeRegionSearch(input);
   if (!q) return regions;
   return regions
     .map((group) => ({
       ...group,
-      options: group.options.filter((o) => o.label.toLowerCase().includes(q)),
+      options: group.options.filter((o) =>
+        normalizeRegionSearch(o.label).startsWith(q)
+      ),
     }))
     .filter((group) => group.options.length > 0);
 };
