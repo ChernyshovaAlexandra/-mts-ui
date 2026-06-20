@@ -156,7 +156,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
             onClick={() => !disabled && handleSheetOpen()}
           >
             <MobileFieldText>
-              {selectedOption ? selectedOption.label : (placeholder || "— выберите —")}
+              {selectedOption ? selectedOption.label : (placeholder || "— выбери —")}
             </MobileFieldText>
             <IconDropdown
               width={18}
@@ -170,7 +170,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           <BottomSheet
             isOpen={isSheetOpen}
             onClose={handleSheetClose}
-            title={label || placeholder || "Выберите"}
+            title={label || placeholder || "Выбери"}
             onReset={value ? handleReset : undefined}
             fixedHeight={withRegions}
           >
@@ -372,7 +372,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           isDisabled={disabled}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
-          placeholder={placeholder || "— выберите —"}
+          placeholder={placeholder || "— выбери —"}
           options={rsOptions as any}
           value={selectedOption as any}
           styles={{
