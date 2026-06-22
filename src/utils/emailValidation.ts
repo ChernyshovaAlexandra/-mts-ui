@@ -72,6 +72,7 @@ export const allowedDomains = new Set([
   "mediascout.ru",
   "capital.com",
   "entrustment.ru",
+  "redsecurity.ru",
 ]);
 
 export const isValidEmail = (email: string): boolean => {
