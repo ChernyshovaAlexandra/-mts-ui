@@ -45,8 +45,12 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
     "@storybook/addon-a11y": "8.6.12",
+    "@storybook/addon-actions": "8.6.18",
     "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-viewport": "8.6.18",
+    "@storybook/blocks": "8.6.18",
     "@storybook/cli": "^8.6.12",
+    "@storybook/manager-api": "8.6.18",
     "@storybook/react": "^8.6.12",
     "@storybook/react-vite": "^8.6.12",
     "@types/aria-query": "^5.0.4",
@@ -56,27 +60,27 @@
     "@vitest/browser": "^1.4.0",
     "@vitest/coverage-v8": "^1.4.0",
     "antd": "^5.24.7",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "rollup": "^4.40.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
+    "storybook": "^8.6.18",
     "storybook-deployer": "^2.8.12",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
     "vite": "^6.2.6",
-    "vitest": "^1.4.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "storybook": "^8.6.18"
+    "vitest": "^1.4.0"
   },
   "dependencies": {
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
+    "dayjs": "^1.11.23",
     "framer-motion": "^12.0.0",
     "fslightbox-react": "^1.8.0",
     "lucide-react": "^0.488.0",
     "react-router-dom": "^6.22.3",
     "react-select": "^5.10.1",
-    "styled-components": "^6.1.7",
-    "@ant-design/v5-patch-for-react-19": "^1.0.3",
-    "dayjs": "^1.11.23"
+    "styled-components": "^6.1.7"
   }
 }
