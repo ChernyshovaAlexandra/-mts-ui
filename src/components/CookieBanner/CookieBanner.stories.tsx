@@ -24,6 +24,12 @@ export const Default: StoryFn<CookieBannerProps> = (args) => {
   );
 };
 Default.args = {
-  text: "Мы используем куки, чтобы сайт был для вас удобнее",
+  text: "Мы используем куки, чтобы сайт был для тебя удобнее",
   acceptText: "Хорошо",
+};
+
+export const AboveTabBar = Default.bind({});
+AboveTabBar.args = {
+  text: "Мы используем куки, чтобы сайт был для тебя удобнее",
+  bottomOffset: "calc(72px + env(safe-area-inset-bottom, 0px))",
 };

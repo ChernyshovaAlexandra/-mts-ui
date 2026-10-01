@@ -47,13 +47,13 @@ const Registration: FC<RegistrationProps> = ({
 
   const validate = () => {
     const next: Partial<Record<keyof RegistrationFormData, string>> = {};
-    if (!email.trim()) next.email = "Введите email";
+    if (!email.trim()) next.email = "Введи email";
     else if (!EMAIL_RE.test(email)) next.email = "Некорректный формат email";
-    if (!name.trim()) next.name = "Введите имя и фамилию";
-    if (ages && !age) next.age = "Выберите возраст";
-    if (regions && !region) next.region = "Выберите регион";
-    if (!nickname.trim()) next.nickname = "Введите никнейм";
-    if (!password) next.password = "Введите пароль";
+    if (!name.trim()) next.name = "Введи имя и фамилию";
+    if (ages && !age) next.age = "Выбери возраст";
+    if (regions && !region) next.region = "Выбери регион";
+    if (!nickname.trim()) next.nickname = "Введи никнейм";
+    if (!password) next.password = "Введи пароль";
     else if (password.length < PASSWORD_MIN)
       next.password = `Минимум ${PASSWORD_MIN} символов`;
     return next;

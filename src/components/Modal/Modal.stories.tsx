@@ -262,3 +262,13 @@ export const LoadingSubmit: Story = {
     },
   },
 };
+
+export const ResponsiveSheet = () => {
+  const [open, setOpen] = useState(false);
+  return <>
+    <Button variant="primary" onClick={() => setOpen(true)}>Открыть</Button>
+    <Modal isModalOpen={open} handleClose={() => setOpen(false)} title="Твоя история" mobilePresentation="bottom-sheet" showCloseButton>
+      <p>На мобильном экране содержимое откроется в BottomSheet.</p>
+    </Modal>
+  </>;
+};

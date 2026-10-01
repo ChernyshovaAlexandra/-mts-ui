@@ -1,4 +1,4 @@
-import React, { useId, forwardRef, useState, useEffect } from "react";
+import React, { useId, forwardRef, useState, useEffect, useRef, useImperativeHandle } from "react";
 import ReactSelect, { StylesConfig, type SelectInstance } from "react-select";
 import "../../../assets/fonts.css";
 import { Wrapper } from "./style";
@@ -39,7 +39,13 @@ export interface SelectGroup {
 }
 export type SelectOption = SelectLeaf | SelectGroup;
 
+export interface SelectFocusHandle {
+  focus: () => void;
+  blur: () => void;
+}
+
 export interface SelectProps {
+  focusRef?: React.Ref<SelectFocusHandle>;
   name: string;
   id?: string;
   errorMessage?: string;
@@ -72,9 +78,12 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
       id,
       required,
       withRegions,
+      focusRef,
     },
     ref
   ) => {
+    const desktopRef = useRef<SelectInstance>(null);
+    const mobileRef = useRef<HTMLButtonElement>(null);
     const generatedId = useId();
     const selectId = id || `select-${generatedId}`;
     const errorId = `${selectId}-error`;
@@ -83,6 +92,17 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [mobileSearch, setMobileSearch] = useState("");
+
+    useImperativeHandle(focusRef, () => ({
+      focus: () => {
+        if (isMobile) mobileRef.current?.focus();
+        else desktopRef.current?.focus();
+      },
+      blur: () => {
+        if (isMobile) mobileRef.current?.blur();
+        else desktopRef.current?.blur();
+      },
+    }), [isMobile]);
 
     useEffect(() => {
       const check = () => setIsMobile(window.innerWidth <= 768);
@@ -145,7 +165,10 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
 
           <MobileField
             id={selectId}
-            role="button"
+            ref={mobileRef}
+            type="button"
+            disabled={disabled}
+            aria-label={label || placeholder || "Выбери"}
             aria-haspopup="listbox"
             aria-expanded={isSheetOpen}
             aria-invalid={!!error}
@@ -156,7 +179,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
             onClick={() => !disabled && handleSheetOpen()}
           >
             <MobileFieldText>
-              {selectedOption ? selectedOption.label : (placeholder || "— выберите —")}
+              {selectedOption ? selectedOption.label : (placeholder || "— выбери —")}
             </MobileFieldText>
             <IconDropdown
               width={18}
@@ -170,7 +193,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           <BottomSheet
             isOpen={isSheetOpen}
             onClose={handleSheetClose}
-            title={label || placeholder || "Выберите"}
+            title={label || placeholder || "Выбери"}
             onReset={value ? handleReset : undefined}
             fixedHeight={withRegions}
           >
@@ -189,7 +212,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
               </SearchWrapper>
             )}
             {withRegions && !mobileSearch.trim() ? (
-              <GroupLabel>Начните вводить город</GroupLabel>
+              <GroupLabel>Начни вводить город</GroupLabel>
             ) : withRegions && mobileOptions.length === 0 ? (
               <GroupLabel>Город не найден</GroupLabel>
             ) : (
@@ -366,13 +389,17 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
         <ReactSelect
           menuPortalTarget={document.body}
           menuPosition="absolute"
-          ref={ref}
+          ref={(instance) => {
+            desktopRef.current = instance;
+            if (typeof ref === "function") ref(instance);
+            else if (ref) ref.current = instance;
+          }}
           inputId={selectId}
           instanceId={name}
           isDisabled={disabled}
           aria-invalid={!!error}
           aria-describedby={error ? errorId : undefined}
-          placeholder={placeholder || "— выберите —"}
+          placeholder={placeholder || "— выбери —"}
           options={rsOptions as any}
           value={selectedOption as any}
           styles={{
@@ -409,7 +436,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           noOptionsMessage={
             withRegions
               ? ({ inputValue }) =>
-                  inputValue.trim() ? "Город не найден" : "Начните вводить город"
+                  inputValue.trim() ? "Город не найден" : "Начни вводить город"
               : undefined
           }
           {...rsProps}

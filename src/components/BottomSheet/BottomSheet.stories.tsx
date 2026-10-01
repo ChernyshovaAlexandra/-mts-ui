@@ -306,3 +306,13 @@ export const WithBottomOffset: Story = {
     },
   },
 };
+
+export const PaddedContent = () => {
+  const [open, setOpen] = useState(false);
+  return <>
+    <Button variant="primary" onClick={() => setOpen(true)}>Открыть форму</Button>
+    <BottomSheet isOpen={open} onClose={() => setOpen(false)} title="Твоя история" contentPadding>
+      <p>Содержимое выровнено с заголовком и учитывает safe area.</p>
+    </BottomSheet>
+  </>;
+};

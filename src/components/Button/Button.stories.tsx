@@ -258,3 +258,10 @@ Playground.args = {
   btn_type: "button",
   width: "auto",
 };
+
+export const ResponsiveWidth: StoryFn<ButtonProps> = (args) => <Button {...args} />;
+ResponsiveWidth.args = {
+  variant: "primary",
+  content: "Кнопка с длинным текстом, который переносится на несколько строк",
+  responsiveWidth: { breakpoint: 1024, maxWidth: 320, wrap: true },
+};

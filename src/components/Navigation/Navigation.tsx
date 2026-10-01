@@ -38,10 +38,7 @@ export const Navigation: FC<NavigationProps> = memo(
               </MenuItems>
             ) : null}
 
-            {withLogin &&
-              (customBtn ? (
-                customBtn
-              ) : (
+            {customBtn ?? (withLogin ? (
                 <Button
                   btn_type="button"
                   variant="primary"
@@ -56,7 +53,7 @@ export const Navigation: FC<NavigationProps> = memo(
                 >
                   Войти
                 </Button>
-              ))}
+              ) : null)}
           </Flex>
         </Container>
       </NavWrapper>

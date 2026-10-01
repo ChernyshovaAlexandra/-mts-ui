@@ -13,7 +13,7 @@ export interface HeaderProps
   children: React.ReactNode;
   style?: React.CSSProperties;
   variant?: HeaderVariant;
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements;
   "aria-label"?: string;
 }
 

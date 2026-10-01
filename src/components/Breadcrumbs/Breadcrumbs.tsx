@@ -20,12 +20,13 @@ type BreadcrumbItem = {
 
 export interface BreadcrumbsProps {
   crumbs: BreadcrumbItem[];
+  useRouter?: boolean;
   size?: "s" | "m";
   iconLeft?: boolean;
   textColor?: string;
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft, textColor }) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft, textColor, useRouter = false }) => {
   const iconSize = size === "s" ? 16 : 24;
   const allCrumbs: BreadcrumbItem[] = [{ name: "Главная", path: "/" }, ...crumbs];
   const shouldCollapse = allCrumbs.length > 3;
@@ -43,7 +44,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
               <IconLeft width={iconSize} height={iconSize} />
             </Separator>
           )}
-          <CrumbLink href={allCrumbs[0].path} $size={size} $textColor={textColor}>{allCrumbs[0].name}</CrumbLink>
+          <CrumbLink {...(useRouter ? { to: allCrumbs[0].path } : { url: allCrumbs[0].path })} $size={size} $textColor={textColor}>{allCrumbs[0].name}</CrumbLink>
         </CrumbItem>
 
         {shouldCollapse && (
@@ -61,7 +62,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
             <HiddenCrumbsDropdown role="menu">
               {hiddenCrumbs.map((hiddenCrumb) => (
                 <HiddenCrumbsItem key={hiddenCrumb.path} role="none">
-                  <HiddenCrumbsLink href={hiddenCrumb.path} role="menuitem" $size={size} $textColor={textColor}>
+                  <HiddenCrumbsLink {...(useRouter ? { to: hiddenCrumb.path } : { url: hiddenCrumb.path })} role="menuitem" $size={size} $textColor={textColor}>
                     {hiddenCrumb.name}
                   </HiddenCrumbsLink>
                 </HiddenCrumbsItem>
@@ -79,7 +80,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
               {isCurrent ? (
                 <CrumbText $size={size} $textColor={textColor} aria-current="page">{crumb.name}</CrumbText>
               ) : (
-                <CrumbLink href={crumb.path} $size={size} $textColor={textColor}>{crumb.name}</CrumbLink>
+                <CrumbLink {...(useRouter ? { to: crumb.path } : { url: crumb.path })} $size={size} $textColor={textColor}>{crumb.name}</CrumbLink>
               )}
             </CrumbItem>
           );

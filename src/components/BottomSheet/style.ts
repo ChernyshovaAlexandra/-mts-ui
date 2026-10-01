@@ -96,7 +96,11 @@ export const CloseButton = styled.button`
   ${visuallyImpairedMixin};
 `;
 
-export const OptionsContainer = styled.div`
+export const OptionsContainer = styled.div<{ $contentPadding?: boolean | string }>`
+  min-height: 0;
+  padding: ${({ $contentPadding }) => $contentPadding === true
+    ? "0 20px calc(24px + env(safe-area-inset-bottom, 0px))"
+    : typeof $contentPadding === "string" ? $contentPadding : "0"};
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -142,7 +146,7 @@ export const GroupLabel = styled.p`
 export const SheetFooter = styled.div`
   display: flex;
   gap: 12px;
-  padding: 8px 20px 24px;
+  padding: 8px 20px calc(24px + env(safe-area-inset-bottom, 0px));
   flex-shrink: 0;
 
   & > * {
@@ -192,7 +196,10 @@ export const SearchIconWrapper = styled.span`
 `;
 
 // Mobile select trigger field
-export const MobileField = styled.div<{ $hasValue?: boolean; $isError?: boolean; $disabled?: boolean }>`
+export const MobileField = styled.button<{ $hasValue?: boolean; $isError?: boolean; $disabled?: boolean }>`
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
   height: 48px;
   display: flex;
   align-items: center;

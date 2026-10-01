@@ -13,7 +13,17 @@ export type ButtonVariant =
 
 export type ButtonSize = "xs" | "s" | "m" | "l" | "xl";
 
+export interface ResponsiveButtonWidth {
+  breakpoint: number;
+  width?: string;
+  maxWidth?: number | string;
+  wrap?: boolean;
+}
+
 export interface BaseButtonProps {
+  maxWidth?: number | string;
+  wrap?: boolean;
+  responsiveWidth?: ResponsiveButtonWidth;
   content?: React.ReactNode;
   variant: ButtonVariant;
   size?: ButtonSize;

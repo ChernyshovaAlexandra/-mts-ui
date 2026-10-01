@@ -1,3 +1,5 @@
+import "@ant-design/v5-patch-for-react-19";
+
 export { Breadcrumbs, type BreadcrumbsProps } from "./components/Breadcrumbs/Breadcrumbs";
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
@@ -7,7 +9,7 @@ export { Banner, type BannerProps, type BannerVariant } from "./components/Banne
 export { CookieBanner, type CookieBannerProps } from "./components/CookieBanner/CookieBanner";
 export { BottomSheet, type BottomSheetProps } from "./components/BottomSheet/BottomSheet";
 export { Button } from "./components/Button/Button";
-export { type ButtonProps } from "./components/Button/type";
+export { type ButtonProps, type ResponsiveButtonWidth } from "./components/Button/type";
 export { Header, type HeaderProps } from "./components/Header/Header";
 export {
   Caption,
@@ -57,7 +59,7 @@ export {
   RadioButton,
   type RadioButtonProps,
 } from "./components/FormItems/RadioButton/RadioButton";
-export { Select, type SelectProps } from "./components/FormItems/Select/Select";
+export { Select, type SelectProps, type SelectFocusHandle } from "./components/FormItems/Select/Select";
 export {
   Separator,
   type SeparatorProps,
@@ -488,3 +490,6 @@ export { IconWarning } from "./icons/IconWarning/IconWarning";
 export { IconWarningCircle } from "./icons/IconWarningCircle/IconWarningCircle";
 export { IconWhatsapp } from "./icons/IconWhatsapp/IconWhatsapp";
 export { IconYoutube } from "./icons/IconYoutube/IconYoutube";
+
+export { Textarea, type TextareaProps } from "./components/FormItems/TextArea/TextArea";
+export { ResponsiveNavigation, type ResponsiveNavigationProps } from "./components/ResponsiveNavigation/ResponsiveNavigation";

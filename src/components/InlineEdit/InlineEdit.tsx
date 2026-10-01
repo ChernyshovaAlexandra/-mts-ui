@@ -31,7 +31,7 @@ export const InlineEdit: FC<InlineEditProps> = ({
   onChange,
   onSave,
   onCancel,
-  placeholder = "Введите текст",
+  placeholder = "Введи текст",
   size = "m",
   bg = "primary",
   showIcon = true,

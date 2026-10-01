@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import React, { FC, memo, useEffect, useId } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -13,8 +13,17 @@ import {
 } from "./style";
 import IconX from "../../icons/IconX/IconX";
 import { Button } from "../Button/Button";
+import { lockPageScroll } from "../../utils/lockPageScroll";
 
 export interface BottomSheetProps {
+  id?: string;
+  className?: string;
+  style?: React.CSSProperties;
+  ariaLabel?: string;
+  ariaDescribedBy?: string;
+  showCloseButton?: boolean;
+  contentPadding?: boolean | string;
+  disableClosing?: boolean;
   isOpen: boolean;
   onClose: () => void;
   title?: string;
@@ -35,6 +44,14 @@ const toCssLength = (value: number | string | undefined): string => {
 
 export const BottomSheet: FC<BottomSheetProps> = memo(
   ({
+    id,
+    className,
+    style,
+    ariaLabel,
+    ariaDescribedBy,
+    showCloseButton = true,
+    contentPadding = false,
+    disableClosing = false,
     isOpen,
     onClose,
     title,
@@ -47,16 +64,24 @@ export const BottomSheet: FC<BottomSheetProps> = memo(
     collapsable,
     bottomOffset,
   }) => {
+    const generatedId = useId();
+    const titleId = `${generatedId}-title`;
+
+    useEffect(() => {
+      if (!isOpen) return;
+      return lockPageScroll();
+    }, [isOpen]);
+
     const hasFooter = Boolean(onReset || onApply);
     const bottomOffsetValue = toCssLength(bottomOffset);
     const hiddenY = bottomOffsetValue === "0px" ? "100%" : `calc(100% + ${bottomOffsetValue})`;
 
-    const swipeProps = collapsable
+    const swipeProps = collapsable && !disableClosing
       ? {
           drag: "y" as const,
           dragConstraints: { top: 0, bottom: 0 },
           dragElastic: { top: 0, bottom: 0.4 },
-          onDragEnd: (_: never, info: { offset: { y: number }; velocity: { y: number } }) => {
+          onDragEnd: (_: MouseEvent | TouchEvent | PointerEvent, info: { offset: { y: number }; velocity: { y: number } }) => {
             if (info.offset.y > 80 || info.velocity.y > 400) {
               onClose();
             }
@@ -73,10 +98,18 @@ export const BottomSheet: FC<BottomSheetProps> = memo(
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              onClick={onClose}
+              onClick={disableClosing ? undefined : onClose}
               $bottomOffset={bottomOffsetValue}
             />
             <Sheet
+              id={id}
+              className={className}
+              style={style}
+              role="dialog"
+              aria-modal="true"
+              aria-label={ariaLabel}
+              aria-labelledby={title ? titleId : undefined}
+              aria-describedby={ariaDescribedBy}
               initial={{ y: hiddenY }}
               animate={{ y: 0 }}
               exit={{ y: hiddenY }}
@@ -88,13 +121,15 @@ export const BottomSheet: FC<BottomSheetProps> = memo(
               <DragIndicator aria-hidden="true" $collapsable={collapsable} />
               {title && (
                 <Header>
-                  <SheetTitle>{title}</SheetTitle>
-                  <CloseButton onClick={onClose} type="button" aria-label="Закрыть">
-                    <IconX />
-                  </CloseButton>
+                  <SheetTitle id={titleId}>{title}</SheetTitle>
+                  {showCloseButton && !disableClosing && (
+                    <CloseButton onClick={onClose} type="button" aria-label="Закрыть">
+                      <IconX />
+                    </CloseButton>
+                  )}
                 </Header>
               )}
-              <OptionsContainer>{children}</OptionsContainer>
+              <OptionsContainer $contentPadding={contentPadding}>{children}</OptionsContainer>
               {hasFooter && (
                 <SheetFooter>
                   {onReset && (

@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, memo, useEffect, useState } from "react";
+import React, { FC, HTMLAttributes, memo, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence } from "framer-motion";
 import {
@@ -14,103 +14,20 @@ import IconX from "../../icons/IconX/IconX";
 import { Button } from "../Button/Button";
 import HeaderText, { type HeaderVariant } from "../Header/Header";
 import Text, { type TextVariant } from "../Text/Text";
+import { BottomSheet, type BottomSheetProps } from "../BottomSheet/BottomSheet";
+import { useMediaQuery } from "../../utils/useMediaQuery";
+import { lockPageScroll } from "../../utils/lockPageScroll";
 import { mts_text_primary, mts_text_secondary } from "../../consts";
 
 export type ModalTitleVariant = HeaderVariant | TextVariant;
 
 const MOBILE_MODAL_QUERY = "(max-width: 480px)";
 
-interface ScrollLockSnapshot {
-  scrollX: number;
-  scrollY: number;
-  htmlOverflow: string;
-  bodyOverflow: string;
-  bodyPosition: string;
-  bodyTop: string;
-  bodyLeft: string;
-  bodyRight: string;
-  bodyWidth: string;
-}
-
-let scrollLockCount = 0;
-let scrollLockSnapshot: ScrollLockSnapshot | null = null;
-
-const lockPageScroll = (): (() => void) => {
-  scrollLockCount += 1;
-  if (scrollLockCount > 1) {
-    return () => {
-      scrollLockCount -= 1;
-    };
-  }
-
-  const html = document.documentElement;
-  const { body } = document;
-  const scrollX = window.scrollX;
-  const scrollY = window.scrollY;
-
-  scrollLockSnapshot = {
-    scrollX,
-    scrollY,
-    htmlOverflow: html.style.overflow,
-    bodyOverflow: body.style.overflow,
-    bodyPosition: body.style.position,
-    bodyTop: body.style.top,
-    bodyLeft: body.style.left,
-    bodyRight: body.style.right,
-    bodyWidth: body.style.width,
-  };
-
-  html.style.overflow = "hidden";
-  body.style.overflow = "hidden";
-  body.style.position = "fixed";
-  body.style.top = `-${scrollY}px`;
-  body.style.left = "0";
-  body.style.right = "0";
-  body.style.width = "100%";
-
-  return () => {
-    scrollLockCount -= 1;
-    if (scrollLockCount > 0 || scrollLockSnapshot === null) return;
-
-    const snapshot = scrollLockSnapshot;
-    scrollLockSnapshot = null;
-
-    html.style.overflow = snapshot.htmlOverflow;
-    body.style.overflow = snapshot.bodyOverflow;
-    body.style.position = snapshot.bodyPosition;
-    body.style.top = snapshot.bodyTop;
-    body.style.left = snapshot.bodyLeft;
-    body.style.right = snapshot.bodyRight;
-    body.style.width = snapshot.bodyWidth;
-
-    window.scrollTo(snapshot.scrollX, snapshot.scrollY);
-  };
-};
-
-const useMediaQuery = (query: string): boolean => {
-  const [matches, setMatches] = useState(() =>
-    typeof window === "undefined" ? false : window.matchMedia(query).matches
-  );
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(query);
-    const handleChange = (event: MediaQueryListEvent) => {
-      setMatches(event.matches);
-    };
-
-    setMatches(mediaQuery.matches);
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
-  }, [query]);
-
-  return matches;
-};
-
 export interface ModalProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "children" | "title"> {
+  mobilePresentation?: "modal" | "bottom-sheet";
+  mobileBreakpoint?: number;
+  bottomSheetProps?: Pick<BottomSheetProps, "contentPadding" | "fixedHeight" | "collapsable" | "bottomOffset">;
   isModalOpen: boolean;
   children?: React.ReactNode;
   handleClose: () => void;
@@ -132,6 +49,9 @@ export interface ModalProps
 export const Modal: FC<ModalProps> = memo(
   ({
     isModalOpen,
+    mobilePresentation = "modal",
+    mobileBreakpoint = 768,
+    bottomSheetProps,
     children,
     handleClose,
     modalStyle,
@@ -149,10 +69,13 @@ export const Modal: FC<ModalProps> = memo(
     submitLoading = false,
     ...rest
   }) => {
+    const isSheetViewport = useMediaQuery(`(max-width: ${mobileBreakpoint}px)`);
+    const useSheet = mobilePresentation === "bottom-sheet" && isSheetViewport;
+
     useEffect(() => {
-      if (!isModalOpen) return;
+      if (!isModalOpen || useSheet) return;
       return lockPageScroll();
-    }, [isModalOpen]);
+    }, [isModalOpen, useSheet]);
 
     useEffect(() => {
       if (!isModalOpen || disableClosing) return;
@@ -185,6 +108,34 @@ export const Modal: FC<ModalProps> = memo(
           transition: { type: "spring" as const, damping: 30, stiffness: 300 },
         }
       : {};
+
+    if (useSheet) {
+      return (
+        <BottomSheet
+          {...bottomSheetProps}
+          isOpen={isModalOpen}
+          onClose={handleClose}
+          title={title}
+          id={rest.id}
+          className={rest.className}
+          style={modalStyle ?? rest.style}
+          ariaLabel={rest["aria-label"]}
+          ariaDescribedBy={subtitle ? subtitleId : rest["aria-describedby"]}
+          showCloseButton={showCloseButton}
+          disableClosing={disableClosing}
+          contentPadding={bottomSheetProps?.contentPadding ?? true}
+        >
+          {subtitle && <Text id={subtitleId} variant="P4-Regular-Comp">{subtitle}</Text>}
+          {children}
+          {hasFooter && (
+            <Footer>
+              {cancelText && <Button variant="secondary" onClick={onCancel ?? handleClose}>{cancelText}</Button>}
+              {submitText && <Button variant="primary" onClick={onSubmit} disabled={submitDisabled} loading={submitLoading}>{submitText}</Button>}
+            </Footer>
+          )}
+        </BottomSheet>
+      );
+    }
 
     return createPortal(
       <AnimatePresence>

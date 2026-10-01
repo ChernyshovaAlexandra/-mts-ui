@@ -6,6 +6,9 @@ import Text from "../Text/Text";
 import { mts_text_primary } from "../../consts";
 
 export interface CookieBannerProps {
+  bottomOffset?: number | string;
+  style?: React.CSSProperties;
+  className?: string;
   text?: string;
   acceptText?: string;
   onAccept: () => void;
@@ -13,12 +16,15 @@ export interface CookieBannerProps {
 
 export const CookieBanner: FC<CookieBannerProps> = memo(
   ({
-    text = "Мы используем куки, чтобы сайт был для вас удобнее",
+    text = "Мы используем куки, чтобы сайт был для тебя удобнее",
     acceptText = "Хорошо",
     onAccept,
+    bottomOffset = 0,
+    style,
+    className,
   }) => {
     return createPortal(
-      <Wrapper role="region" aria-label="Уведомление об использовании cookies">
+      <Wrapper $bottomOffset={typeof bottomOffset === "number" ? `${bottomOffset}px` : bottomOffset} style={style} className={className} role="region" aria-label="Уведомление об использовании cookies">
         <Text
           variant="P4-Regular-Comp"
           style={{ flex: 1, color: mts_text_primary }}

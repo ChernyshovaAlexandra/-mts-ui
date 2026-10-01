@@ -83,7 +83,7 @@ export const Input = memo(
       useEffect(() => () => { if (debounceRef.current) clearTimeout(debounceRef.current); }, []);
 
       const validateEmail = (val: string) => {
-        if (type === "email" && !isValidEmail(val)) return "Введите корректный email";
+        if (type === "email" && !isValidEmail(val)) return "Введи корректный email";
         if (
           corporative &&
           !isEmailAllowed(val, {
@@ -91,7 +91,7 @@ export const Input = memo(
             domains: additionalAllowedDomains,
           })
         ) {
-          return "Введите корпоративный email";
+          return "Введи корпоративный email";
         }
         return null;
       };

@@ -15,7 +15,7 @@ export interface CaptionProps
   className?: string;
   role?: React.AriaRole;
   "aria-label"?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements;
   ref?: React.Ref<HTMLElement>;
 }
 

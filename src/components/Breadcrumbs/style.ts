@@ -9,7 +9,7 @@ import {
   mts_text_secondary,
 } from "../../consts/index.js";
 import "../../assets/fonts.css";
-import { StyledLink } from "../Link/style.js";
+import { Link } from "../Link/Link";
 
 export const Wrapper = styled.ol`
   display: flex;
@@ -44,7 +44,7 @@ export const CrumbItem = styled.li`
   }
 `;
 
-export const CrumbLink = styled(StyledLink)<{ $size?: "s" | "m"; $textColor?: string }>`
+export const CrumbLink = styled(Link)<{ $size?: "s" | "m"; $textColor?: string }>`
   display: inline-block;
   min-width: 0;
   max-width: 36ch;

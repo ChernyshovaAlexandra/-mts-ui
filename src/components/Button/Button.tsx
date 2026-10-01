@@ -15,6 +15,9 @@ export const Button: React.FC<ButtonProps> = ({
       style,
       content,
       width,
+      maxWidth,
+      wrap,
+      responsiveWidth,
       variant,
       size,
       icon,
@@ -38,6 +41,9 @@ export const Button: React.FC<ButtonProps> = ({
         $variant={variant}
         $width={iconOnly ? "auto" : width}
         $size={size}
+        $maxWidth={maxWidth}
+        $wrap={wrap}
+        $responsiveWidth={iconOnly ? undefined : responsiveWidth}
         href={isDisabled ? undefined : link}
         data-tip={tooltip}
         style={style}
@@ -72,6 +78,9 @@ export const Button: React.FC<ButtonProps> = ({
       content,
       children,
       width,
+      maxWidth,
+      wrap,
+      responsiveWidth,
       variant,
       size,
       icon,
@@ -91,6 +100,9 @@ export const Button: React.FC<ButtonProps> = ({
         $variant={variant}
         $width={iconOnly ? "auto" : width}
         $size={size}
+        $maxWidth={maxWidth}
+        $wrap={wrap}
+        $responsiveWidth={iconOnly ? undefined : responsiveWidth}
         type={buttonType || "button"}
         onClick={onClick}
         style={style}

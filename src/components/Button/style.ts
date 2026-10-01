@@ -1,3 +1,4 @@
+import type { ResponsiveButtonWidth } from "./type";
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
 import {
@@ -85,7 +86,7 @@ const sizeStyles = css<{ $size?: string }>`
   }}
 `;
 
-const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>`
+const sharedStyles = css<StyledBtnProps>`
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -214,10 +215,40 @@ const sharedStyles = css<{ $variant?: string; $width?: string; $size?: string }>
       height: 18px;
     }
   }
+  max-width: ${({ $maxWidth }) => typeof $maxWidth === "number" ? `${$maxWidth}px` : $maxWidth || "none"};
+
+  ${({ $wrap }) => $wrap && css`
+    white-space: normal;
+    .btn-label {
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-overflow: clip;
+    }
+  `}
+
+  ${({ $responsiveWidth }) => $responsiveWidth && css`
+    @media (min-width: ${$responsiveWidth.breakpoint}px) {
+      width: ${$responsiveWidth.width || "fit-content"};
+      max-width: ${typeof $responsiveWidth.maxWidth === "number"
+        ? `min(${$responsiveWidth.maxWidth}px, 100%)`
+        : $responsiveWidth.maxWidth || "100%"};
+      ${$responsiveWidth.wrap && css`
+        white-space: normal;
+        .btn-label {
+          white-space: normal;
+          overflow-wrap: anywhere;
+          text-overflow: clip;
+        }
+      `}
+    }
+  `}
   ${visuallyImpairedMixin};
 `;
 
 export interface StyledBtnProps {
+  $maxWidth?: number | string;
+  $wrap?: boolean;
+  $responsiveWidth?: ResponsiveButtonWidth;
   $variant?: string;
   $width?: string;
   $size?: string;
