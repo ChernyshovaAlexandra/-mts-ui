@@ -11,6 +11,9 @@ importers:
       '@ant-design/v5-patch-for-react-19':
         specifier: ^1.0.3
         version: 1.0.3(antd@5.29.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      dayjs:
+        specifier: ^1.11.23
+        version: 1.11.23
       framer-motion:
         specifier: ^12.0.0
         version: 12.43.0(@emotion/is-prop-valid@1.4.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -96,6 +99,9 @@ importers:
       rollup-plugin-postcss:
         specifier: ^4.0.2
         version: 4.0.2(postcss@8.5.28)
+      storybook:
+        specifier: ^8.6.18
+        version: 8.6.18(prettier@3.9.9)
       storybook-deployer:
         specifier: ^2.8.12
         version: 2.8.12

@@ -67,6 +67,10 @@ export const Modal: FC<ModalProps> = memo(
     onSubmit,
     submitDisabled = false,
     submitLoading = false,
+    onDrag,
+    onDragStart,
+    onDragEnd,
+    onAnimationStart,
     ...rest
   }) => {
     const isSheetViewport = useMediaQuery(`(max-width: ${mobileBreakpoint}px)`);
@@ -203,7 +207,7 @@ export const Modal: FC<ModalProps> = memo(
                 </HeaderWrapper>
               )}
 
-              {children && <Body>{children}</Body>}
+              {children && <Body onDrag={onDrag} onDragStart={onDragStart} onDragEnd={onDragEnd} onAnimationStart={onAnimationStart}>{children}</Body>}
 
               {hasFooter && (
                 <Footer>

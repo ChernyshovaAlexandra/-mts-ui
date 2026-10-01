@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { TimePicker } from "antd";
+import styled, { type IStyledComponent } from "styled-components";
+import { TimePicker, type TimePickerProps } from "antd";
 import { inputBaseStyles } from "../Input/style";
 
-export const StyledTimePicker = styled(TimePicker)`
+export const StyledTimePicker: IStyledComponent<"web", TimePickerProps> = styled(TimePicker)`
   ${inputBaseStyles}
   height: auto;
   width: 100%;

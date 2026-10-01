@@ -386,7 +386,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           </StyledLabel>
         )}
 
-        <ReactSelect
+        <ReactSelect<unknown, false>
           menuPortalTarget={document.body}
           menuPosition="absolute"
           ref={(instance) => {

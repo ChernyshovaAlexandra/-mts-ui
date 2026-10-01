@@ -1,6 +1,6 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, type IStyledComponent } from "styled-components";
 
-import { DatePicker } from "antd";
+import { DatePicker, type DatePickerProps } from "antd";
 import "../../../assets/fonts.css";
 
 import { inputBaseStyles } from "../Input/style";
@@ -13,7 +13,7 @@ import {
   mts_text_secondary,
 } from "../../../consts";
 
-export const StyledDatePicker = styled(DatePicker)`
+export const StyledDatePicker: IStyledComponent<"web", DatePickerProps> = styled(DatePicker)`
   ${inputBaseStyles}
   height: auto;
   width: 100%;
