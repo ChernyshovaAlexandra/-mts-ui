@@ -245,3 +245,9 @@ export { IconMail } from "./IconMail/IconMail";
 export { IconActivities } from "./IconActivities/IconActivities";
 
 export { IconYouth } from "./IconYouth/IconYouth";
+
+export { IconTrophyGold } from "./IconTrophyGold/IconTrophyGold";
+
+export { IconTrophySilver } from "./IconTrophySilver/IconTrophySilver";
+
+export { IconTrophyBronze } from "./IconTrophyBronze/IconTrophyBronze";
