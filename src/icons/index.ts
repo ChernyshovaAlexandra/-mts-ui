@@ -236,3 +236,6 @@ export { IconViber } from "./IconViber/IconViber";
 export { IconVk } from "./IconVk/IconVk";
 export { IconWhatsapp } from "./IconWhatsapp/IconWhatsapp";
 export { IconYoutube } from "./IconYoutube/IconYoutube";
+export { IconTasks } from "./IconTasks/IconTasks";
+export { IconCoin } from "./IconCoin/IconCoin";
+export { IconRestaurant } from "./IconRestaurant/IconRestaurant";
