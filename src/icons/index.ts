@@ -239,3 +239,9 @@ export { IconYoutube } from "./IconYoutube/IconYoutube";
 export { IconTasks } from "./IconTasks/IconTasks";
 export { IconCoin } from "./IconCoin/IconCoin";
 export { IconRestaurant } from "./IconRestaurant/IconRestaurant";
+
+export { IconMail } from "./IconMail/IconMail";
+
+export { IconActivities } from "./IconActivities/IconActivities";
+
+export { IconYouth } from "./IconYouth/IconYouth";

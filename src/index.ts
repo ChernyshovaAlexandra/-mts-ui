@@ -498,3 +498,9 @@ export { ResponsiveNavigation, type ResponsiveNavigationProps } from "./componen
 export { IconTasks } from "./icons/IconTasks/IconTasks";
 export { IconCoin } from "./icons/IconCoin/IconCoin";
 export { IconRestaurant } from "./icons/IconRestaurant/IconRestaurant";
+
+export { IconMail } from "./icons/IconMail/IconMail";
+
+export { IconActivities } from "./icons/IconActivities/IconActivities";
+
+export { IconYouth } from "./icons/IconYouth/IconYouth";
