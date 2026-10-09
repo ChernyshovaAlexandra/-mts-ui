@@ -494,3 +494,7 @@ export { IconYoutube } from "./icons/IconYoutube/IconYoutube";
 
 export { Textarea, type TextareaProps } from "./components/FormItems/TextArea/TextArea";
 export { ResponsiveNavigation, type ResponsiveNavigationProps } from "./components/ResponsiveNavigation/ResponsiveNavigation";
+
+export { IconTasks } from "./icons/IconTasks/IconTasks";
+export { IconCoin } from "./icons/IconCoin/IconCoin";
+export { IconRestaurant } from "./icons/IconRestaurant/IconRestaurant";
