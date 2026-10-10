@@ -251,3 +251,5 @@ export { IconTrophyGold } from "./IconTrophyGold/IconTrophyGold";
 export { IconTrophySilver } from "./IconTrophySilver/IconTrophySilver";
 
 export { IconTrophyBronze } from "./IconTrophyBronze/IconTrophyBronze";
+
+export { IconStarCircle } from "./IconStarCircle/IconStarCircle";

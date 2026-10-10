@@ -510,3 +510,5 @@ export { IconTrophyGold } from "./icons/IconTrophyGold/IconTrophyGold";
 export { IconTrophySilver } from "./icons/IconTrophySilver/IconTrophySilver";
 
 export { IconTrophyBronze } from "./icons/IconTrophyBronze/IconTrophyBronze";
+
+export { IconStarCircle } from "./icons/IconStarCircle/IconStarCircle";
