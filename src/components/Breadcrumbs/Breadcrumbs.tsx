@@ -49,7 +49,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
 
         {shouldCollapse && (
           <CrumbItem>
-            <Separator $textColor={textColor}><IconChevronRight width={iconSize} height={iconSize} /></Separator>
+            <Separator $textColor={textColor}><IconChevronRight size={iconSize} /></Separator>
             <HiddenCrumbsTrigger
               type="button"
               $size={size}
@@ -76,7 +76,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
 
           return (
             <CrumbItem key={`${crumb.path}-${idx}`}>
-              <Separator $textColor={textColor}><IconChevronRight width={iconSize} height={iconSize} /></Separator>
+              <Separator $textColor={textColor}><IconChevronRight size={iconSize} /></Separator>
               {isCurrent ? (
                 <CrumbText $size={size} $textColor={textColor} aria-current="page">{crumb.name}</CrumbText>
               ) : (
