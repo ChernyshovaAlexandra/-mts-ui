@@ -1,6 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Breadcrumbs } from "./Breadcrumbs";
+import { mts_bg_inverted } from "../../consts/index.js";
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: "МТС/Breadcrumbs",
@@ -59,6 +60,11 @@ const meta: Meta<typeof Breadcrumbs> = {
     iconLeft: {
       description: "Иконка стрелки влево перед первым элементом. Используется для навигации «Назад».",
       control: "boolean",
+    },
+    theme: {
+      description: "Режим библиотеки МТС: светлый или тёмный. textColor явно переопределяет цвета.",
+      control: "radio",
+      options: ["light", "dark"],
     },
     textColor: {
       description: "Цвет текста, ссылок, разделителей и скрытых крошек. Принимает любое CSS-значение цвета.",
@@ -197,4 +203,10 @@ export const MobileLongLabels: Story = {
       />
     </div>
   ),
+};
+
+export const DarkMode: Story = {
+  name: "Dark Mode",
+  args: { theme: "dark", crumbs: sampleCrumbs, size: "s" },
+  decorators: [(Story) => <div style={{ background: mts_bg_inverted, padding: 20 }}><Story /></div>],
 };

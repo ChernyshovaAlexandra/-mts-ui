@@ -1,7 +1,7 @@
 import "@ant-design/v5-patch-for-react-19";
 export { Pagination, type PaginationProps } from "./components/Pagination/Pagination";
 
-export { Breadcrumbs, type BreadcrumbsProps } from "./components/Breadcrumbs/Breadcrumbs";
+export { Breadcrumbs, type BreadcrumbsProps, type BreadcrumbsTheme } from "./components/Breadcrumbs/Breadcrumbs";
 export { Link, type LinkProps } from "./components/Link/Link";
 export { Logo, type LogoProps } from "./components/Logo/Logo";
 export { Text, type TextProps } from "./components/Text/Text";

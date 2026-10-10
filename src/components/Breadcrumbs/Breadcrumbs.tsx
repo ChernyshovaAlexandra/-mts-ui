@@ -1,4 +1,5 @@
 import { FC, memo } from "react";
+import { mts_greyscale_400, mts_icon_secondary, mts_text_inverted, mts_text_primary, mts_text_secondary_link } from "../../consts/index.js";
 import { IconChevronRight } from "../../icons/IconChevronRight/IconChevronRight";
 import { IconLeft } from "../../icons/IconLeft/IconLeft";
 import {
@@ -18,16 +19,22 @@ type BreadcrumbItem = {
   path: string;
 };
 
+export type BreadcrumbsTheme = "light" | "dark";
+
 export interface BreadcrumbsProps {
   crumbs: BreadcrumbItem[];
   useRouter?: boolean;
   size?: "s" | "m";
   iconLeft?: boolean;
   textColor?: string;
+  theme?: BreadcrumbsTheme;
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft, textColor, useRouter = false }) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft, textColor, theme = "light", useRouter = false }) => {
   const iconSize = size === "s" ? 16 : 24;
+  const linkColor = textColor ?? (theme === "dark" ? mts_greyscale_400 : mts_text_secondary_link);
+  const currentColor = textColor ?? (theme === "dark" ? mts_text_inverted : mts_text_primary);
+  const separatorColor = textColor ?? (theme === "dark" ? mts_greyscale_400 : mts_icon_secondary);
   const allCrumbs: BreadcrumbItem[] = [{ name: "Главная", path: "/" }, ...crumbs];
   const shouldCollapse = allCrumbs.length > 3;
   const visibleCrumbs = shouldCollapse
@@ -40,20 +47,20 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
       <Wrapper>
         <CrumbItem>
           {iconLeft && (
-            <Separator $textColor={textColor}>
+            <Separator $textColor={separatorColor}>
               <IconLeft width={iconSize} height={iconSize} />
             </Separator>
           )}
-          <CrumbLink {...(useRouter ? { to: allCrumbs[0].path } : { url: allCrumbs[0].path })} $size={size} $textColor={textColor}>{allCrumbs[0].name}</CrumbLink>
+          <CrumbLink {...(useRouter ? { to: allCrumbs[0].path } : { url: allCrumbs[0].path })} $size={size} $textColor={linkColor}>{allCrumbs[0].name}</CrumbLink>
         </CrumbItem>
 
         {shouldCollapse && (
           <CrumbItem>
-            <Separator $textColor={textColor}><IconChevronRight size={iconSize} /></Separator>
+            <Separator $textColor={separatorColor}><IconChevronRight size={iconSize} /></Separator>
             <HiddenCrumbsTrigger
               type="button"
               $size={size}
-              $textColor={textColor}
+              $textColor={linkColor}
               aria-haspopup="menu"
               aria-label="Показать скрытые страницы"
             >
@@ -76,11 +83,11 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", ico
 
           return (
             <CrumbItem key={`${crumb.path}-${idx}`}>
-              <Separator $textColor={textColor}><IconChevronRight size={iconSize} /></Separator>
+              <Separator $textColor={separatorColor}><IconChevronRight size={iconSize} /></Separator>
               {isCurrent ? (
-                <CrumbText $size={size} $textColor={textColor} aria-current="page">{crumb.name}</CrumbText>
+                <CrumbText $size={size} $textColor={currentColor} aria-current="page">{crumb.name}</CrumbText>
               ) : (
-                <CrumbLink {...(useRouter ? { to: crumb.path } : { url: crumb.path })} $size={size} $textColor={textColor}>{crumb.name}</CrumbLink>
+                <CrumbLink {...(useRouter ? { to: crumb.path } : { url: crumb.path })} $size={size} $textColor={linkColor}>{crumb.name}</CrumbLink>
               )}
             </CrumbItem>
           );
