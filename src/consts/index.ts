@@ -78,6 +78,10 @@ const mts_radius_16 = "16px";
 const mts_radius_20 = "20px";
 const mts_radius_24 = "24px";
 const mts_radius_32 = "32px";
+export const mts_radius_40 = "40px";
+export const mts_radius_48 = "48px";
+export const mts_radius_64 = "64px";
+export const mts_radius_80 = "80px";
 const mts_radius_pill = "100px";
 
 // Greyscale
@@ -91,6 +95,24 @@ export const mts_greyscale_300 = "#BBC1C7";
 export const mts_greyscale_200 = "#E2E5EB";
 export const mts_greyscale_100 = "#F2F3F7";
 export const mts_greyscale_0 = "#FFFFFF";
+
+// Семантические цвета Card; существующие токены других компонентов не меняются.
+export const mts_card_colors = {
+  light: {
+    primary: mts_bg_primary,
+    primaryElevated: mts_bg_primary_elevated,
+    secondary: mts_bg_lower,
+    secondaryElevated: mts_bg_secondary_elevated,
+    stroke: mts_bg_disabled,
+  },
+  dark: {
+    primary: mts_greyscale_900,
+    primaryElevated: mts_greyscale_800,
+    secondary: "rgba(98,108,119,0.25)",
+    secondaryElevated: "rgba(98,108,119,0.25)",
+    stroke: "rgba(127,140,153,0.35)",
+  },
+} as const;
 
 export {
   // Text

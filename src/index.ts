@@ -78,7 +78,7 @@ export {
   type NavigationProps,
 } from "./components/Navigation/Navigation";
 export { default as Registration, type RegistrationProps, type RegistrationFormData } from "./components/Registration/Registration";
-export { Card, type CardProps, type CardVariant } from "./components/Card/Card";
+export { Card, type CardProps, type CardVariant, type CardSize, type CardTheme, type CardRadius, type CardBackgroundContext } from "./components/Card/Card";
 export { IconBookmark } from "./icons/IconBookmark/IconBookmark";
 export { IconShare } from "./icons/IconShare/IconShare";
 export { IconRepost } from "./icons/IconRepost/IconRepost";

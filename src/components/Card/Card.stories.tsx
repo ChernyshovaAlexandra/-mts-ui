@@ -1,13 +1,11 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { Card } from "./Card";
+import { Card, type CardTheme } from "./Card";
 import { Text } from "../Text/Text";
 import {
-  mts_text_primary,
-  mts_text_secondary,
-  mts_bg_lower,
-  mts_bg_secondary,
-  mts_bg_inverted,
+  mts_card_colors, mts_bg_lower, mts_bg_primary,
+  mts_bg_inverted, mts_radius_32, mts_text_primary,
+  mts_text_secondary, mts_text_inverted, mts_greyscale_400,
 } from "../../consts";
 
 const meta: Meta<typeof Card> = {
@@ -18,153 +16,120 @@ const meta: Meta<typeof Card> = {
     docs: {
       description: {
         component: `
-**Card** — базовый контейнер для группировки контента. Используется как обёртка для любых блоков: информационных секций, форм, превью и т.д.
+Card — контейнер содержимого по гайду MTS Design System.
 
-### Варианты
+### Размеры
+S и Mobile: радиус 24px, отступ 16px.
+M: радиус 32px, отступ 24px. Допустимые радиусы M: 40, 48, 64, 80px;
+увеличенный padding задаётся явно (не меньше 24px). Формулы зависимости нет.
+size задаётся потребителем; библиотека не назначает неподтверждённые брейкпоинты.
+radius и padding применяются только к M.
 
-| Вариант | Когда использовать |
-|---|---|
-| \`default\` | Карточка на светлом фоне (\`#F2F3F7\`) — основной вариант |
-| \`default-no-shadow\` | Карточка на сером или контрастном фоне, тень не нужна |
-| \`grey\` | Вложенный блок внутри белой секции |
-| \`outline\` | Когда нужна граница без тени — например, в списках |
-| \`transparent\` | На тёмных или цветных фонах с блюром |
+### Стили и темы
+default — Primary Elevated с тенью Low на Primary.
+default-no-shadow — Secondary Elevated на Secondary; при backgroundContext="lower"
+использует Primary Elevated.
+grey — Secondary на Primary.
+outline — Primary и Background/Stroke на Primary.
+transparent — Controls/Blur на контрастном фоне или графике; blur={false} отключает размытие.
+theme="light" | "dark" выбирает цвета поверхности, но не меняет типографику дочерних элементов.
 
-### Интерактивность
+### Состояния
+Полная кликабельность допустима при отсутствии вложенных кнопок и других действий.
+onClick включает интерактивные состояния. Hover/Focus поднимают карточку на 4px.
+Middle добавляется только default и default-no-shadow.
+Pressed возвращает исходное положение и исходную тень.
+Focus не добавляет границу, меняющую размер содержимого.
+Transparent использует согласованное исходное положение 0, Hover/Focus -4px, Pressed 0.
 
-Если передать \`onClick\` — карточка становится кликабельной: появляется курсор, анимация подъёма при hover и outline при фокусе.
-        `,
+### Вложенность
+Радиус и горизонтальный отступ внешней скруглённой поверхности должны быть
+строго больше соответствующих параметров вложенной карточки.
+
+CardMedia, масштабирование изображения и смена ракурса 3D не реализованы:
+эта работа отложена по поручению Александры.
+Источник: https://www.figma.com/design/sQwzp89bE66JmSfG9DTyFY/?node-id=2272-6006
+`,
       },
     },
   },
   argTypes: {
-    variant: {
-      description: "Визуальный стиль карточки.",
-      control: "select",
-      options: ["default", "default-no-shadow", "grey", "outline", "transparent"],
-    },
-    onClick: {
-      description: "Если передан — карточка становится интерактивной (cursor pointer, hover-анимация).",
-    },
+    variant: { control: "select", options: ["default", "default-no-shadow", "grey", "outline", "transparent"] },
+    size: { control: "radio", options: ["s", "m", "mobile"] },
+    theme: { control: "radio", options: ["light", "dark"] },
+    radius: { control: "select", options: [32, 40, 48, 64, 80], description: "Радиус только для M." },
+    padding: { control: { type: "number", min: 24 }, description: "Отступ только для M; минимум 24px." },
+    backgroundContext: { control: "radio", options: ["secondary", "lower"] },
+    blur: { control: "boolean", description: "Размытие Transparent." },
+    onClick: { description: "Не использовать вместе с вложенными кнопками." },
     children: { control: false },
   },
 };
-
 export default meta;
 type Story = StoryObj<typeof Card>;
 
-const Content = () => (
+const Content = ({ theme = "light" }: { theme?: CardTheme }) => (
   <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-    <Text variant="P3-Medium-Comp" style={{ color: mts_text_primary }}>Заголовок</Text>
-    <Text variant="P4-Regular-Comp" style={{ color: mts_text_secondary }}>Подзаголовок</Text>
+    <Text variant="P3-Medium-Comp" style={{ color: theme === "dark" ? mts_text_inverted : mts_text_primary }}>Заголовок</Text>
+    <Text variant="P4-Regular-Comp" style={{ color: theme === "dark" ? mts_greyscale_400 : mts_text_secondary }}>Подзаголовок</Text>
   </div>
 );
-
-const wrap = (bg: string, maxWidth = 360) =>
-  (Story: React.FC) => (
-    <div style={{ padding: 24, background: bg, maxWidth }}>
-      <Story />
-    </div>
-  );
+const wrap = (background: string, maxWidth = 360) => (Story: React.FC) => (
+  <div style={{ padding: 24, background, maxWidth }}><Story /></div>
+);
 
 export const Default: Story = {
-  name: "Default — с тенью",
-  decorators: [wrap(mts_bg_lower)],
+  name: "Default — на Primary", decorators: [wrap(mts_bg_primary)],
   args: { variant: "default", children: <Content /> },
-  parameters: {
-    docs: {
-      description: { story: "Основной вариант. Используется на сером фоне `#F2F3F7`." },
-    },
-  },
 };
-
 export const DefaultNoShadow: Story = {
-  name: "Default No Shadow — без тени",
-  decorators: [wrap(mts_bg_secondary)],
+  name: "Default No Shadow — на Secondary", decorators: [wrap(mts_card_colors.light.secondary)],
   args: { variant: "default-no-shadow", children: <Content /> },
-  parameters: {
-    docs: {
-      description: { story: "Белая карточка без тени. Подходит для вторичного серого фона, где тень сливается с фоном." },
-    },
-  },
 };
-
 export const Grey: Story = {
-  name: "Grey — серая",
-  decorators: [wrap(mts_bg_lower)],
+  name: "Grey — на Primary", decorators: [wrap(mts_bg_primary)],
   args: { variant: "grey", children: <Content /> },
-  parameters: {
-    docs: {
-      description: { story: "Серый блок (`#F2F3F7`) внутри белой секции. Подходит для вложенных блоков информации." },
-    },
-  },
 };
-
 export const Outline: Story = {
-  name: "Outline — с обводкой",
-  decorators: [wrap(mts_bg_lower)],
+  name: "Outline — на Primary", decorators: [wrap(mts_bg_primary)],
   args: { variant: "outline", children: <Content /> },
-  parameters: {
-    docs: {
-      description: { story: "Белая карточка с тонкой границей и без тени. Используется в списках или там, где нужно визуальное разделение без объёма." },
-    },
-  },
 };
-
 export const Transparent: Story = {
-  name: "Transparent — на тёмном фоне",
-  decorators: [wrap(mts_bg_inverted)],
-  args: { variant: "transparent", children: <Content /> },
-  parameters: {
-    docs: {
-      description: { story: "Полупрозрачный блок с блюром (`rgba(255,255,255,0.08)`). Используется поверх тёмных или цветных фонов." },
-    },
-  },
+  name: "Transparent — на контрастном фоне", decorators: [wrap(mts_bg_inverted)],
+  args: { variant: "transparent", children: <Content theme="dark" /> },
 };
-
 export const Clickable: Story = {
-  name: "Кликабельная",
-  decorators: [wrap(mts_bg_lower)],
-  args: {
-    variant: "default",
-    onClick: () => console.log("card clicked"),
-    children: <Content />,
-  },
-  parameters: {
-    docs: {
-      description: { story: "При наличии `onClick` карточка получает интерактивное поведение: hover-подъём, focus-outline, cursor pointer." },
-    },
-  },
+  name: "Кликабельная", decorators: [wrap(mts_bg_primary)],
+  args: { variant: "default", onClick: () => console.log("card clicked"), children: <Content /> },
 };
-
+export const Medium: Story = {
+  name: "M — 32/24", decorators: [wrap(mts_bg_primary, 448)],
+  args: { size: "m", children: <Content /> },
+};
+export const MediumLarge: Story = {
+  name: "M — 40/32, явные параметры", decorators: [wrap(mts_bg_primary, 600)],
+  args: { size: "m", radius: 40, padding: 32, children: <Content /> },
+};
+export const Mobile: Story = {
+  name: "Mobile — 24/16", decorators: [wrap(mts_bg_primary)],
+  args: { size: "mobile", children: <Content /> },
+};
+export const DarkMode: Story = {
+  name: "Dark Mode", decorators: [wrap(mts_card_colors.dark.secondary)],
+  args: { variant: "default-no-shadow", theme: "dark", children: <Content theme="dark" /> },
+};
+export const TransparentWithoutBlur: Story = {
+  name: "Transparent — без размытия", decorators: [wrap(mts_bg_inverted)],
+  args: { variant: "transparent", blur: false, children: <Content theme="dark" /> },
+};
 export const AllVariants: Story = {
   name: "Все варианты",
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: { story: "Все визуальные варианты карточки на соответствующих фонах." },
-    },
-  },
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-      {(
-        [
-          { variant: "default", bg: mts_bg_lower, label: "default" },
-          { variant: "default-no-shadow", bg: mts_bg_secondary, label: "default-no-shadow" },
-          { variant: "grey", bg: mts_bg_lower, label: "grey" },
-          { variant: "outline", bg: mts_bg_lower, label: "outline" },
-          { variant: "transparent", bg: mts_bg_inverted, label: "transparent" },
-        ] as const
-      ).map(({ variant, bg, label }) => (
-        <div key={variant} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <span style={{ fontSize: 11, color: "#969FA8", fontFamily: "sans-serif", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-            {label}
-          </span>
-          <div style={{ padding: 16, background: bg, borderRadius: 12, maxWidth: 360 }}>
-            <Card variant={variant}>
-              <Content />
-            </Card>
-          </div>
+      {(["default", "default-no-shadow", "grey", "outline", "transparent"] as const).map(variant => (
+        <div key={variant} style={{ padding: 24, borderRadius: mts_radius_32,
+          background: variant === "transparent" ? mts_bg_inverted : variant === "default-no-shadow" ? mts_bg_lower : mts_bg_primary }}>
+          <Card variant={variant}><Content theme={variant === "transparent" ? "dark" : "light"} /></Card>
         </div>
       ))}
     </div>
