@@ -28,15 +28,16 @@ export interface BreadcrumbsProps {
   iconLeft?: boolean;
   textColor?: string;
   theme?: BreadcrumbsTheme;
+  collapse?: boolean;
 }
 
-export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft, textColor, theme = "light", useRouter = false }) => {
+export const Breadcrumbs: FC<BreadcrumbsProps> = memo(({ crumbs, size = "m", iconLeft, textColor, theme = "light", useRouter = false, collapse = true }) => {
   const iconSize = size === "s" ? 16 : 24;
   const linkColor = textColor ?? (theme === "dark" ? mts_greyscale_400 : mts_text_secondary_link);
   const currentColor = textColor ?? (theme === "dark" ? mts_text_inverted : mts_text_primary);
   const separatorColor = textColor ?? (theme === "dark" ? mts_greyscale_400 : mts_icon_secondary);
   const allCrumbs: BreadcrumbItem[] = [{ name: "Главная", path: "/" }, ...crumbs];
-  const shouldCollapse = allCrumbs.length > 3;
+  const shouldCollapse = collapse && allCrumbs.length > 3;
   const visibleCrumbs = shouldCollapse
     ? allCrumbs.slice(-2)
     : allCrumbs;

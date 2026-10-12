@@ -30,6 +30,7 @@ export const DEFAULT_DIVIDER_MAX_LENGTH = 100;
 export const COLOR_BG: Record<StepColor, string> = {
   primary: "#FF0032",
   secondary: mts_text_primary,
+  tertiary: mts_bg_lower,
 };
 
 export const DONE_BG = mts_accent_light_positive;
@@ -42,13 +43,16 @@ export const DISABLED_COLOR = mts_text_tertiary;
 
 // ─── Outer wrapper (circle + text) ───────────────────────────────────────────
 
-export const StepWrapper = styled.div<{ $orientation: StepOrientation }>`
+export const StepWrapper = styled.div<{ $orientation: StepOrientation; $color?: StepColor }>`
+  min-width: 0;
+  ${({ $orientation }) => $orientation === "vertical" && css`width: 100%;`}
   display: inline-flex;
   flex-direction: ${({ $orientation }) =>
     $orientation === "horizontal" ? "column" : "row"};
   align-items: flex-start;
   gap: ${({ $orientation }) =>
     $orientation === "horizontal" ? "12px" : "16px"};
+  ${({ $orientation, $color }) => $orientation === "vertical" && $color === "tertiary" && css`gap: 24px;`}
 `;
 
 // ─── Root circle ─────────────────────────────────────────────────────────────
@@ -94,10 +98,17 @@ export const StepCircle = styled.div<{
   transition: background 0.2s ease;
 `;
 
-export const StepCircleText = styled.span`
+export const StepCircleText = styled.span<{ $size: StepSize; $color: StepColor }>`
   ${textStyles["P4-Medium-Comp"]};
   font-size: 12px;
   letter-spacing: -1px;
+  ${({ $size, $color }) => $size === "m" && $color === "tertiary" && css`
+    font-family: "MTS Wide", sans-serif;
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 500;
+    letter-spacing: 0;
+  `}
   color: inherit;
   max-width: calc(100% - 4px);
   margin: 0;
@@ -157,7 +168,7 @@ export const StepBottomRow = styled.div`
 
 // ─── Text block ───────────────────────────────────────────────────────────────
 
-export const StepTextBlock = styled.div<{ $orientation: StepOrientation; $withDivider?: boolean }>`
+export const StepTextBlock = styled.div<{ $orientation: StepOrientation; $withDivider?: boolean; $color?: StepColor }>`
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -170,22 +181,25 @@ export const StepTextBlock = styled.div<{ $orientation: StepOrientation; $withDi
   ${({ $orientation }) =>
     $orientation === "vertical" &&
     css`padding: 2px 0;`}
+  ${({ $orientation, $color }) => $orientation === "vertical" && $color === "tertiary" && css`padding: 6px 0; gap: 0;`}
 `;
 
-export const StepLabelText = styled(Text).attrs({ as: "span" })`
+export const StepLabelText = styled(Text).attrs({ as: "span" })<{ $wrap?: boolean }>`
   ${textStyles["P4-Medium-Comp"]};
-  white-space: nowrap;
+  white-space: ${({ $wrap }) => $wrap ? "normal" : "nowrap"};
+  ${({ $wrap }) => $wrap && css`overflow-wrap: anywhere;`}
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
-export const StepDescText = styled(Caption).attrs({ as: "span" })`
+export const StepDescText = styled(Caption).attrs({ as: "span" })<{ $wrap?: boolean }>`
   font-family: "MTS Compact", sans-serif;
   font-size: 12px;
-  line-height: 1.3;
+  line-height: 16px;
   font-weight: 400;
   color: ${mts_text_secondary};
-  white-space: nowrap;
+  white-space: ${({ $wrap }) => $wrap ? "normal" : "nowrap"};
+  ${({ $wrap }) => $wrap && css`overflow-wrap: anywhere;`}
   overflow: hidden;
   text-overflow: ellipsis;
 `;

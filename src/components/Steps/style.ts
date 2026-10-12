@@ -9,18 +9,22 @@ import {
 } from "../Step/style";
 
 export const StepsVertRoot = styled.div`
+  width: 100%;
+  min-width: 0;
   display: inline-flex;
   flex-direction: column;
   align-items: flex-start;
   ${visuallyImpairedMixin};
 `;
 
-export const StepVertBlock = styled.div`
+export const StepVertBlock = styled.div<{ $tertiary?: boolean }>`
+  width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
-  flex: 1 0 0;
+  gap: ${({ $tertiary }) => $tertiary ? 0 : 12}px;
+  flex: 0 0 auto;
 `;
 
 export const StepsHorizRoot = styled.div`

@@ -210,10 +210,6 @@ const sharedStyles = css<StyledBtnProps>`
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    svg {
-      width: 18px;
-      height: 18px;
-    }
   }
   max-width: ${({ $maxWidth }) => typeof $maxWidth === "number" ? `${$maxWidth}px` : $maxWidth || "none"};
 

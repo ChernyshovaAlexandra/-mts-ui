@@ -44,7 +44,7 @@ export type StepStatus =
   | "disabled-done" // gray circle + green badge
   | "disabled-failed"; // gray circle + red badge
 
-export type StepColor = "primary" | "secondary";
+export type StepColor = "primary" | "secondary" | "tertiary";
 export type StepSize = "s" | "m";
 export type StepOrientation = "horizontal" | "vertical";
 
@@ -117,13 +117,13 @@ function getCircleBg(
   return COLOR_BG[color];
 }
 
-function getCircleColor(variant: StepVariant, status?: StepStatus): string {
+function getCircleColor(variant: StepVariant, status?: StepStatus, color: StepColor = "primary"): string {
   if (isDisabledStatus(status)) return DISABLED_COLOR;
   const s = normalizeStatus(status);
   if (variant === "icon" && !s) return DISABLED_COLOR;
   if (variant === "number-badge" && (s === "done" || s === "failed"))
     return BADGE_CIRCLE_COLOR;
-  return ACTIVE_COLOR;
+  return color === "tertiary" && !s ? BADGE_CIRCLE_COLOR : ACTIVE_COLOR;
 }
 
 function getBadgeBg(status?: StepStatus): string {
@@ -161,7 +161,7 @@ const StepBubble: FC<{
     <StepCircleRoot $size={size}>
       <StepCircle
         $bg={getCircleBg(variant, status, color)}
-        $color={getCircleColor(variant, status)}
+        $color={getCircleColor(variant, status, color)}
         $size={size}
       >
         {variant === "icon" && s === "done" && (
@@ -171,7 +171,7 @@ const StepBubble: FC<{
           <IconFailedS width={iconSize} height={iconSize} />
         )}
         {(variant === "number" || variant === "number-badge") &&
-          value !== undefined && <StepCircleText>{value}</StepCircleText>}
+          value !== undefined && <StepCircleText $size={size} $color={color}>{value}</StepCircleText>}
       </StepCircle>
 
       {showBadge(variant, status) && (
@@ -252,11 +252,11 @@ export const Step: FC<StepProps> = ({
 
   // С текстом (horizontal с дивайдером — min-width 204px; vertical — текст справа)
   return (
-    <StepWrapper $orientation={orientation} className={className} style={style}>
+    <StepWrapper $orientation={orientation} $color={color} className={className} style={style}>
       {bubble}
-      <StepTextBlock $orientation={orientation} $withDivider={withDivider}>
-        {label       && <StepLabelText>{label}</StepLabelText>}
-        {description && <StepDescText>{description}</StepDescText>}
+      <StepTextBlock $color={color} $orientation={orientation} $withDivider={withDivider}>
+        {label       && <StepLabelText $wrap={orientation === "vertical"}>{label}</StepLabelText>}
+        {description && <StepDescText $wrap={orientation === "vertical"}>{description}</StepDescText>}
       </StepTextBlock>
     </StepWrapper>
   );

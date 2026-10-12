@@ -42,15 +42,15 @@ export const VerticalSteps: FC<VerticalStepsProps> = ({
         if (isLast) return <React.Fragment key={i}>{node}</React.Fragment>;
 
         return (
-          <StepVertBlock key={i}>
+          <StepVertBlock key={i} $tertiary={color === "tertiary"}>
             {node}
             <Divider
               orientation="vertical"
               padding={12}
               style={{
                 marginLeft: circleRadius - 0.5,
-                flex: "1 0 0",
-                height: size === "m" ? 48 : 32,
+                flex: "0 0 auto",
+                height: size === "m" ? (color === "tertiary" ? 60 : 48) : 32,
               }}
             />
           </StepVertBlock>
