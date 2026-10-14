@@ -21,6 +21,7 @@ export interface ResponsiveButtonWidth {
 }
 
 export interface BaseButtonProps {
+  theme?: "light" | "dark";
   maxWidth?: number | string;
   wrap?: boolean;
   responsiveWidth?: ResponsiveButtonWidth;

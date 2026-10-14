@@ -1,3 +1,4 @@
+import { designButtonStyles } from "./design-style";
 import type { ResponsiveButtonWidth } from "./type";
 import styled, { css } from "styled-components";
 import { visuallyImpairedMixin } from "../../accessibility";
@@ -86,7 +87,7 @@ const sizeStyles = css<{ $size?: string }>`
   }}
 `;
 
-const sharedStyles = css<StyledBtnProps>`
+const legacyStyles = css<StyledBtnProps>`
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -242,6 +243,7 @@ const sharedStyles = css<StyledBtnProps>`
 `;
 
 export interface StyledBtnProps {
+  $colorTheme?: "light" | "dark";
   $maxWidth?: number | string;
   $wrap?: boolean;
   $responsiveWidth?: ResponsiveButtonWidth;
@@ -249,6 +251,10 @@ export interface StyledBtnProps {
   $width?: string;
   $size?: string;
 }
+
+const sharedStyles = css<StyledBtnProps>`
+  ${({ $variant }) => $variant === "icon" ? legacyStyles : designButtonStyles}
+`;
 
 export const StyledBtn = styled.button<StyledBtnProps>`
   outline: none;

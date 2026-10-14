@@ -1,6 +1,6 @@
 {
   "name": "@chernyshovaalexandra/mtsui",
-  "version": "1.4.178",
+  "version": "1.4.179",
   "private": false,
   "description": "UI-компоненты для MTS-проектов",
   "author": "Alexandra Chernyshova",
@@ -82,5 +82,6 @@
     "react-router-dom": "^6.22.3",
     "react-select": "^5.10.1",
     "styled-components": "^6.1.7"
-  }
+  },
+  "packageManager": "pnpm@12.8.1+sha512.f64ba907507f5ceafe06c8d38e6052d0179444580ec1279ddd5bfc11cb48aa8a2644b66598e07e761da84872a9fc57d5f902b87fa49d024198d558612aabbe45"
 }

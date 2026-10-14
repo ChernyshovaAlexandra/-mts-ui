@@ -19,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
       wrap,
       responsiveWidth,
       variant,
+      theme,
       size,
       icon,
       iconPosition,
@@ -39,6 +40,7 @@ export const Button: React.FC<ButtonProps> = ({
       <StyledBtnLink
         role="link"
         $variant={variant}
+        $colorTheme={theme}
         $width={iconOnly ? "auto" : width}
         $size={size}
         $maxWidth={maxWidth}
@@ -48,6 +50,7 @@ export const Button: React.FC<ButtonProps> = ({
         data-tip={tooltip}
         style={style}
         aria-disabled={isDisabled}
+        aria-busy={loading}
         tabIndex={isDisabled ? -1 : 0}
         onClick={(e) => {
           if (isDisabled) {
@@ -60,11 +63,14 @@ export const Button: React.FC<ButtonProps> = ({
       >
         {hasLeftIcon && <span className="btn-icon">{icon}</span>}
         {loading ? (
-          <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
+          variant === "icon" ? <Spinner color="#ffffff" speed="1s" /> : <>
+            {(children || content) && <span className="btn-label" aria-hidden="true">{children || content}</span>}
+            <span className="btn-loading"><Spinner color="currentColor" size={size === "xs" || size === "s" ? "16px" : "24px"} speed="1s" /></span>
+          </>
         ) : (children || content) ? (
           <span className="btn-label">{children || content}</span>
         ) : null}
-        {hasRightIcon && !loading && (
+        {hasRightIcon && (!loading || variant !== "icon") && (
           <span className="btn-icon">{rightIconNode}</span>
         )}
       </StyledBtnLink>
@@ -82,6 +88,7 @@ export const Button: React.FC<ButtonProps> = ({
       wrap,
       responsiveWidth,
       variant,
+      theme,
       size,
       icon,
       iconPosition,
@@ -98,6 +105,7 @@ export const Button: React.FC<ButtonProps> = ({
     return (
       <StyledBtn
         $variant={variant}
+        $colorTheme={theme}
         $width={iconOnly ? "auto" : width}
         $size={size}
         $maxWidth={maxWidth}
@@ -113,11 +121,14 @@ export const Button: React.FC<ButtonProps> = ({
       >
         {hasLeftIcon && <span className="btn-icon">{icon}</span>}
         {loading ? (
-          <Spinner color="#ffffff" speed="1s" aria-hidden="true" />
+          variant === "icon" ? <Spinner color="#ffffff" speed="1s" /> : <>
+            {(children || content) && <span className="btn-label" aria-hidden="true">{children || content}</span>}
+            <span className="btn-loading"><Spinner color="currentColor" size={size === "xs" || size === "s" ? "16px" : "24px"} speed="1s" /></span>
+          </>
         ) : (children || content) ? (
           <span className="btn-label">{children || content}</span>
         ) : null}
-        {hasRightIcon && !loading && (
+        {hasRightIcon && (!loading || variant !== "icon") && (
           <span className="btn-icon">{rightIconNode}</span>
         )}
       </StyledBtn>
