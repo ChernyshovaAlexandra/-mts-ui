@@ -21,6 +21,7 @@ export const IconPlay = createIcon(
   {
     "24-outline": outlinePath,
     "24-fill": fillPath,
+    "44-fill": <g transform="scale(1.8333333333)">{fillPath}</g>,
     "16-outline": <g transform="scale(0.6666666667)">{outlinePath}</g>,
     "16-fill": <g transform="scale(0.6666666667)">{fillPath}</g>,
   },
