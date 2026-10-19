@@ -36,8 +36,9 @@ export const designButtonStyles = css<StyledBtnProps>`
       --button-text: ${palette.text};
       --button-hover: ${palette.hover};
       --button-pressed: ${palette.pressed};
-      --button-disabled-background: ${$colorTheme === "dark" ? "rgba(127,140,153,0.35)" : "rgba(188,195,208,0.5)"};
-      --button-disabled-text: ${$colorTheme === "dark" ? "#626c77" : "#969fa8"};
+      --button-disabled-background: ${$variant === "tetriary" ? palette.background : $colorTheme === "dark" ? "rgba(127,140,153,0.35)" : "rgba(188,195,208,0.5)"};
+      --button-disabled-text: ${$variant === "tetriary" ? palette.text : $colorTheme === "dark" ? "#626c77" : "#969fa8"};
+      --button-disabled-opacity: ${$variant === "tetriary" ? 0.5 : 0.6};
       min-height: ${size.height}px;
       min-width: ${size.height}px;
       padding: ${size.padding}px;
@@ -96,7 +97,7 @@ export const designButtonStyles = css<StyledBtnProps>`
   &:disabled:not([aria-busy="true"]), &[aria-disabled="true"]:not([aria-busy="true"]) {
     background: var(--button-disabled-background);
     color: var(--button-disabled-text);
-    opacity: 0.6;
+    opacity: var(--button-disabled-opacity);
     cursor: not-allowed;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;

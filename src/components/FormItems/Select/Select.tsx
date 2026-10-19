@@ -1,5 +1,5 @@
 import React, { useId, forwardRef, useState, useEffect, useRef, useImperativeHandle } from "react";
-import ReactSelect, { StylesConfig, type SelectInstance } from "react-select";
+import ReactSelect, { components, StylesConfig, type InputProps, type SelectInstance } from "react-select";
 import "../../../assets/fonts.css";
 import { Wrapper } from "./style";
 import IconLock from "../../../icons/IconLock/IconLock";
@@ -28,6 +28,11 @@ import {
 import { IconSearch } from "../../../icons";
 
 const selectFontFamily = `"MTS Compact", Arial, sans-serif`;
+
+// Chrome может игнорировать off для адресных полей.
+const RegionSearchInput = (props: InputProps<unknown, false>) => (
+  <components.Input {...props} autoComplete="new-password" />
+);
 
 export interface SelectLeaf {
   label: string;
@@ -204,7 +209,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
                   placeholder="Поиск города"
                   value={mobileSearch}
                   onChange={(e) => setMobileSearch(e.target.value)}
-                  autoComplete="off"
+                  autoComplete="new-password"
                 />
                 <SearchIconWrapper>
                   <IconSearch width={20} height={20} />
@@ -388,7 +393,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
 
         <ReactSelect<unknown, false>
           menuPortalTarget={document.body}
-          menuPosition="absolute"
+          menuPosition={withRegions ? "fixed" : "absolute"}
           ref={(instance) => {
             desktopRef.current = instance;
             if (typeof ref === "function") ref(instance);
@@ -408,6 +413,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
           }}
           required={required}
           components={{
+            Input: withRegions ? RegionSearchInput : components.Input,
             IndicatorSeparator: () => null,
             DropdownIndicator: (props) => {
               const { menuIsOpen } = props.selectProps;
