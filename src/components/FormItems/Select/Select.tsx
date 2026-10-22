@@ -393,7 +393,7 @@ export const Select = forwardRef<SelectInstance, SelectProps>(
 
         <ReactSelect<unknown, false>
           menuPortalTarget={document.body}
-          menuPosition={withRegions ? "fixed" : "absolute"}
+          menuPosition="fixed"
           ref={(instance) => {
             desktopRef.current = instance;
             if (typeof ref === "function") ref(instance);
